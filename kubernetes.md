@@ -1,3 +1,9 @@
+---
+title: "Kubernetes"
+category: "Infrastructure"
+description: "Mastery-level K8s for Spring Boot deployments"
+---
+
 # Mastery-Level Kubernetes Learning Plan for Spring Boot Developers
 
 A developer with containerization familiarity, AWS experience, and Terraform skills can achieve Kubernetes proficiency through **five progressive phases** spanning **20-24 weeks**. This plan prioritizes deep understanding over speed, building from platform-agnostic fundamentals to production-grade EKS operations with GitOps workflows.

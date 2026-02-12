@@ -1,3 +1,9 @@
+---
+title: "Spring Batch"
+category: "Spring & Spring Boot"
+description: "16-week Spring Batch mastery plan for Kotlin"
+---
+
 # 16-week Spring Batch mastery plan for Kotlin developers
 
 Spring Batch 5.x represents a significant evolution in Java batch processing, requiring Java 17+ and introducing breaking API changes that demand intentional study. This structured plan transforms foundational documentation knowledge into production-ready expertise through **160-200 hours** of focused learning, building progressively from architecture reinforcement through advanced Kafka integration and Kubernetes deployment.

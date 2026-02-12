@@ -1,3 +1,9 @@
+---
+title: "Functional Programming"
+category: "Languages & Paradigms"
+description: "FP foundations and patterns for JVM developers"
+---
+
 # Mastery-Oriented Functional Programming Learning Plan for JVM Developers
 
 **A Spring Boot Kotlin developer with OOP background and basic FP familiarity can achieve deep functional programming mastery through a structured 18-week journey.** This plan prioritizes theoretical understanding first, then applies that knowledge to production Kotlin code using Arrow-kt. The recommended approach: learn foundational concepts through Scala (where FP patterns are more explicit and idiomatic), then bridge that knowledge back to idiomatic Kotlin—a path that accelerates mastery rather than hindering it.

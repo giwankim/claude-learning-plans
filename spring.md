@@ -1,3 +1,9 @@
+---
+title: "Spring Framework & Boot Internals"
+category: "Spring & Spring Boot"
+description: "Deep dive into Spring's core abstractions and lifecycle"
+---
+
 # Mastery-level Spring Framework and Spring Boot internals curriculum
 
 An experienced Kotlin/Spring Boot developer seeking to contribute to the Spring open-source projects needs a structured journey from "I use Spring" to "I understand Spring's design and can modify its source code." This **16-week curriculum** prioritizes deep comprehension of IoC container mechanics, auto-configuration internals, and the contribution workflow, culminating in actual pull requests to spring-projects repositories.

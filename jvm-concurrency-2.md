@@ -1,3 +1,9 @@
+---
+title: "JVM Concurrency Curriculum"
+category: "JVM Internals"
+description: "16-week deep dive into threads, coroutines, and locks"
+---
+
 # Mastering JVM Concurrency: A 16-Week Curriculum
 
 This curriculum transforms a Spring Boot/Kotlin developer into a concurrency expert across three paradigms—Java threading primitives, Kotlin coroutines, and virtual threads. The approach prioritizes deep theoretical understanding before practical application, building from foundational memory models to production-ready microservices patterns.

@@ -1,3 +1,9 @@
+---
+title: "JVM Concurrency (from Node.js)"
+category: "JVM Internals"
+description: "Concurrency model transition from Node.js to Kotlin"
+---
+
 # Mastering JVM Concurrency: Node.js to Kotlin/Spring Boot
 
 **A Node.js developer can achieve production-ready Kotlin coroutines mastery in 10-12 weeks** by following a structured path: first building a solid JVM threading foundation (3 weeks), then diving deep into Kotlin coroutines (4-5 weeks), and finally integrating with Spring Boot (3-4 weeks). The good news: your async/await mental model transfers directly to coroutines, making the second half of this journey significantly smoother than traditional Java developers experience.

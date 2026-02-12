@@ -1,3 +1,9 @@
+---
+title: "SQL Database Optimization"
+category: "Data & Messaging"
+description: "Indexing, query tuning, and schema design over 16 weeks"
+---
+
 # Mastering SQL database optimization: a 16-week learning plan
 
 **This plan takes a Spring Boot Kotlin developer from writing basic SQL to confidently optimizing queries, tuning databases, and scaling infrastructure on AWS RDS/Aurora.** It progresses through four tiers: understanding how databases execute queries (weeks 1–4), optimizing application-level data access (weeks 5–8), mastering engine-specific internals (weeks 9–12), and scaling infrastructure (weeks 13–16). MySQL is the primary focus throughout, with PostgreSQL as secondary coverage. Every week pairs reading with hands-on exercises so concepts become muscle memory rather than abstract knowledge.

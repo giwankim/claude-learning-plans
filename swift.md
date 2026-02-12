@@ -1,3 +1,9 @@
+---
+title: "Swift"
+category: "Languages & Paradigms"
+description: "From Kotlin to native macOS development over 16 weeks"
+---
+
 # From Kotlin to macOS native: a 16-week mastery plan
 
 **A backend engineer fluent in Kotlin, Spring Boot, and AWS can reach productive macOS development competence in roughly 16 weeks by leveraging deep structural similarities between Swift and Kotlin, then layering on platform-specific knowledge in deliberate phases.** The two languages share type inference, null-safety idioms, protocol/interface-oriented design, and closure syntax — meaning roughly 40% of Swift will feel immediately familiar. The critical gaps are value-type thinking (structs over classes), ARC memory management (no garbage collector), property wrappers and result builders (which power SwiftUI's declarative magic), and Swift's compiler-enforced actor concurrency model. This plan sequences those gaps into a milestone-driven curriculum, culminating in contributions to Ghostty — a **43,600-star** terminal emulator built in Zig with a Swift/AppKit/Metal macOS frontend.

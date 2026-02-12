@@ -1,3 +1,9 @@
+---
+title: "HikariCP"
+category: "Data & Messaging"
+description: "Connection pool internals and tuning for Spring Boot"
+---
+
 # Mastering HikariCP: a 16-week learning plan for Spring Boot Kotlin developers
 
 **This plan takes you from "using Spring Boot defaults" to production-grade mastery of JDBC connection pooling.** It's organized into six phases, each building on the last, with specific readings, hands-on labs, and milestone deliverables. The plan assumes roughly 6–10 hours per week of study and practice. Every resource listed below has been verified as available and relevant; start with the starred (⭐) items if time is tight in any given week.

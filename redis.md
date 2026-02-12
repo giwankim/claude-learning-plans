@@ -1,3 +1,9 @@
+---
+title: "Redis"
+category: "Data & Messaging"
+description: "Redis data structures, caching, and pub/sub patterns"
+---
+
 # Redis mastery roadmap for Spring Boot Kotlin developers
 
 **Your fastest path from redis-cli basics to production-ready caching and advanced patterns takes approximately 6-8 weeks of focused learning.** This roadmap prioritizes hands-on practice with Kotlin-specific patterns, leveraging your existing Spring Boot expertise. Each phase builds incrementally—starting with data structure refreshers before diving into Spring integration, caching, advanced use cases, and production deployment. The estimated **40-55 hours** of learning assumes active coding alongside tutorials, not passive reading.

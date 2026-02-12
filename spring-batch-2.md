@@ -1,3 +1,9 @@
+---
+title: "Spring Batch Projects"
+category: "Spring & Spring Boot"
+description: "12 progressive Kotlin projects with Spring Batch"
+---
+
 # Spring Batch Learning Path: 12 Progressive Kotlin Projects
 
 Spring Batch remains the gold standard for enterprise batch processing in the JVM ecosystem, and version **5.2.x** (requiring Java 17+ and Jakarta EE 9) brings cleaner APIs, better observability, and native Kotlin DSL support through libraries like Spring Batch Plus. This guide presents **12 hands-on projects** progressing from foundational concepts to production-ready distributed processing patterns, each designed around real-world data synchronization scenarios you'll encounter professionally.

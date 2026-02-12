@@ -1,3 +1,9 @@
+---
+title: "NewSQL (Claude)"
+category: "NewSQL"
+description: "Globally distributed active-active NewSQL databases"
+---
+
 # Globally distributed active-active NewSQL databases explained
 
 NewSQL databases represent a fundamental architectural shift that delivers what traditional systems couldn't: **full ACID transactions with horizontal scalability across global regions**. For a developer moving from MySQL with Kafka-based eventual consistency patterns, these systems eliminate the complexity of managing distributed transactions at the application layer—the database handles it natively through consensus protocols like Raft and Paxos.

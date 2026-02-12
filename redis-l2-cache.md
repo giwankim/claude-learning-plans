@@ -1,3 +1,9 @@
+---
+title: "Redis L2 Cache"
+category: "Data & Messaging"
+description: "Redis as a high-traffic L2 cache for microservices"
+---
+
 # Redis Mastery for High-Traffic Microservices with Spring Boot and Kotlin
 
 Building on your foundation of JWT token storage and session management, this curriculum will transform you into a Redis expert capable of architecting production-grade caching systems, distributed coordination, and event-driven microservices. The plan spans **10-12 weeks** of focused study, progressing from data structure mastery through advanced patterns to production deployment.

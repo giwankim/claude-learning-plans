@@ -1,3 +1,9 @@
+---
+title: "NewSQL (ChatGPT)"
+category: "NewSQL"
+description: "NewSQL research notes from a ChatGPT perspective"
+---
+
 # Globally Distributed Active-Active NewSQL: Research Notes
 
 ## 1) What “globally distributed active-active NewSQL” means

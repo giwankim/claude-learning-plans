@@ -1,3 +1,9 @@
+---
+title: "Spring Security 6.x"
+category: "Spring & Spring Boot"
+description: "Authentication, authorization, and OAuth2 for Kotlin"
+---
+
 # Spring Security 6.x: A 16-week mastery roadmap for Kotlin developers
 
 Your Spring Boot background gives you a significant head start—you already understand auto-configuration, beans, and the application lifecycle. This plan builds systematically from security fundamentals to advanced patterns like OAuth2 and multi-tenancy, with each week reinforcing the previous through hands-on projects. **The critical insight**: Spring Security isn't a collection of disconnected features but a unified filter-based architecture. Understanding this architecture deeply in weeks 1-4 makes everything else click into place.

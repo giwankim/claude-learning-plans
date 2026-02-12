@@ -1,3 +1,9 @@
+---
+title: "JVM Performance Engineering"
+category: "JVM Internals"
+description: "GC tuning, profiling, and optimization on Kubernetes"
+---
+
 # Mastering JVM performance engineering for Spring Boot on Kubernetes
 
 **You can go from zero JVM performance knowledge to production-ready expertise in 16 weeks.** This plan sequences eight interconnected domains—JVM internals, profiling, Spring Boot tuning, API optimization, memory/GC, containers, load testing, and observability—into five phases that build on each other. Each phase pairs foundational reading with hands-on labs so theory immediately converts to muscle memory. The plan assumes 10–15 hours per week, with heavier reading upfront and heavier lab work in later phases.

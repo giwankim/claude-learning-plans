@@ -1,3 +1,9 @@
+---
+title: "GraphQL"
+category: "APIs & Protocols"
+description: "GraphQL schema design and implementation in Spring Boot"
+---
+
 # GraphQL mastery plan for Kotlin Spring Boot developers
 
 **Start with DGS on top of Spring for GraphQL — they merged in 2024, and this combination gives you Netflix's battle-tested tooling with Spring's native foundation.** The GraphQL ecosystem in Spring Boot underwent a tectonic shift: Netflix DGS v10 (early 2025) removed all legacy code and now runs entirely on Spring for GraphQL underneath. This means you learn one unified platform, not two competing frameworks. The plan below takes you from zero to production-grade federated GraphQL in roughly 16 weeks, structured for depth-first mastery with milestone projects at each phase.

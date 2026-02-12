@@ -1,3 +1,9 @@
+---
+title: "Gradle"
+category: "Build Tools"
+description: "Mastery-level Gradle for Spring Boot multi-project builds"
+---
+
 # Mastery-Level Gradle Learning Plan for Spring Boot Developers
 
 A structured 12-16 week curriculum for achieving deep proficiency in Gradle, emphasizing modern Kotlin DSL, convention plugins, multi-project architecture, and Spring Boot optimization. This plan builds from fundamentals through advanced plugin development, following your preference for depth-first learning.

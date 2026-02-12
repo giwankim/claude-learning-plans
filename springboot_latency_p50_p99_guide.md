@@ -1,3 +1,9 @@
+---
+title: "P50/P99 Latency Guide"
+category: "Spring & Spring Boot"
+description: "Measuring and improving latency on JVM (ECS to EKS)"
+---
+
 # Measuring and Improving P50/P99 Latency in a JVM Spring Boot App (AWS ECS → EKS)
 
 This guide explains how to **measure**, **monitor**, **troubleshoot**, and **improve** latency—especially **P50** (median) and **P99** (tail)—for a **production** Spring Boot service running on **AWS ECS**, with future migration to **EKS**.

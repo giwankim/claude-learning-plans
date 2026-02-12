@@ -1,3 +1,9 @@
+---
+title: "Spring WebFlux"
+category: "Spring & Spring Boot"
+description: "Reactive web programming with Project Reactor"
+---
+
 # Mastering Spring WebFlux: A Complete Learning Roadmap
 
 The path to Spring WebFlux mastery requires approximately **4-6 months** of dedicated study, progressing through three distinct phases: reactive programming fundamentals with Project Reactor, WebFlux-specific patterns and APIs, and advanced production-ready techniques including Kotlin coroutines integration. For someone already proficient in Kotlin and Spring Boot, the primary learning curve lies not in framework mechanics but in fundamentally rewiring how you think about data flow—shifting from imperative "do this, then that" thinking to declarative stream composition.

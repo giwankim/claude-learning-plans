@@ -1,3 +1,9 @@
+---
+title: "Arrow-kt for DDD"
+category: "Languages & Paradigms"
+description: "Functional domain-driven design with Arrow 2.x"
+---
+
 # Arrow-kt 2.x for Functional DDD in Spring Boot
 
 Arrow-kt 2.x fundamentally changes Kotlin application architecture by replacing traditional exception-based error handling with typed, composable errors through the **Raise DSL**. This guide covers the complete setup and patterns for building domain-driven applications with Arrow **2.2.1.1** (current stable), Spring Boot **3.4.x**, and Gradle Kotlin DSL—including the critical migration from deprecated `Validated` to the new `zipOrAccumulate` pattern.

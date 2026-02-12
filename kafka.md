@@ -1,3 +1,9 @@
+---
+title: "Apache Kafka"
+category: "Data & Messaging"
+description: "Kafka producers, consumers, and Streams for Spring Boot"
+---
+
 # Mastery Learning Plan: Apache Kafka for Spring Boot Kotlin Developers
 
 A Spring Boot Kotlin developer who has completed Stéphane Maarek's beginner course can achieve production mastery through a **five-phase journey spanning 6-8 months** of dedicated study. This plan builds systematically from Spring Kafka fundamentals through advanced patterns like event sourcing and CQRS, with each phase delivering immediately applicable skills. The recommended approach balances theoretical depth with hands-on implementation, leveraging Kotlin's expressive syntax for cleaner Kafka code.

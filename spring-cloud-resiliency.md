@@ -1,3 +1,9 @@
+---
+title: "Spring Cloud Resiliency"
+category: "Spring & Spring Boot"
+description: "Circuit breakers, retries, and fault tolerance patterns"
+---
+
 # Spring Cloud for Microservices: Resiliency & Scalability Mastery Plan
 
 A structured 14-week curriculum for an experienced Spring Boot / Kotlin developer, focused on building deeply resilient and horizontally scalable microservice architectures using the modern Spring Cloud stack.

@@ -1,3 +1,9 @@
+---
+title: "Event-Driven Architecture"
+category: "Data & Messaging"
+description: "Event sourcing and async patterns for Kotlin/Spring"
+---
+
 # Event-Driven Systems Learning Plan for Kotlin/Spring Boot Developers
 
 Building event-driven microservices requires mastering **Apache Kafka**, understanding **architectural patterns** like CQRS and Saga, and implementing robust **error handling and observability**. This learning plan provides a structured 16-20 week curriculum with curated resources, practical projects, and Kotlin-specific guidance. All core learning materials are available free, with optional paid courses for accelerated, hands-on learning.

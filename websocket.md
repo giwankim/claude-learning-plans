@@ -1,3 +1,9 @@
+---
+title: "WebSockets"
+category: "APIs & Protocols"
+description: "Real-time communication with STOMP and Spring WebSocket"
+---
+
 # Mastering WebSockets as a Kotlin Spring Boot developer
 
 **This three-phase curriculum takes an experienced Spring Boot Kotlin developer from protocol-level understanding through production-grade WebSocket mastery.** The plan emphasizes architectural trade-offs and decision-making over surface-level API usage. Each phase builds on the previous, with concrete milestones, Kotlin code patterns, and hands-on projects. Budget roughly 2–3 weeks per phase for deep engagement, or compress to weekends-only over 2–3 months.

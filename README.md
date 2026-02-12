@@ -4,20 +4,20 @@ Structured, multi-week learning curricula for senior engineers who want deep mas
 
 ## Overview
 
-This repository contains 31 self-paced learning plans generated with Claude. Each plan follows a phased, project-based format designed for working engineers — typically 12–16 weeks of focused study with curated resources, hands-on milestones, and progressive complexity. Topics range from Spring Boot internals to Kubernetes, Go, and distributed data systems.
+This repository contains 30 self-paced learning plans generated with Claude. Each plan follows a phased, project-based format designed for working engineers — typically 12–16 weeks of focused study with curated resources, hands-on milestones, and progressive complexity. Topics range from Spring Boot internals to Kubernetes, Go, and distributed data systems.
 
 ## Plans by Category
 
 ### Spring & Spring Boot
 
-- [Spring Framework & Boot Internals](spring.md) — Deep dive into Spring's core abstractions and lifecycle
-- [Spring Security 6.x](spring-security.md) — Authentication, authorization, and OAuth2 for Kotlin
+- [P50/P99 Latency Guide](springboot_latency_p50_p99_guide.md) — Measuring and improving latency on JVM (ECS to EKS)
 - [Spring Batch](spring-batch.md) — 16-week Spring Batch mastery plan for Kotlin
 - [Spring Batch Projects](spring-batch-2.md) — 12 progressive Kotlin projects with Spring Batch
-- [Spring WebFlux](webflux.md) — Reactive web programming with Project Reactor
 - [Spring Cloud Resiliency](spring-cloud-resiliency.md) — Circuit breakers, retries, and fault tolerance patterns
 - [Spring Cloud Scalability](spring-cloud-scalability.md) — Microservices scalability patterns with Spring Cloud
-- [P50/P99 Latency Guide](springboot_latency_p50_p99_guide.md) — Measuring and improving latency on JVM (ECS to EKS)
+- [Spring Framework & Boot Internals](spring.md) — Deep dive into Spring's core abstractions and lifecycle
+- [Spring Security 6.x](spring-security.md) — Authentication, authorization, and OAuth2 for Kotlin
+- [Spring WebFlux](webflux.md) — Reactive web programming with Project Reactor
 
 ### JVM Internals
 
@@ -27,17 +27,17 @@ This repository contains 31 self-paced learning plans generated with Claude. Eac
 
 ### Build Tools
 
-- [Gradle](gradle.md) — Mastery-level Gradle for Spring Boot multi-project builds
 - [buildSrc vs build-logic](buildSrc-vs-build-logic.md) — Comparing convention plugin approaches in Gradle
+- [Gradle](gradle.md) — Mastery-level Gradle for Spring Boot multi-project builds
 
 ### Data & Messaging
 
 - [Apache Kafka](kafka.md) — Kafka producers, consumers, and Streams for Spring Boot
+- [Event-Driven Architecture](event-driven-architecture.md) — Event sourcing and async patterns for Kotlin/Spring
+- [HikariCP](hikaricp.md) — Connection pool internals and tuning for Spring Boot
 - [Redis](redis.md) — Redis data structures, caching, and pub/sub patterns
 - [Redis L2 Cache](redis-l2-cache.md) — Redis as a high-traffic L2 cache for microservices
 - [SQL Database Optimization](sql-database-optimization.md) — Indexing, query tuning, and schema design over 16 weeks
-- [HikariCP](hikaricp.md) — Connection pool internals and tuning for Spring Boot
-- [Event-Driven Architecture](event-driven-architecture.md) — Event sourcing and async patterns for Kotlin/Spring
 
 ### APIs & Protocols
 
@@ -55,15 +55,15 @@ This repository contains 31 self-paced learning plans generated with Claude. Eac
 
 ### Languages & Paradigms
 
+- [Arrow-kt for DDD](arrow-for-ddd.md) — Functional domain-driven design with Arrow 2.x
+- [Functional Programming](fp.md) — FP foundations and patterns for JVM developers
 - [Go](go.md) — Complete Go roadmap for engineers coming from the JVM
 - [Swift](swift.md) — From Kotlin to native macOS development over 16 weeks
-- [Functional Programming](fp.md) — FP foundations and patterns for JVM developers
-- [Arrow-kt for DDD](arrow-for-ddd.md) — Functional domain-driven design with Arrow 2.x
 
 ### NewSQL
 
-- [NewSQL (Claude)](newsql-claude.md) — Globally distributed active-active NewSQL databases
 - [NewSQL (ChatGPT)](newsql-chatgpt.md) — NewSQL research notes from a ChatGPT perspective
+- [NewSQL (Claude)](newsql-claude.md) — Globally distributed active-active NewSQL databases
 
 ## How to Use These Plans
 

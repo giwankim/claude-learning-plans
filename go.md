@@ -1,3 +1,9 @@
+---
+title: "Go"
+category: "Languages & Paradigms"
+description: "Complete Go roadmap for engineers coming from the JVM"
+---
+
 # The complete roadmap to Go mastery for JVM engineers
 
 **Go rewards the developer who unlearns before learning.** For a mid-level engineer steeped in Spring Boot's annotation magic, Kotlin's expressive type system, and Java's deep inheritance hierarchies, the path to Go mastery isn't about translating existing patterns — it's about embracing a fundamentally different philosophy where simplicity is a feature, explicitness replaces cleverness, and **"a little copying is better than a little dependency."** This plan spans roughly 8 months across six progressive phases, each building on the last, with milestone projects that produce portfolio-quality artifacts. Every phase addresses the "when NOT to use" question alongside implementation details.

@@ -1,3 +1,9 @@
+---
+title: "Terraform"
+category: "Infrastructure"
+description: "Infrastructure as code for AWS container deployments"
+---
+
 # Terraform mastery for AWS container deployments: A complete learning roadmap
 
 For a Spring Boot developer with AWS CDK exposure seeking production-ready Terraform skills, **expect 10-14 weeks to reach professional mastery** through a structured four-phase approach. The critical path starts with HashiCorp's official tutorials and "Terraform: Up and Running" (3rd edition), then progresses through AWS-specific modules (EKS, ECS, RDS, VPC), team collaboration patterns, and culminates in CI/CD integration with testing frameworks. Your existing programming background significantly accelerates this journey—most developers with similar profiles achieve certification-ready competency in 6-8 weeks.

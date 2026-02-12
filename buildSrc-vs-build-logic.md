@@ -1,3 +1,9 @@
+---
+title: "buildSrc vs build-logic"
+category: "Build Tools"
+description: "Comparing convention plugin approaches in Gradle"
+---
+
 # buildSrc vs build-logic (Included Builds) in Multi-Project Gradle Builds
 
 This document summarizes trade-offs between using **`buildSrc`** and a **`build-logic` included build** (composite build) for sharing Gradle build logic (convention plugins, custom tasks, helpers) in a multi-project Gradle setup.

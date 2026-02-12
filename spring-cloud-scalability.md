@@ -1,3 +1,9 @@
+---
+title: "Spring Cloud Scalability"
+category: "Spring & Spring Boot"
+description: "Microservices scalability patterns with Spring Cloud"
+---
+
 # Microservices Scalability Patterns with Spring Boot and Spring Cloud
 
 Spring Boot provides robust implementations for all major microservices scalability patterns, with **Kotlin coroutines integration** making reactive and event-driven patterns particularly elegant. For an experienced developer deploying to AWS EKS with Kafka and Redis, the most impactful patterns are event-driven architecture with Spring Cloud Stream (enables independent service scaling), CQRS with Axon Framework (separates read/write workloads), and horizontal scaling through session externalization with Spring Session. Virtual Threads in Spring Boot 3.2+ now offer a compelling alternative to reactive programming for I/O-bound workloads, reducing code complexity while maintaining high throughput.
