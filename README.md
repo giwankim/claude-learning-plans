@@ -55,7 +55,7 @@ This repository contains 30 self-paced learning plans generated with Claude. Eac
 
 ### Languages & Paradigms
 
-- [Arrow-kt for DDD](arrow-for-ddd.md) — Functional domain-driven design with Arrow 2.x
+- [Arrow-kt for DDD](arrow-for-DDD.md) — Functional domain-driven design with Arrow 2.x
 - [Functional Programming](fp.md) — FP foundations and patterns for JVM developers
 - [Go](go.md) — Complete Go roadmap for engineers coming from the JVM
 - [Swift](swift.md) — From Kotlin to native macOS development over 16 weeks
