@@ -4,7 +4,7 @@ Structured, multi-week learning curricula for senior engineers who want deep mas
 
 ## Overview
 
-This repository contains 30 self-paced learning plans generated with Claude. Each plan follows a phased, project-based format designed for working engineers — typically 12–16 weeks of focused study with curated resources, hands-on milestones, and progressive complexity. Topics range from Spring Boot internals to Kubernetes, Go, and distributed data systems.
+This repository contains 34 self-paced learning plans generated with Claude. Each plan follows a phased, project-based format designed for working engineers — typically 12–16 weeks of focused study with curated resources, hands-on milestones, and progressive complexity. Topics range from Spring Boot internals to Kubernetes, Go, and distributed data systems.
 
 ## Plans by Category
 
@@ -47,6 +47,7 @@ This repository contains 30 self-paced learning plans generated with Claude. Eac
 ### Observability
 
 - [Observability (o11y)](o11y.md) — Metrics, tracing, and logging for Spring Boot microservices
+- [Observability for Spring Boot on EKS](opus-4.6/011y.md) — 26-week mastery plan covering metrics, logs, traces, alerting, SRE practices, and infrastructure deployment for Spring Boot on AWS EKS
 
 ### Infrastructure
 
@@ -64,6 +65,15 @@ This repository contains 30 self-paced learning plans generated with Claude. Eac
 
 - [NewSQL (ChatGPT)](newsql-chatgpt.md) — NewSQL research notes from a ChatGPT perspective
 - [NewSQL (Claude)](newsql-claude.md) — Globally distributed active-active NewSQL databases
+
+### Rust
+
+- [Rust Mastery for DataFusion/Arrow](opus-4.6/rust.md) — 10-month phased plan from Rust foundations to active Apache DataFusion and Arrow contributor, tailored for JVM engineers
+
+### Spring
+
+- [Spring Framework Internals](opus-4.6/spring.md) — 14-week deep-dive into Spring IoC container, AOP proxies, auto-configuration mechanics, and framework extension patterns
+- [Spring Security Mastery](opus-4.6/spring-security.md) — 30-week depth-first curriculum covering filter chain internals, OAuth2/OIDC, microservices auth, reactive security, and OWASP hardening
 
 ## How to Use These Plans
 

@@ -46,13 +46,13 @@ def parse_front_matter(filepath):
 def generate_readme():
     """Generate README.md from plan files with YAML front matter."""
     script_dir = os.path.dirname(os.path.abspath(__file__))
-    md_files = sorted(glob.glob(os.path.join(script_dir, "*.md")))
+    md_files = sorted(glob.glob(os.path.join(script_dir, "**", "*.md"), recursive=True))
 
     # Collect plans grouped by category
     categories = {}
     for filepath in md_files:
-        filename = os.path.basename(filepath)
-        if filename in EXCLUDED_FILES:
+        filename = os.path.relpath(filepath, script_dir)
+        if os.path.basename(filepath) in EXCLUDED_FILES:
             continue
 
         fm = parse_front_matter(filepath)
