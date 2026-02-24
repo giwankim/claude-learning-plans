@@ -4,7 +4,7 @@ Structured, multi-week learning curricula for senior engineers who want deep mas
 
 ## Overview
 
-This repository contains 34 self-paced learning plans generated with Claude. Each plan follows a phased, project-based format designed for working engineers — typically 12–16 weeks of focused study with curated resources, hands-on milestones, and progressive complexity. Topics range from Spring Boot internals to Kubernetes, Go, and distributed data systems.
+This repository contains 36 self-paced learning plans generated with Claude. Each plan follows a phased, project-based format designed for working engineers — typically 12–16 weeks of focused study with curated resources, hands-on milestones, and progressive complexity. Topics range from Spring Boot internals to Kubernetes, Go, and distributed data systems.
 
 ## Plans by Category
 
@@ -65,6 +65,14 @@ This repository contains 34 self-paced learning plans generated with Claude. Eac
 
 - [NewSQL (ChatGPT)](opus-4.5/newsql-chatgpt.md) — NewSQL research notes from a ChatGPT perspective
 - [NewSQL (Claude)](opus-4.5/newsql-claude.md) — Globally distributed active-active NewSQL databases
+
+### Backend Engineering
+
+- [Distributed Lock Use Cases](opus-4.6/distributed-lock-use-cases.md) — Catalog of distributed concurrency scenarios across e-commerce, fintech, and ticketing with production case studies and a decision framework for Redis, pessimistic, and optimistic locking
+
+### Career Development
+
+- [Soft Skills for Software Engineers](opus-4.6/soft-skills.md) — Curated guide to books, courses, podcasts, and communities for communication, managing up, and engineering leadership
 
 ### Rust
 
