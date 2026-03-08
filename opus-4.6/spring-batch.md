@@ -1,3 +1,9 @@
+---
+title: "Spring Batch"
+category: "Spring"
+description: "6-month Spring Batch mastery plan covering chunk-oriented processing, partitioning, fault tolerance, and AWS EKS/ECS deployment for Kotlin developers"
+---
+
 # Spring Batch mastery in Kotlin: a 6-month learning plan for AWS-containerized environments
 
 **Spring Batch remains the gold standard for enterprise batch processing in the JVM ecosystem**, and learning it as a Kotlin/Spring Boot developer deploying on AWS EKS/ECS is a high-leverage investment. This plan takes you from zero to production mastery over **26+ weeks across six phases**, each building on the last. The current stable versions are **Spring Batch 5.2.x** (for Spring Boot 3.x) and **Spring Batch 6.0.x** (released November 2025 for Spring Boot 4). This curriculum targets 5.2.x as the production baseline, with notes on 6.0 features where relevant. Every phase includes specific resources and a hands-on milestone project.

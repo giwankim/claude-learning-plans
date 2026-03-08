@@ -1,3 +1,9 @@
+---
+title: "MySQL Mastery"
+category: "Data & Messaging"
+description: "Definitive MySQL mastery plan covering essential books, InnoDB internals, Aurora-specific operations, and deliberate practice for Kotlin/Spring Boot developers"
+---
+
 # The definitive MySQL mastery plan for backend developers
 
 **For a Kotlin/Spring Boot developer on Aurora MySQL, the fastest path to performance and DBA expertise runs through five essential books, a handful of expert blogs, and deliberate practice with real tooling.** The MySQL ecosystem has a remarkably stable canon — a few dozen resources account for the vast majority of expert knowledge. This plan prioritizes depth over breadth, sequencing resources from foundational indexing concepts through InnoDB internals to Aurora-specific operational mastery. Every resource listed here is current for MySQL 8.x and Aurora MySQL 3.x unless explicitly noted otherwise.

@@ -1,3 +1,9 @@
+---
+title: "Linear Project Management"
+category: "Developer Tools"
+description: "Comprehensive assessment of Linear for developer teams covering planning, sprint management, GitHub integration, and workflow automation"
+---
+
 # Linear: a comprehensive assessment for developer teams
 
 **Linear is the fastest, most developer-loved project management tool available today — and for a mid-size backend team currently on GitHub Issues, it represents a meaningful upgrade in planning, sprint management, and workflow automation, at the cost of adding a second tool to your stack.** Founded in 2019 by ex-Airbnb, Uber, and Coinbase engineers frustrated with Jira, Linear has grown to **18,000+ paying customers** (including OpenAI, Vercel, Ramp, and Cursor) and recently hit a **$1.25B valuation**. Its local-first sync engine delivers sub-50ms interactions that users universally confirm feel "native app fast." For a Kotlin/Spring Boot backend team of 10–50 people, Linear's GitHub integration, keyboard-first UX, and opinionated cycle-based workflow address the exact pain points where GitHub Projects falls short — but there are real trade-offs worth understanding.

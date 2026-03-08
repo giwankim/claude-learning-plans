@@ -1,3 +1,9 @@
+---
+title: "Durable Execution"
+category: "Backend Engineering"
+description: "Practitioner's guide to durable execution frameworks including Temporal, Restate, and Conductor for Spring Boot on AWS EKS"
+---
+
 # Durable execution for Spring Boot: a practitioner's guide
 
 **Temporal leads the durable execution space for JVM teams, but Restate is emerging as the most compelling alternative — especially for Kotlin developers.** For a mid-level engineer running Spring Boot on AWS EKS with PostgreSQL, Redis, and Kafka, the practical choice narrows to three serious contenders: Temporal for maximum ecosystem maturity, Restate for operational simplicity and native Kotlin coroutine support, or Conductor/Orkes if you want JSON-defined workflows with excellent visual debugging. Camunda remains relevant only if your organization requires BPMN modeling for compliance, and newer entrants like DBOS and Infinitic show promise but carry significant production risk. This guide evaluates every major tool, provides integration code, and offers a clear decision framework.

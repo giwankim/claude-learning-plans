@@ -1,3 +1,9 @@
+---
+title: "Legacy Code Modernization"
+category: "Backend Engineering"
+description: "Resource guide for legacy system modernization covering characterization tests, Spring Modulith, strangler fig patterns, and CDC-based decoupling for Kotlin/Spring Boot"
+---
+
 # The definitive resource guide for taming legacy systems in Kotlin and Spring Boot
 
 The single most important resource for any engineer facing legacy code remains Michael Feathers' *Working Effectively with Legacy Code* — its concepts of **seams**, **characterization tests**, and the **Legacy Code Change Algorithm** form the foundational vocabulary the entire industry uses. Pair it with Sam Newman's *Monolith to Microservices* for migration patterns and you have roughly 80% of the strategic toolkit covered. But the landscape of resources has expanded dramatically since 2022, with Spring Modulith emerging as a preferred intermediate step, Korean tech companies publishing battle-tested migration playbooks, and Kafka-based CDC becoming the go-to decoupling mechanism. This guide organizes the best resources across books, courses, articles, and code repositories — curated for a Kotlin/Spring Boot engineer working across all four phases of legacy modernization.

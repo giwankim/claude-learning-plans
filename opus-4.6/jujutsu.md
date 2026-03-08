@@ -1,3 +1,9 @@
+---
+title: "Jujutsu Version Control"
+category: "Developer Tools"
+description: "Comprehensive guide to Jujutsu (jj), a Git-compatible VCS that eliminates the staging area, makes every state a commit, and provides universal undo"
+---
+
 # Jujutsu (jj): the Git successor that treats version control like it's 2026
 
 **Jujutsu is a Git-compatible version control system that eliminates the staging area, makes every working-copy state a commit, stores conflicts as first-class data, and provides universal undo — solving the most persistent pain points developers face with Git while remaining fully compatible with existing Git repos and forges.** Built by Google engineer Martin von Zweigbergk starting in 2019, jj now has ~25,000 GitHub stars, is used internally at Google (~900 users as of late 2025, with plans to replace their Mercurial-based internal client), and is daily-driven by developers at companies like Oxide Computer. Because jj uses Git as its storage backend, adoption is zero-risk: your teammates won't know you switched, and you can revert by deleting a single `.jj` directory.

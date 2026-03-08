@@ -1,3 +1,9 @@
+---
+title: "Datadog Observability"
+category: "Observability"
+description: "Complete Datadog learning curriculum covering infrastructure monitoring, APM, log management, dashboards, and alerting for Kotlin/Spring Boot on AWS"
+---
+
 # Mastering Datadog: a complete learning curriculum for backend engineers
 
 **Datadog is the leading commercial observability platform, and this curriculum will take you from zero to production-grade mastery across infrastructure monitoring, APM, log management, dashboards, alerting, and infrastructure-as-code — all tailored to your Kotlin/Spring Boot stack on AWS EKS/ECS with MySQL/PostgreSQL, Redis, and Kafka.** The plan is structured in six phases over roughly 12 weeks, each building on the last. Every phase includes specific resources, hands-on projects, and architectural context so you understand not just *how* but *why* each piece works the way it does.

@@ -1,3 +1,9 @@
+---
+title: "Stacked PRs with Jujutsu"
+category: "Developer Tools"
+description: "Guide to stacked pull requests and Jujutsu (jj) for breaking large changes into small, reviewable units with effortless rebasing"
+---
+
 # Stacked PRs and Jujutsu: a modern developer's guide to faster code review
 
 **Stacked pull requests break large changes into small, dependent, reviewable units — and Jujutsu (jj) is a Git-compatible version control system that makes this workflow nearly effortless.** Together, they represent the most significant shift in everyday developer workflow since Git replaced SVN. Stacked PRs solve the universal problem of slow code review by keeping each PR under ~300 lines, while jj eliminates the painful rebasing and branch management that makes stacking difficult in plain Git. This guide covers both in depth: the stacked PR concept and tooling ecosystem, Jujutsu's design and daily usage, and practical recommendations for adopting either or both.
