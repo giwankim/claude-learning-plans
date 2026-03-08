@@ -35,7 +35,7 @@ This repository contains 38 self-paced learning plans generated with Claude. Eac
 - [Apache Kafka](opus-4.5/kafka.md) — Kafka producers, consumers, and Streams for Spring Boot
 - [Event-Driven Architecture](opus-4.5/event-driven-architecture.md) — Event sourcing and async patterns for Kotlin/Spring
 - [HikariCP](opus-4.5/hikaricp.md) — Connection pool internals and tuning for Spring Boot
-- [MySQL & Aurora Performance](opus-4.6/mysql.md) — Deep dive into MySQL/Aurora performance engineering covering InnoDB internals, query optimization, and PostgreSQL architectural comparison for Spring Boot developers
+- [MySQL & Aurora Performance](opus-4.6/mysql-performance.md) — Deep dive into MySQL/Aurora performance engineering covering InnoDB internals, query optimization, and PostgreSQL architectural comparison for Spring Boot developers
 - [Redis](opus-4.5/redis.md) — Redis data structures, caching, and pub/sub patterns
 - [Redis L2 Cache](opus-4.5/redis-l2-cache.md) — Redis as a high-traffic L2 cache for microservices
 - [SQL Database Optimization](opus-4.5/sql-database-optimization.md) — Indexing, query tuning, and schema design over 16 weeks
