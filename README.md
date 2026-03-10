@@ -4,7 +4,7 @@ Structured, multi-week learning curricula for senior engineers who want deep mas
 
 ## Overview
 
-This repository contains 47 self-paced learning plans generated with Claude. Each plan follows a phased, project-based format designed for working engineers — typically 12–16 weeks of focused study with curated resources, hands-on milestones, and progressive complexity. Topics range from Spring Boot internals to Kubernetes, Go, and distributed data systems.
+This repository contains 49 self-paced learning plans generated with Claude. Each plan follows a phased, project-based format designed for working engineers — typically 12–16 weeks of focused study with curated resources, hands-on milestones, and progressive complexity. Topics range from Spring Boot internals to Kubernetes, Go, and distributed data systems.
 
 ## Plans by Category
 
@@ -73,7 +73,6 @@ This repository contains 47 self-paced learning plans generated with Claude. Eac
 ### Backend Engineering
 
 - [Distributed Lock Use Cases](opus-4.6/distributed-lock-use-cases.md) — Catalog of distributed concurrency scenarios across e-commerce, fintech, and ticketing with production case studies and a decision framework for Redis, pessimistic, and optimistic locking
-- [Durable Execution](opus-4.6/durable-execution.md) — Practitioner's guide to durable execution frameworks including Temporal, Restate, and Conductor for Spring Boot on AWS EKS
 - [Legacy Code Modernization](opus-4.6/legacy-code.md) — Resource guide for legacy system modernization covering characterization tests, Spring Modulith, strangler fig patterns, and CDC-based decoupling for Kotlin/Spring Boot
 
 ### Career Development
@@ -85,6 +84,14 @@ This repository contains 47 self-paced learning plans generated with Claude. Eac
 - [Jujutsu Version Control](opus-4.6/jujutsu.md) — Comprehensive guide to Jujutsu (jj), a Git-compatible VCS that eliminates the staging area, makes every state a commit, and provides universal undo
 - [Linear Project Management](opus-4.6/linear.md) — Comprehensive assessment of Linear for developer teams covering planning, sprint management, GitHub integration, and workflow automation
 - [Stacked PRs with Jujutsu](opus-4.6/stacked-pr-jujutsu.md) — Guide to stacked pull requests and Jujutsu (jj) for breaking large changes into small, reviewable units with effortless rebasing
+
+### Distributed Systems / Messaging
+
+- [Mastering Apache Kafka](opus-4.6/kafka.md) — 6-month roadmap for Kotlin/Spring Boot developers covering Kafka architecture, Spring Kafka patterns, Kafka Streams, Schema Registry, monitoring, and CCDAK certification
+
+### Distributed Systems / Workflow
+
+- [Mastering Durable Execution on the JVM](opus-4.6/durable-execution.md) — 8–10 week roadmap covering Temporal, Restate, saga patterns, workflow versioning, and production-grade durable execution with Kotlin and Spring Boot
 
 ### Rust
 
@@ -99,6 +106,10 @@ This repository contains 47 self-paced learning plans generated with Claude. Eac
 ### Spring / Reactive
 
 - [Mastering Spring WebFlux](opus-4.6/webflux.md) — 14-week learning plan for Kotlin engineers covering Project Reactor, Spring WebFlux, R2DBC, reactive Redis/Kafka, and production observability
+
+### Spring / Real-Time
+
+- [Mastering WebSockets in Spring Boot](opus-4.6/websocket.md) — 12-week curriculum covering STOMP messaging, reactive WebFlux WebSocket, Redis Pub/Sub broadcasting, Kafka integration, and AWS EKS deployment for real-time systems
 
 ## How to Use These Plans
 
