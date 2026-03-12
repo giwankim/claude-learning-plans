@@ -4,7 +4,7 @@ Structured, multi-week learning curricula for senior engineers who want deep mas
 
 ## Overview
 
-This repository contains 49 self-paced learning plans generated with Claude. Each plan follows a phased, project-based format designed for working engineers — typically 12–16 weeks of focused study with curated resources, hands-on milestones, and progressive complexity. Topics range from Spring Boot internals to Kubernetes, Go, and distributed data systems.
+This repository contains 51 self-paced learning plans generated with Claude. Each plan follows a phased, project-based format designed for working engineers — typically 12–16 weeks of focused study with curated resources, hands-on milestones, and progressive complexity. Topics range from Spring Boot internals to Kubernetes, Go, and distributed data systems.
 
 ## Plans by Category
 
@@ -69,6 +69,11 @@ This repository contains 49 self-paced learning plans generated with Claude. Eac
 
 - [NewSQL (ChatGPT)](opus-4.5/newsql-chatgpt.md) — NewSQL research notes from a ChatGPT perspective
 - [NewSQL (Claude)](opus-4.5/newsql-claude.md) — Globally distributed active-active NewSQL databases
+
+### Backend & Infrastructure
+
+- [Mastery-level microservices learning plan for Spring Boot engineers](opus-4.6/microservice-ddd.md) — 24-week curriculum transforming mid-level Kotlin/Spring Boot engineers into microservices architects, covering DDD, bounded contexts, decomposition strategy, and distributed patterns on AWS EKS/ECS.
+- [Spring Cloud mastery roadmap for Kotlin engineers on AWS EKS](opus-4.6/spring-cloud.md) — 26-week curriculum taking Kotlin/Spring Boot developers from zero Spring Cloud knowledge to production-ready microservices on AWS EKS, covering service discovery, config management, and Kubernetes-native migration.
 
 ### Backend Engineering
 
