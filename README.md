@@ -4,7 +4,7 @@ Structured, multi-week learning curricula for senior engineers who want deep mas
 
 ## Overview
 
-This repository contains 51 self-paced learning plans generated with Claude. Each plan follows a phased, project-based format designed for working engineers — typically 12–16 weeks of focused study with curated resources, hands-on milestones, and progressive complexity. Topics range from Spring Boot internals to Kubernetes, Go, and distributed data systems.
+This repository contains 53 self-paced learning plans generated with Claude. Each plan follows a phased, project-based format designed for working engineers — typically 12–16 weeks of focused study with curated resources, hands-on milestones, and progressive complexity. Topics range from Spring Boot internals to Kubernetes, Go, and distributed data systems.
 
 ## Plans by Category
 
@@ -50,7 +50,9 @@ This repository contains 51 self-paced learning plans generated with Claude. Eac
 
 - [Datadog Observability](opus-4.6/datadog.md) — Complete Datadog learning curriculum covering infrastructure monitoring, APM, log management, dashboards, and alerting for Kotlin/Spring Boot on AWS
 - [Observability (o11y)](opus-4.5/o11y.md) — Metrics, tracing, and logging for Spring Boot microservices
-- [Observability for Spring Boot on EKS](opus-4.6/011y.md) — 26-week mastery plan covering metrics, logs, traces, alerting, SRE practices, and infrastructure deployment for Spring Boot on AWS EKS
+- [Observability for Spring Boot on EKS](opus-4.6/o11y.md) — 26-week mastery plan covering metrics, logs, traces, alerting, SRE practices, and infrastructure deployment for Spring Boot on AWS EKS
+- [Observability Fundamentals for Kotlin Spring Boot on EKS](opus-4.6/o11y2.md) — Mastery plan covering observability fundamentals, tools landscape, and Spring Boot-native instrumentation for Kotlin microservices on EKS
+- [OpenTelemetry for Spring Boot in Kotlin](opus-4.6/otel-spring-boot.md) — 12-16 week mastery plan for OpenTelemetry with Spring Boot covering metrics, traces, logs, OTel Collector, Datadog, and Grafana stack on EKS
 
 ### Infrastructure
 
