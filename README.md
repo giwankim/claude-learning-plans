@@ -4,7 +4,7 @@ Structured, multi-week learning curricula for senior engineers who want deep mas
 
 ## Overview
 
-This repository contains 53 self-paced learning plans generated with Claude. Each plan follows a phased, project-based format designed for working engineers — typically 12–16 weeks of focused study with curated resources, hands-on milestones, and progressive complexity. Topics range from Spring Boot internals to Kubernetes, Go, and distributed data systems.
+This repository contains 58 self-paced learning plans generated with Claude. Each plan follows a phased, project-based format designed for working engineers — typically 12–16 weeks of focused study with curated resources, hands-on milestones, and progressive complexity. Topics range from Spring Boot internals to Kubernetes, Go, and distributed data systems.
 
 ## Plans by Category
 
@@ -34,6 +34,8 @@ This repository contains 53 self-paced learning plans generated with Claude. Eac
 
 - [Apache Kafka](opus-4.5/kafka.md) — Kafka producers, consumers, and Streams for Spring Boot
 - [Event-Driven Architecture](opus-4.5/event-driven-architecture.md) — Event sourcing and async patterns for Kotlin/Spring
+- [Flyway Database Migrations](opus-4.6/db-migration.md) — Production Flyway migrations with Spring Boot, Kotlin, and Aurora MySQL
+- [Flyway vs Liquibase vs Atlas](opus-4.6/flyway-liquibase.md) — Comparing database migration tools for Spring Boot Kotlin with MySQL/Aurora
 - [HikariCP](opus-4.5/hikaricp.md) — Connection pool internals and tuning for Spring Boot
 - [MySQL & Aurora Performance](opus-4.6/mysql-performance.md) — Deep dive into MySQL/Aurora performance engineering covering InnoDB internals, query optimization, and PostgreSQL architectural comparison for Spring Boot developers
 - [MySQL Mastery](opus-4.6/mysql-mastery.md) — Definitive MySQL mastery plan covering essential books, InnoDB internals, Aurora-specific operations, and deliberate practice for Kotlin/Spring Boot developers
@@ -99,6 +101,15 @@ This repository contains 53 self-paced learning plans generated with Claude. Eac
 ### Distributed Systems / Workflow
 
 - [Mastering Durable Execution on the JVM](opus-4.6/durable-execution.md) — 8–10 week roadmap covering Temporal, Restate, saga patterns, workflow versioning, and production-grade durable execution with Kotlin and Spring Boot
+
+### Finance & Trading
+
+- [High-Frequency Trading Learning Path](opus-4.6/hft.md) — Transition from Spring Boot to sub-microsecond HFT systems
+- [Production Quant Roadmap](opus-4.6/quant.md) — Complete learning path from pure math PhD to production quant
+
+### Performance & Optimization
+
+- [Performance Optimization Playbook](opus-4.6/godbolt-rady-performance-optimization.md) — Godbolt-Rady measure-first performance optimization from Two's Complement
 
 ### Rust
 
