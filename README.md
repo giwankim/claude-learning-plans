@@ -4,7 +4,7 @@ Structured, multi-week learning curricula for senior engineers who want deep mas
 
 ## Overview
 
-This repository contains 59 self-paced learning plans generated with Claude. Each plan follows a phased, project-based format designed for working engineers — typically 12–16 weeks of focused study with curated resources, hands-on milestones, and progressive complexity. Topics range from Spring Boot internals to Kubernetes, Go, and distributed data systems.
+This repository contains 61 self-paced learning plans generated with Claude. Each plan follows a phased, project-based format designed for working engineers — typically 12–16 weeks of focused study with curated resources, hands-on milestones, and progressive complexity. Topics range from Spring Boot internals to Kubernetes, Go, and distributed data systems.
 
 ## Plans by Category
 
@@ -75,6 +75,10 @@ This repository contains 59 self-paced learning plans generated with Claude. Eac
 - [NewSQL (ChatGPT)](opus-4.5/newsql-chatgpt.md) — NewSQL research notes from a ChatGPT perspective
 - [NewSQL (Claude)](opus-4.5/newsql-claude.md) — Globally distributed active-active NewSQL databases
 
+### API Design
+
+- [REST Architecture](opus-4.6/rest.md) — What REST actually means per Fielding's dissertation, the six constraints, HATEOAS, and why most APIs aren't truly RESTful
+
 ### Backend & Infrastructure
 
 - [Mastery-level microservices learning plan for Spring Boot engineers](opus-4.6/microservice-ddd.md) — 24-week curriculum transforming mid-level Kotlin/Spring Boot engineers into microservices architects, covering DDD, bounded contexts, decomposition strategy, and distributed patterns on AWS EKS/ECS.
@@ -88,6 +92,10 @@ This repository contains 59 self-paced learning plans generated with Claude. Eac
 ### Career Development
 
 - [Soft Skills for Software Engineers](opus-4.6/soft-skills.md) — Curated guide to books, courses, podcasts, and communities for communication, managing up, and engineering leadership
+
+### Database
+
+- [MySQL Slow Query Tuning on Aurora](opus-4.6/slow-query-tuning-mysql.md) — Production playbook for finding, analyzing, and fixing slow queries on Aurora MySQL 3.x and 2.x
 
 ### Developer Tools
 
