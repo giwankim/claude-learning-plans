@@ -4,7 +4,7 @@ Structured, multi-week learning curricula for senior engineers who want deep mas
 
 ## Overview
 
-This repository contains 62 self-paced learning plans generated with Claude. Each plan follows a phased, project-based format designed for working engineers — typically 12–16 weeks of focused study with curated resources, hands-on milestones, and progressive complexity. Topics range from Spring Boot internals to Kubernetes, Go, and distributed data systems.
+This repository contains 64 self-paced learning plans generated with Claude. Each plan follows a phased, project-based format designed for working engineers — typically 12–16 weeks of focused study with curated resources, hands-on milestones, and progressive complexity. Topics range from Spring Boot internals to Kubernetes, Go, and distributed data systems.
 
 ## Plans by Category
 
@@ -96,6 +96,7 @@ This repository contains 62 self-paced learning plans generated with Claude. Eac
 ### Database
 
 - [MySQL Slow Query Tuning on Aurora](opus-4.6/slow-query-tuning-mysql.md) — Production playbook for finding, analyzing, and fixing slow queries on Aurora MySQL 3.x and 2.x
+- [트랜잭션 (Transactions)](opus-4.6/transaction.md) — Database transaction fundamentals including ACID properties, isolation levels, commit/rollback, and practical scenarios (Korean).
 
 ### Databases
 
@@ -119,6 +120,10 @@ This repository contains 62 self-paced learning plans generated with Claude. Eac
 
 - [High-Frequency Trading Learning Path](opus-4.6/hft.md) — Transition from Spring Boot to sub-microsecond HFT systems
 - [Production Quant Roadmap](opus-4.6/quant.md) — Complete learning path from pure math PhD to production quant
+
+### Git
+
+- [Advanced Git for Team Workflows](opus-4.6/git.md) — Curated resource guide for experienced developers transitioning from solo to team Git, covering branching strategies, PR workflows, conflict resolution, and collaboration tools.
 
 ### Performance & Optimization
 
