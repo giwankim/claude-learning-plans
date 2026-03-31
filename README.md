@@ -4,7 +4,7 @@ Structured, multi-week learning curricula for senior engineers who want deep mas
 
 ## Overview
 
-This repository contains 63 self-paced learning plans generated with Claude. Each plan follows a phased, project-based format designed for working engineers — typically 12–16 weeks of focused study with curated resources, hands-on milestones, and progressive complexity. Topics range from Spring Boot internals to Kubernetes, Go, and distributed data systems.
+This repository contains 64 self-paced learning plans generated with Claude. Each plan follows a phased, project-based format designed for working engineers — typically 12–16 weeks of focused study with curated resources, hands-on milestones, and progressive complexity. Topics range from Spring Boot internals to Kubernetes, Go, and distributed data systems.
 
 ## Plans by Category
 
@@ -134,6 +134,7 @@ This repository contains 63 self-paced learning plans generated with Claude. Eac
 
 ### Spring
 
+- [Feature Flags in Spring Boot and Kotlin](opus-4.6/feature-flag.md) — Complete guide to feature flags covering the four-type taxonomy, DIY vs platform approaches, Spring Boot 3.x integration, and flag lifecycle management for Kotlin microservices
 - [Spring Batch](opus-4.6/spring-batch.md) — 6-month Spring Batch mastery plan covering chunk-oriented processing, partitioning, fault tolerance, and AWS EKS/ECS deployment for Kotlin developers
 - [Spring Framework Internals](opus-4.6/spring.md) — 14-week deep-dive into Spring IoC container, AOP proxies, auto-configuration mechanics, and framework extension patterns
 - [Spring Security Mastery](opus-4.6/spring-security.md) — 30-week depth-first curriculum covering filter chain internals, OAuth2/OIDC, microservices auth, reactive security, and OWASP hardening
