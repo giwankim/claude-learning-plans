@@ -4,14 +4,14 @@ Structured, multi-week learning curricula for senior engineers who want deep mas
 
 ## Overview
 
-This repository contains 64 self-paced learning plans generated with Claude. Each plan follows a phased, project-based format designed for working engineers — typically 12–16 weeks of focused study with curated resources, hands-on milestones, and progressive complexity. Topics range from Spring Boot internals to Kubernetes, Go, and distributed data systems.
+This repository contains 66 self-paced learning plans generated with Claude. Each plan follows a phased, project-based format designed for working engineers — typically 12–16 weeks of focused study with curated resources, hands-on milestones, and progressive complexity. Topics range from Spring Boot internals to Kubernetes, Go, and distributed data systems.
 
 ## Plans by Category
 
 ### Spring & Spring Boot
 
 - [P50/P99 Latency Guide](opus-4.5/springboot_latency_p50_p99_guide.md) — Measuring and improving latency on JVM (ECS to EKS)
-- [Production Guide to Spring Data JPA with Kotlin](opus-4.6/kotlin-jpa.md) — Entity design, compiler plugins, performance tuning, and N+1 prevention for Hibernate 6.x with Kotlin on Aurora MySQL/PostgreSQL
+- [Production Guide to Spring Data JPA with Kotlin](opus-4.6/spring/kotlin-jpa.md) — Entity design, compiler plugins, performance tuning, and N+1 prevention for Hibernate 6.x with Kotlin on Aurora MySQL/PostgreSQL
 - [Spring Batch](opus-4.5/spring-batch.md) — 16-week Spring Batch mastery plan for Kotlin
 - [Spring Batch Projects](opus-4.5/spring-batch-2.md) — 12 progressive Kotlin projects with Spring Batch
 - [Spring Cloud Resiliency](opus-4.5/spring-cloud-resiliency.md) — Circuit breakers, retries, and fault tolerance patterns
@@ -35,8 +35,8 @@ This repository contains 64 self-paced learning plans generated with Claude. Eac
 
 - [Apache Kafka](opus-4.5/kafka.md) — Kafka producers, consumers, and Streams for Spring Boot
 - [Event-Driven Architecture](opus-4.5/event-driven-architecture.md) — Event sourcing and async patterns for Kotlin/Spring
-- [Flyway Database Migrations](opus-4.6/db-migration.md) — Production Flyway migrations with Spring Boot, Kotlin, and Aurora MySQL
-- [Flyway vs Liquibase vs Atlas](opus-4.6/flyway-liquibase.md) — Comparing database migration tools for Spring Boot Kotlin with MySQL/Aurora
+- [Flyway Database Migrations](opus-4.6/spring/db-migration.md) — Production Flyway migrations with Spring Boot, Kotlin, and Aurora MySQL
+- [Flyway vs Liquibase vs Atlas](opus-4.6/spring/flyway-liquibase.md) — Comparing database migration tools for Spring Boot Kotlin with MySQL/Aurora
 - [HikariCP](opus-4.5/hikaricp.md) — Connection pool internals and tuning for Spring Boot
 - [MySQL & Aurora Performance](opus-4.6/mysql-performance.md) — Deep dive into MySQL/Aurora performance engineering covering InnoDB internals, query optimization, and PostgreSQL architectural comparison for Spring Boot developers
 - [MySQL Mastery](opus-4.6/mysql-mastery.md) — Definitive MySQL mastery plan covering essential books, InnoDB internals, Aurora-specific operations, and deliberate practice for Kotlin/Spring Boot developers
@@ -52,10 +52,11 @@ This repository contains 64 self-paced learning plans generated with Claude. Eac
 ### Observability
 
 - [Datadog Observability](opus-4.6/datadog.md) — Complete Datadog learning curriculum covering infrastructure monitoring, APM, log management, dashboards, and alerting for Kotlin/Spring Boot on AWS
+- [Mastering Spring Boot Actuator & Micrometer](opus-4.6/spring/spring-boot-actuator-micrometer.md) — 16-week curriculum covering Actuator internals, Micrometer metrics, and production observability patterns for Kotlin Spring Boot on AWS EKS
 - [Observability (o11y)](opus-4.5/o11y.md) — Metrics, tracing, and logging for Spring Boot microservices
-- [Observability for Spring Boot on EKS](opus-4.6/o11y.md) — 26-week mastery plan covering metrics, logs, traces, alerting, SRE practices, and infrastructure deployment for Spring Boot on AWS EKS
-- [Observability Fundamentals for Kotlin Spring Boot on EKS](opus-4.6/o11y2.md) — Mastery plan covering observability fundamentals, tools landscape, and Spring Boot-native instrumentation for Kotlin microservices on EKS
-- [OpenTelemetry for Spring Boot in Kotlin](opus-4.6/otel-spring-boot.md) — 12-16 week mastery plan for OpenTelemetry with Spring Boot covering metrics, traces, logs, OTel Collector, Datadog, and Grafana stack on EKS
+- [Observability for Spring Boot on EKS](opus-4.6/spring/o11y.md) — 26-week mastery plan covering metrics, logs, traces, alerting, SRE practices, and infrastructure deployment for Spring Boot on AWS EKS
+- [Observability Fundamentals for Kotlin Spring Boot on EKS](opus-4.6/spring/o11y2.md) — Mastery plan covering observability fundamentals, tools landscape, and Spring Boot-native instrumentation for Kotlin microservices on EKS
+- [OpenTelemetry for Spring Boot in Kotlin](opus-4.6/spring/otel-spring-boot.md) — 12-16 week mastery plan for OpenTelemetry with Spring Boot covering metrics, traces, logs, OTel Collector, Datadog, and Grafana stack on EKS
 
 ### Infrastructure
 
@@ -82,7 +83,7 @@ This repository contains 64 self-paced learning plans generated with Claude. Eac
 ### Backend & Infrastructure
 
 - [Mastery-level microservices learning plan for Spring Boot engineers](opus-4.6/microservice-ddd.md) — 24-week curriculum transforming mid-level Kotlin/Spring Boot engineers into microservices architects, covering DDD, bounded contexts, decomposition strategy, and distributed patterns on AWS EKS/ECS.
-- [Spring Cloud mastery roadmap for Kotlin engineers on AWS EKS](opus-4.6/spring-cloud.md) — 26-week curriculum taking Kotlin/Spring Boot developers from zero Spring Cloud knowledge to production-ready microservices on AWS EKS, covering service discovery, config management, and Kubernetes-native migration.
+- [Spring Cloud mastery roadmap for Kotlin engineers on AWS EKS](opus-4.6/spring/spring-cloud.md) — 26-week curriculum taking Kotlin/Spring Boot developers from zero Spring Cloud knowledge to production-ready microservices on AWS EKS, covering service discovery, config management, and Kubernetes-native migration.
 
 ### Backend Engineering
 
@@ -135,9 +136,10 @@ This repository contains 64 self-paced learning plans generated with Claude. Eac
 ### Spring
 
 - [Feature Flags in Spring Boot and Kotlin](opus-4.6/feature-flag.md) — Complete guide to feature flags covering the four-type taxonomy, DIY vs platform approaches, Spring Boot 3.x integration, and flag lifecycle management for Kotlin microservices
-- [Spring Batch](opus-4.6/spring-batch.md) — 6-month Spring Batch mastery plan covering chunk-oriented processing, partitioning, fault tolerance, and AWS EKS/ECS deployment for Kotlin developers
-- [Spring Framework Internals](opus-4.6/spring.md) — 14-week deep-dive into Spring IoC container, AOP proxies, auto-configuration mechanics, and framework extension patterns
-- [Spring Security Mastery](opus-4.6/spring-security.md) — 30-week depth-first curriculum covering filter chain internals, OAuth2/OIDC, microservices auth, reactive security, and OWASP hardening
+- [Spring Batch](opus-4.6/spring/spring-batch.md) — 6-month Spring Batch mastery plan covering chunk-oriented processing, partitioning, fault tolerance, and AWS EKS/ECS deployment for Kotlin developers
+- [Spring Batch parameters and production scheduling](opus-4.6/spring/spring-batch-parameters-production-scheduling.md) — Seven mechanisms for passing JobParameters in Spring Batch 5.x and production orchestration patterns with Kubernetes CronJobs for Spring Boot 3.x
+- [Spring Framework Internals](opus-4.6/spring/spring.md) — 14-week deep-dive into Spring IoC container, AOP proxies, auto-configuration mechanics, and framework extension patterns
+- [Spring Security Mastery](opus-4.6/spring/spring-security.md) — 30-week depth-first curriculum covering filter chain internals, OAuth2/OIDC, microservices auth, reactive security, and OWASP hardening
 
 ### Spring / Reactive
 
