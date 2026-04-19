@@ -4,7 +4,7 @@ Structured, multi-week learning curricula for senior engineers who want deep mas
 
 ## Overview
 
-This repository contains 66 self-paced learning plans generated with Claude. Each plan follows a phased, project-based format designed for working engineers — typically 12–16 weeks of focused study with curated resources, hands-on milestones, and progressive complexity. Topics range from Spring Boot internals to Kubernetes, Go, and distributed data systems.
+This repository contains 68 self-paced learning plans generated with Claude. Each plan follows a phased, project-based format designed for working engineers — typically 12–16 weeks of focused study with curated resources, hands-on milestones, and progressive complexity. Topics range from Spring Boot internals to Kubernetes, Go, and distributed data systems.
 
 ## Plans by Category
 
@@ -43,6 +43,7 @@ This repository contains 66 self-paced learning plans generated with Claude. Eac
 - [Redis](opus-4.5/redis.md) — Redis data structures, caching, and pub/sub patterns
 - [Redis L2 Cache](opus-4.5/redis-l2-cache.md) — Redis as a high-traffic L2 cache for microservices
 - [SQL Database Optimization](opus-4.5/sql-database-optimization.md) — Indexing, query tuning, and schema design over 16 weeks
+- [Staged Path to Kafka Mastery for a Kotlin/Spring Boot Veteran](opus-4.7/kafka.md) — From log-abstraction foundations through KRaft internals, Kafka Streams, and ops to contributor-level mastery, targeted at Kotlin/Spring Boot on AWS MSK as of Kafka 4.2
 
 ### APIs & Protocols
 
@@ -79,6 +80,10 @@ This repository contains 66 self-paced learning plans generated with Claude. Eac
 ### API Design
 
 - [REST Architecture](opus-4.6/rest.md) — What REST actually means per Fielding's dissertation, the six constraints, HATEOAS, and why most APIs aren't truly RESTful
+
+### Algorithms & Problem Solving
+
+- [Nine-Month Java Roadmap from LeetCode to Codeforces Expert](opus-4.7/cp.md) — NeetCode 150 → 250 then Codeforces + AtCoder + CSES, targeting FAANG-ready in 4 months and Codeforces Expert (1700) in 9–12 months for a Java-fluent senior engineer
 
 ### Backend & Infrastructure
 
