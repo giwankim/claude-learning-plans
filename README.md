@@ -4,7 +4,7 @@ Structured, multi-week learning curricula for senior engineers who want deep mas
 
 ## Overview
 
-This repository contains 68 self-paced learning plans generated with Claude. Each plan follows a phased, project-based format designed for working engineers — typically 12–16 weeks of focused study with curated resources, hands-on milestones, and progressive complexity. Topics range from Spring Boot internals to Kubernetes, Go, and distributed data systems.
+This repository contains 69 self-paced learning plans generated with Claude. Each plan follows a phased, project-based format designed for working engineers — typically 12–16 weeks of focused study with curated resources, hands-on milestones, and progressive complexity. Topics range from Spring Boot internals to Kubernetes, Go, and distributed data systems.
 
 ## Plans by Category
 
@@ -133,6 +133,10 @@ This repository contains 68 self-paced learning plans generated with Claude. Eac
 ### Performance & Optimization
 
 - [Performance Optimization Playbook](opus-4.6/godbolt-rady-performance-optimization.md) — Godbolt-Rady measure-first performance optimization from Two's Complement
+
+### Robotics & Autonomy
+
+- [Defense Drone Engineering Career Pivot](opus-4.7/defense-drone.md) — 12-month learning plan for pivoting from backend engineering into defense UAV autonomy, embedded systems, and C2 fabrics
 
 ### Rust
 
