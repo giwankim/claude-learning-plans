@@ -4,7 +4,7 @@ Structured, multi-week learning curricula for senior engineers who want deep mas
 
 ## Overview
 
-This repository contains 69 self-paced learning plans generated with Claude. Each plan follows a phased, project-based format designed for working engineers — typically 12–16 weeks of focused study with curated resources, hands-on milestones, and progressive complexity. Topics range from Spring Boot internals to Kubernetes, Go, and distributed data systems.
+This repository contains 70 self-paced learning plans generated with Claude. Each plan follows a phased, project-based format designed for working engineers — typically 12–16 weeks of focused study with curated resources, hands-on milestones, and progressive complexity. Topics range from Spring Boot internals to Kubernetes, Go, and distributed data systems.
 
 ## Plans by Category
 
@@ -13,6 +13,7 @@ This repository contains 69 self-paced learning plans generated with Claude. Eac
 - [P50/P99 Latency Guide](opus-4.5/springboot_latency_p50_p99_guide.md) — Measuring and improving latency on JVM (ECS to EKS)
 - [Production Guide to Spring Data JPA with Kotlin](opus-4.6/spring/kotlin-jpa.md) — Entity design, compiler plugins, performance tuning, and N+1 prevention for Hibernate 6.x with Kotlin on Aurora MySQL/PostgreSQL
 - [Spring Batch](opus-4.5/spring-batch.md) — 16-week Spring Batch mastery plan for Kotlin
+- [Spring Batch Mastery Curriculum](opus-4.7/spring-batch.md) — 16-week internals-first plan from Minella's book (Batch 4.x) to production Spring Batch 5.x mastery on Kotlin + Spring Boot 3.x + AWS, with Korean enterprise context (Jenkins, 망분리, SCDF licensing)
 - [Spring Batch Projects](opus-4.5/spring-batch-2.md) — 12 progressive Kotlin projects with Spring Batch
 - [Spring Cloud Resiliency](opus-4.5/spring-cloud-resiliency.md) — Circuit breakers, retries, and fault tolerance patterns
 - [Spring Cloud Scalability](opus-4.5/spring-cloud-scalability.md) — Microservices scalability patterns with Spring Cloud
@@ -83,7 +84,7 @@ This repository contains 69 self-paced learning plans generated with Claude. Eac
 
 ### Algorithms & Problem Solving
 
-- [Nine-Month Java Roadmap from LeetCode to Codeforces Expert](opus-4.7/cp.md) — NeetCode 150 → 250 then Codeforces + AtCoder + CSES, targeting FAANG-ready in 4 months and Codeforces Expert (1700) in 9–12 months for a Java-fluent senior engineer
+- [Nine-Month Java Roadmap from LeetCode to Codeforces Expert](opus-4.7/ps.md) — NeetCode 150 → 250 then Codeforces + AtCoder + CSES, targeting FAANG-ready in 4 months and Codeforces Expert (1700) in 9–12 months for a Java-fluent senior engineer
 
 ### Backend & Infrastructure
 
