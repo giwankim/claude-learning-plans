@@ -4,7 +4,7 @@ Structured, multi-week learning curricula for senior engineers who want deep mas
 
 ## Overview
 
-This repository contains 70 self-paced learning plans generated with Claude. Each plan follows a phased, project-based format designed for working engineers — typically 12–16 weeks of focused study with curated resources, hands-on milestones, and progressive complexity. Topics range from Spring Boot internals to Kubernetes, Go, and distributed data systems.
+This repository contains 72 self-paced learning plans generated with Claude. Each plan follows a phased, project-based format designed for working engineers — typically 12–16 weeks of focused study with curated resources, hands-on milestones, and progressive complexity. Topics range from Spring Boot internals to Kubernetes, Go, and distributed data systems.
 
 ## Plans by Category
 
@@ -112,6 +112,7 @@ This repository contains 70 self-paced learning plans generated with Claude. Eac
 
 - [Jujutsu Version Control](opus-4.6/jujutsu.md) — Comprehensive guide to Jujutsu (jj), a Git-compatible VCS that eliminates the staging area, makes every state a commit, and provides universal undo
 - [Linear Project Management](opus-4.6/linear.md) — Comprehensive assessment of Linear for developer teams covering planning, sprint management, GitHub integration, and workflow automation
+- [Senior Developer's Guide to mise on macOS](opus-4.7/mise.md) — Migrating from SDKMAN/nvm/pyenv to mise (2026.4.x) on Apple Silicon — polyglot version management, task runner, and per-directory env, with copy-pasteable mise.toml configs for Python, Node/TS, Spring Boot Kotlin, and polyglot monorepos
 - [Stacked PRs with Jujutsu](opus-4.6/stacked-pr-jujutsu.md) — Guide to stacked pull requests and Jujutsu (jj) for breaking large changes into small, reviewable units with effortless rebasing
 
 ### Distributed Systems / Messaging
@@ -133,6 +134,7 @@ This repository contains 70 self-paced learning plans generated with Claude. Eac
 
 ### Performance & Optimization
 
+- [Load Testing for Spring Boot + Kotlin](opus-4.7/load-testing.md) — Load testing as a queueing-theory experiment for Spring Boot 3.5+ on the JVM — Gatling (Kotlin DSL) primary, k6 secondary, ghz for gRPC, vegeta for CLI, kafka-*-perf-test and xk6-kafka for Kafka, with deep coverage of percentile math, open-vs-closed loop, and coordinated omission
 - [Performance Optimization Playbook](opus-4.6/godbolt-rady-performance-optimization.md) — Godbolt-Rady measure-first performance optimization from Two's Complement
 
 ### Robotics & Autonomy
