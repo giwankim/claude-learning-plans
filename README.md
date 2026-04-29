@@ -4,7 +4,7 @@ Structured, multi-week learning curricula for senior engineers who want deep mas
 
 ## Overview
 
-This repository contains 72 self-paced learning plans generated with Claude. Each plan follows a phased, project-based format designed for working engineers — typically 12–16 weeks of focused study with curated resources, hands-on milestones, and progressive complexity. Topics range from Spring Boot internals to Kubernetes, Go, and distributed data systems.
+This repository contains 73 self-paced learning plans generated with Claude. Each plan follows a phased, project-based format designed for working engineers — typically 12–16 weeks of focused study with curated resources, hands-on milestones, and progressive complexity. Topics range from Spring Boot internals to Kubernetes, Go, and distributed data systems.
 
 ## Plans by Category
 
@@ -15,6 +15,7 @@ This repository contains 72 self-paced learning plans generated with Claude. Eac
 - [Spring Batch](opus-4.5/spring-batch.md) — 16-week Spring Batch mastery plan for Kotlin
 - [Spring Batch Mastery Curriculum](opus-4.7/spring-batch.md) — 16-week internals-first plan from Minella's book (Batch 4.x) to production Spring Batch 5.x mastery on Kotlin + Spring Boot 3.x + AWS, with Korean enterprise context (Jenkins, 망분리, SCDF licensing)
 - [Spring Batch Projects](opus-4.5/spring-batch-2.md) — 12 progressive Kotlin projects with Spring Batch
+- [Spring Cache Mastery for Kotlin Engineers](opus-4.7/spring-cache.md) — 12-week depth-first curriculum from Cache/CacheManager SPI internals and CacheAspectSupport source reading through Caffeine/Redis backends, stampede/avalanche defense, and Micrometer instrumentation, on Kotlin 2.x + Spring Boot 3.x with AWS/Aurora/Redis/Kafka
 - [Spring Cloud Resiliency](opus-4.5/spring-cloud-resiliency.md) — Circuit breakers, retries, and fault tolerance patterns
 - [Spring Cloud Scalability](opus-4.5/spring-cloud-scalability.md) — Microservices scalability patterns with Spring Cloud
 - [Spring Framework & Boot Internals](opus-4.5/spring.md) — Deep dive into Spring's core abstractions and lifecycle
