@@ -4,19 +4,21 @@ Structured, multi-week learning curricula for senior engineers who want deep mas
 
 ## Overview
 
-This repository contains 74 self-paced learning plans generated with Claude. Each plan follows a phased, project-based format designed for working engineers — typically 12–16 weeks of focused study with curated resources, hands-on milestones, and progressive complexity. Topics range from Spring Boot internals to Kubernetes, Go, and distributed data systems.
+This repository contains 76 self-paced learning plans generated with Claude. Each plan follows a phased, project-based format designed for working engineers — typically 12–16 weeks of focused study with curated resources, hands-on milestones, and progressive complexity. Topics range from Spring Boot internals to Kubernetes, Go, and distributed data systems.
 
 ## Plans by Category
 
 ### Spring & Spring Boot
 
+- [A Foundational Treatise on Spring's Cache Abstraction](opus-4.7/spring/cache/spring-cache-foundation.md) — Ground-up, first-principles exposition of Spring's cache abstraction (Cache, CacheManager, @Cacheable contracts and where they leak) for experienced Kotlin/Spring Boot 3.x engineers — rebuilds the picture so the parts fit, enabling reasoning from contracts about any caching question.
 - [P50/P99 Latency Guide](opus-4.5/springboot_latency_p50_p99_guide.md) — Measuring and improving latency on JVM (ECS to EKS)
 - [Production Guide to Spring Data JPA with Kotlin](opus-4.6/spring/kotlin-jpa.md) — Entity design, compiler plugins, performance tuning, and N+1 prevention for Hibernate 6.x with Kotlin on Aurora MySQL/PostgreSQL
 - [Spring Batch](opus-4.5/spring-batch.md) — 16-week Spring Batch mastery plan for Kotlin
 - [Spring Batch Mastery Curriculum](opus-4.7/spring/spring-batch.md) — 16-week internals-first plan from Minella's book (Batch 4.x) to production Spring Batch 5.x mastery on Kotlin + Spring Boot 3.x + AWS, with Korean enterprise context (Jenkins, 망분리, SCDF licensing)
 - [Spring Batch Projects](opus-4.5/spring-batch-2.md) — 12 progressive Kotlin projects with Spring Batch
-- [Spring Cache Mastery for Kotlin Engineers](opus-4.7/spring/spring-cache.md) — 12-week depth-first curriculum from Cache/CacheManager SPI internals and CacheAspectSupport source reading through Caffeine/Redis backends, stampede/avalanche defense, and Micrometer instrumentation, on Kotlin 2.x + Spring Boot 3.x with AWS/Aurora/Redis/Kafka
-- [Spring Cache Mastery — Application & Pattern Playbook](opus-4.7/spring/spring-cache-application.md) — Depth-first, tradeoff-heavy reference for production engineers (Kotlin 2.x · Spring Boot 3.x · Hibernate 6 · Lettuce/Redisson · AWS EKS/ECS · Aurora · Kafka). Skips internals; concentrates on what to build, with which library, why, and where it breaks — organized by use case domain, then by pattern.
+- [Spring Cache Mastery for Kotlin Engineers](opus-4.7/spring/cache/spring-cache-internals.md) — 12-week depth-first curriculum from Cache/CacheManager SPI internals and CacheAspectSupport source reading through Caffeine/Redis backends, stampede/avalanche defense, and Micrometer instrumentation, on Kotlin 2.x + Spring Boot 3.x with AWS/Aurora/Redis/Kafka
+- [Spring Cache Mastery — Application & Pattern Playbook](opus-4.7/spring/cache/spring-cache-application.md) — Depth-first, tradeoff-heavy reference for production engineers (Kotlin 2.x · Spring Boot 3.x · Hibernate 6 · Lettuce/Redisson · AWS EKS/ECS · Aurora · Kafka). Skips internals; concentrates on what to build, with which library, why, and where it breaks — organized by use case domain, then by pattern.
+- [Spring Caching: A Curated Reading & Viewing List Beyond Plöd's 2016 Talk](opus-4.7/spring/cache/spring-cache-talks.md) — Structured curriculum updating Michael Plöd's 2016 Spring Caching talk for a 2026 Kotlin/Spring Boot 3.x stack (Caffeine, Lettuce/Redis, Hibernate 6, Aurora) — conference talks, engineering blog posts, and primary sources organized by topic.
 - [Spring Cloud Resiliency](opus-4.5/spring-cloud-resiliency.md) — Circuit breakers, retries, and fault tolerance patterns
 - [Spring Cloud Scalability](opus-4.5/spring-cloud-scalability.md) — Microservices scalability patterns with Spring Cloud
 - [Spring Framework & Boot Internals](opus-4.5/spring.md) — Deep dive into Spring's core abstractions and lifecycle
