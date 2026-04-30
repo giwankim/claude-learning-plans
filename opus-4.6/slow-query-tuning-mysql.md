@@ -1,6 +1,6 @@
 ---
 title: "MySQL Slow Query Tuning on Aurora"
-category: "Database"
+category: "Data & Messaging"
 description: "Production playbook for finding, analyzing, and fixing slow queries on Aurora MySQL 3.x and 2.x"
 ---
 

@@ -1,6 +1,6 @@
 ---
 title: "Mastering Apache Kafka"
-category: "Distributed Systems / Messaging"
+category: "Data & Messaging"
 description: "6-month roadmap for Kotlin/Spring Boot developers covering Kafka architecture, Spring Kafka patterns, Kafka Streams, Schema Registry, monitoring, and CCDAK certification"
 ---
 

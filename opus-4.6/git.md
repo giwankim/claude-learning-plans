@@ -1,6 +1,6 @@
 ---
 title: "Advanced Git for Team Workflows"
-category: "Git"
+category: "Developer Tools"
 description: "Curated resource guide for experienced developers transitioning from solo to team Git, covering branching strategies, PR workflows, conflict resolution, and collaboration tools."
 ---
 

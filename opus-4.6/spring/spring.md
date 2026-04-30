@@ -1,6 +1,6 @@
 ---
 title: "Spring Framework Internals"
-category: "Spring"
+category: "Spring & Spring Boot"
 description: "14-week deep-dive into Spring IoC container, AOP proxies, auto-configuration mechanics, and framework extension patterns"
 ---
 

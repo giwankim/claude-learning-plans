@@ -1,6 +1,6 @@
 ---
 title: "Feature Flags in Spring Boot and Kotlin"
-category: "Spring"
+category: "Spring & Spring Boot"
 description: "Complete guide to feature flags covering the four-type taxonomy, DIY vs platform approaches, Spring Boot 3.x integration, and flag lifecycle management for Kotlin microservices"
 ---
 

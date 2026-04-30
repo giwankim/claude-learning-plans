@@ -1,6 +1,6 @@
 ---
 title: "Spring Security Mastery"
-category: "Spring"
+category: "Spring & Spring Boot"
 description: "30-week depth-first curriculum covering filter chain internals, OAuth2/OIDC, microservices auth, reactive security, and OWASP hardening"
 ---
 

@@ -1,6 +1,6 @@
 ---
 title: "Mastering Spring WebFlux"
-category: "Spring / Reactive"
+category: "Spring & Spring Boot"
 description: "14-week learning plan for Kotlin engineers covering Project Reactor, Spring WebFlux, R2DBC, reactive Redis/Kafka, and production observability"
 ---
 

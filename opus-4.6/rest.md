@@ -1,6 +1,6 @@
 ---
 title: "REST Architecture"
-category: "API Design"
+category: "APIs & Protocols"
 description: "What REST actually means per Fielding's dissertation, the six constraints, HATEOAS, and why most APIs aren't truly RESTful"
 ---
 

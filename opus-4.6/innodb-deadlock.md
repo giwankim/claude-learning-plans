@@ -1,6 +1,6 @@
 ---
 title: "The Definitive Guide to InnoDB Deadlocks"
-category: "Databases"
+category: "Data & Messaging"
 description: "Comprehensive guide to InnoDB deadlock internals, six reproducible scenarios, detection tooling for MySQL 8.0 and Aurora, prevention strategies, and Spring Boot/Kotlin resilience patterns."
 ---
 

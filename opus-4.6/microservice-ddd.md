@@ -1,6 +1,6 @@
 ---
 title: Mastery-level microservices learning plan for Spring Boot engineers
-category: Backend & Infrastructure
+category: "Spring & Spring Boot"
 description: 24-week curriculum transforming mid-level Kotlin/Spring Boot engineers into microservices architects, covering DDD, bounded contexts, decomposition strategy, and distributed patterns on AWS EKS/ECS.
 ---
 

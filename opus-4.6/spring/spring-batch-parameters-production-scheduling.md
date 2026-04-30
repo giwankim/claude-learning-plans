@@ -1,6 +1,6 @@
 ---
 title: "Spring Batch parameters and production scheduling"
-category: "Spring"
+category: "Spring & Spring Boot"
 description: "Seven mechanisms for passing JobParameters in Spring Batch 5.x and production orchestration patterns with Kubernetes CronJobs for Spring Boot 3.x"
 ---
 

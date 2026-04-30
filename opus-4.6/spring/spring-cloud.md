@@ -1,6 +1,6 @@
 ---
 title: Spring Cloud mastery roadmap for Kotlin engineers on AWS EKS
-category: Backend & Infrastructure
+category: "Spring & Spring Boot"
 description: 26-week curriculum taking Kotlin/Spring Boot developers from zero Spring Cloud knowledge to production-ready microservices on AWS EKS, covering service discovery, config management, and Kubernetes-native migration.
 ---
 

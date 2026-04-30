@@ -1,6 +1,6 @@
 ---
 title: "Mastering Durable Execution on the JVM"
-category: "Distributed Systems / Workflow"
+category: "Backend Engineering"
 description: "8–10 week roadmap covering Temporal, Restate, saga patterns, workflow versioning, and production-grade durable execution with Kotlin and Spring Boot"
 ---
 

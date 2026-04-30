@@ -1,6 +1,6 @@
 ---
 title: "Rust Mastery for DataFusion/Arrow"
-category: "Rust"
+category: "Languages & Paradigms"
 description: "10-month phased plan from Rust foundations to active Apache DataFusion and Arrow contributor, tailored for JVM engineers"
 ---
 

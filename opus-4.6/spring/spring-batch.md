@@ -1,6 +1,6 @@
 ---
 title: "Spring Batch"
-category: "Spring"
+category: "Spring & Spring Boot"
 description: "6-month Spring Batch mastery plan covering chunk-oriented processing, partitioning, fault tolerance, and AWS EKS/ECS deployment for Kotlin developers"
 ---
 

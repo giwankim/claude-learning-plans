@@ -1,6 +1,6 @@
 ---
 title: "Mastering WebSockets in Spring Boot"
-category: "Spring / Real-Time"
+category: "Spring & Spring Boot"
 description: "12-week curriculum covering STOMP messaging, reactive WebFlux WebSocket, Redis Pub/Sub broadcasting, Kafka integration, and AWS EKS deployment for real-time systems"
 ---
 
