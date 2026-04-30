@@ -11,18 +11,27 @@ This repository contains 76 self-paced learning plans generated with Claude. Eac
 ### Spring & Spring Boot
 
 - [A Foundational Treatise on Spring's Cache Abstraction](opus-4.7/spring/cache/spring-cache-foundation.md) — Ground-up, first-principles exposition of Spring's cache abstraction (Cache, CacheManager, @Cacheable contracts and where they leak) for experienced Kotlin/Spring Boot 3.x engineers — rebuilds the picture so the parts fit, enabling reasoning from contracts about any caching question.
+- [Feature Flags in Spring Boot and Kotlin](opus-4.6/feature-flag.md) — Complete guide to feature flags covering the four-type taxonomy, DIY vs platform approaches, Spring Boot 3.x integration, and flag lifecycle management for Kotlin microservices
+- [Mastering Spring WebFlux](opus-4.6/webflux.md) — 14-week learning plan for Kotlin engineers covering Project Reactor, Spring WebFlux, R2DBC, reactive Redis/Kafka, and production observability
+- [Mastering WebSockets in Spring Boot](opus-4.6/websocket.md) — 12-week curriculum covering STOMP messaging, reactive WebFlux WebSocket, Redis Pub/Sub broadcasting, Kafka integration, and AWS EKS deployment for real-time systems
+- [Mastery-level microservices learning plan for Spring Boot engineers](opus-4.6/microservice-ddd.md) — 24-week curriculum transforming mid-level Kotlin/Spring Boot engineers into microservices architects, covering DDD, bounded contexts, decomposition strategy, and distributed patterns on AWS EKS/ECS.
 - [P50/P99 Latency Guide](opus-4.5/springboot_latency_p50_p99_guide.md) — Measuring and improving latency on JVM (ECS to EKS)
 - [Production Guide to Spring Data JPA with Kotlin](opus-4.6/spring/kotlin-jpa.md) — Entity design, compiler plugins, performance tuning, and N+1 prevention for Hibernate 6.x with Kotlin on Aurora MySQL/PostgreSQL
 - [Spring Batch](opus-4.5/spring-batch.md) — 16-week Spring Batch mastery plan for Kotlin
+- [Spring Batch](opus-4.6/spring/spring-batch.md) — 6-month Spring Batch mastery plan covering chunk-oriented processing, partitioning, fault tolerance, and AWS EKS/ECS deployment for Kotlin developers
 - [Spring Batch Mastery Curriculum](opus-4.7/spring/spring-batch.md) — 16-week internals-first plan from Minella's book (Batch 4.x) to production Spring Batch 5.x mastery on Kotlin + Spring Boot 3.x + AWS, with Korean enterprise context (Jenkins, 망분리, SCDF licensing)
+- [Spring Batch parameters and production scheduling](opus-4.6/spring/spring-batch-parameters-production-scheduling.md) — Seven mechanisms for passing JobParameters in Spring Batch 5.x and production orchestration patterns with Kubernetes CronJobs for Spring Boot 3.x
 - [Spring Batch Projects](opus-4.5/spring-batch-2.md) — 12 progressive Kotlin projects with Spring Batch
 - [Spring Cache Mastery for Kotlin Engineers](opus-4.7/spring/cache/spring-cache-internals.md) — 12-week depth-first curriculum from Cache/CacheManager SPI internals and CacheAspectSupport source reading through Caffeine/Redis backends, stampede/avalanche defense, and Micrometer instrumentation, on Kotlin 2.x + Spring Boot 3.x with AWS/Aurora/Redis/Kafka
 - [Spring Cache Mastery — Application & Pattern Playbook](opus-4.7/spring/cache/spring-cache-application.md) — Depth-first, tradeoff-heavy reference for production engineers (Kotlin 2.x · Spring Boot 3.x · Hibernate 6 · Lettuce/Redisson · AWS EKS/ECS · Aurora · Kafka). Skips internals; concentrates on what to build, with which library, why, and where it breaks — organized by use case domain, then by pattern.
 - [Spring Caching: A Curated Reading & Viewing List Beyond Plöd's 2016 Talk](opus-4.7/spring/cache/spring-cache-talks.md) — Structured curriculum updating Michael Plöd's 2016 Spring Caching talk for a 2026 Kotlin/Spring Boot 3.x stack (Caffeine, Lettuce/Redis, Hibernate 6, Aurora) — conference talks, engineering blog posts, and primary sources organized by topic.
+- [Spring Cloud mastery roadmap for Kotlin engineers on AWS EKS](opus-4.6/spring/spring-cloud.md) — 26-week curriculum taking Kotlin/Spring Boot developers from zero Spring Cloud knowledge to production-ready microservices on AWS EKS, covering service discovery, config management, and Kubernetes-native migration.
 - [Spring Cloud Resiliency](opus-4.5/spring-cloud-resiliency.md) — Circuit breakers, retries, and fault tolerance patterns
 - [Spring Cloud Scalability](opus-4.5/spring-cloud-scalability.md) — Microservices scalability patterns with Spring Cloud
 - [Spring Framework & Boot Internals](opus-4.5/spring.md) — Deep dive into Spring's core abstractions and lifecycle
+- [Spring Framework Internals](opus-4.6/spring/spring.md) — 14-week deep-dive into Spring IoC container, AOP proxies, auto-configuration mechanics, and framework extension patterns
 - [Spring Security 6.x](opus-4.5/spring-security.md) — Authentication, authorization, and OAuth2 for Kotlin
+- [Spring Security Mastery](opus-4.6/spring/spring-security.md) — 30-week depth-first curriculum covering filter chain internals, OAuth2/OIDC, microservices auth, reactive security, and OWASP hardening
 - [Spring WebFlux](opus-4.5/webflux.md) — Reactive web programming with Project Reactor
 
 ### JVM Internals
@@ -43,16 +52,20 @@ This repository contains 76 self-paced learning plans generated with Claude. Eac
 - [Flyway Database Migrations](opus-4.6/spring/db-migration.md) — Production Flyway migrations with Spring Boot, Kotlin, and Aurora MySQL
 - [Flyway vs Liquibase vs Atlas](opus-4.6/spring/flyway-liquibase.md) — Comparing database migration tools for Spring Boot Kotlin with MySQL/Aurora
 - [HikariCP](opus-4.5/hikaricp.md) — Connection pool internals and tuning for Spring Boot
+- [Mastering Apache Kafka](opus-4.6/kafka.md) — 6-month roadmap for Kotlin/Spring Boot developers covering Kafka architecture, Spring Kafka patterns, Kafka Streams, Schema Registry, monitoring, and CCDAK certification
 - [MySQL & Aurora Performance](opus-4.6/mysql-performance.md) — Deep dive into MySQL/Aurora performance engineering covering InnoDB internals, query optimization, and PostgreSQL architectural comparison for Spring Boot developers
 - [MySQL Mastery](opus-4.6/mysql-mastery.md) — Definitive MySQL mastery plan covering essential books, InnoDB internals, Aurora-specific operations, and deliberate practice for Kotlin/Spring Boot developers
+- [MySQL Slow Query Tuning on Aurora](opus-4.6/slow-query-tuning-mysql.md) — Production playbook for finding, analyzing, and fixing slow queries on Aurora MySQL 3.x and 2.x
 - [Redis](opus-4.5/redis.md) — Redis data structures, caching, and pub/sub patterns
 - [Redis L2 Cache](opus-4.5/redis-l2-cache.md) — Redis as a high-traffic L2 cache for microservices
 - [SQL Database Optimization](opus-4.5/sql-database-optimization.md) — Indexing, query tuning, and schema design over 16 weeks
 - [Staged Path to Kafka Mastery for a Kotlin/Spring Boot Veteran](opus-4.7/kafka.md) — From log-abstraction foundations through KRaft internals, Kafka Streams, and ops to contributor-level mastery, targeted at Kotlin/Spring Boot on AWS MSK as of Kafka 4.2
+- [The Definitive Guide to InnoDB Deadlocks](opus-4.6/innodb-deadlock.md) — Comprehensive guide to InnoDB deadlock internals, six reproducible scenarios, detection tooling for MySQL 8.0 and Aurora, prevention strategies, and Spring Boot/Kotlin resilience patterns.
 
 ### APIs & Protocols
 
 - [GraphQL](opus-4.5/graphql.md) — GraphQL schema design and implementation in Spring Boot
+- [REST Architecture](opus-4.6/rest.md) — What REST actually means per Fielding's dissertation, the six constraints, HATEOAS, and why most APIs aren't truly RESTful
 - [WebSockets](opus-4.5/websocket.md) — Real-time communication with STOMP and Spring WebSocket
 
 ### Observability
@@ -75,6 +88,7 @@ This repository contains 76 self-paced learning plans generated with Claude. Eac
 - [Arrow-kt for DDD](opus-4.5/arrow-for-ddd.md) — Functional domain-driven design with Arrow 2.x
 - [Functional Programming](opus-4.5/fp.md) — FP foundations and patterns for JVM developers
 - [Go](opus-4.5/go.md) — Complete Go roadmap for engineers coming from the JVM
+- [Rust Mastery for DataFusion/Arrow](opus-4.6/rust.md) — 10-month phased plan from Rust foundations to active Apache DataFusion and Arrow contributor, tailored for JVM engineers
 - [Swift](opus-4.5/swift.md) — From Kotlin to native macOS development over 16 weeks
 
 ### NewSQL
@@ -82,59 +96,32 @@ This repository contains 76 self-paced learning plans generated with Claude. Eac
 - [NewSQL (ChatGPT)](opus-4.5/newsql-chatgpt.md) — NewSQL research notes from a ChatGPT perspective
 - [NewSQL (Claude)](opus-4.5/newsql-claude.md) — Globally distributed active-active NewSQL databases
 
-### API Design
-
-- [REST Architecture](opus-4.6/rest.md) — What REST actually means per Fielding's dissertation, the six constraints, HATEOAS, and why most APIs aren't truly RESTful
-
 ### Algorithms & Problem Solving
 
 - [Nine-Month Java Roadmap from LeetCode to Codeforces Expert](opus-4.7/ps.md) — NeetCode 150 → 250 then Codeforces + AtCoder + CSES, targeting FAANG-ready in 4 months and Codeforces Expert (1700) in 9–12 months for a Java-fluent senior engineer
-
-### Backend & Infrastructure
-
-- [Mastery-level microservices learning plan for Spring Boot engineers](opus-4.6/microservice-ddd.md) — 24-week curriculum transforming mid-level Kotlin/Spring Boot engineers into microservices architects, covering DDD, bounded contexts, decomposition strategy, and distributed patterns on AWS EKS/ECS.
-- [Spring Cloud mastery roadmap for Kotlin engineers on AWS EKS](opus-4.6/spring/spring-cloud.md) — 26-week curriculum taking Kotlin/Spring Boot developers from zero Spring Cloud knowledge to production-ready microservices on AWS EKS, covering service discovery, config management, and Kubernetes-native migration.
 
 ### Backend Engineering
 
 - [Distributed Lock Use Cases](opus-4.6/distributed-lock-use-cases.md) — Catalog of distributed concurrency scenarios across e-commerce, fintech, and ticketing with production case studies and a decision framework for Redis, pessimistic, and optimistic locking
 - [Legacy Code Modernization](opus-4.6/legacy-code.md) — Resource guide for legacy system modernization covering characterization tests, Spring Modulith, strangler fig patterns, and CDC-based decoupling for Kotlin/Spring Boot
+- [Mastering Durable Execution on the JVM](opus-4.6/durable-execution.md) — 8–10 week roadmap covering Temporal, Restate, saga patterns, workflow versioning, and production-grade durable execution with Kotlin and Spring Boot
 
 ### Career Development
 
 - [Soft Skills for Software Engineers](opus-4.6/soft-skills.md) — Curated guide to books, courses, podcasts, and communities for communication, managing up, and engineering leadership
 
-### Database
-
-- [MySQL Slow Query Tuning on Aurora](opus-4.6/slow-query-tuning-mysql.md) — Production playbook for finding, analyzing, and fixing slow queries on Aurora MySQL 3.x and 2.x
-
-### Databases
-
-- [The Definitive Guide to InnoDB Deadlocks](opus-4.6/innodb-deadlock.md) — Comprehensive guide to InnoDB deadlock internals, six reproducible scenarios, detection tooling for MySQL 8.0 and Aurora, prevention strategies, and Spring Boot/Kotlin resilience patterns.
-
 ### Developer Tools
 
+- [Advanced Git for Team Workflows](opus-4.6/git.md) — Curated resource guide for experienced developers transitioning from solo to team Git, covering branching strategies, PR workflows, conflict resolution, and collaboration tools.
 - [Jujutsu Version Control](opus-4.6/jujutsu.md) — Comprehensive guide to Jujutsu (jj), a Git-compatible VCS that eliminates the staging area, makes every state a commit, and provides universal undo
 - [Linear Project Management](opus-4.6/linear.md) — Comprehensive assessment of Linear for developer teams covering planning, sprint management, GitHub integration, and workflow automation
 - [Senior Developer's Guide to mise on macOS](opus-4.7/mise.md) — Migrating from SDKMAN/nvm/pyenv to mise (2026.4.x) on Apple Silicon — polyglot version management, task runner, and per-directory env, with copy-pasteable mise.toml configs for Python, Node/TS, Spring Boot Kotlin, and polyglot monorepos
 - [Stacked PRs with Jujutsu](opus-4.6/stacked-pr-jujutsu.md) — Guide to stacked pull requests and Jujutsu (jj) for breaking large changes into small, reviewable units with effortless rebasing
 
-### Distributed Systems / Messaging
-
-- [Mastering Apache Kafka](opus-4.6/kafka.md) — 6-month roadmap for Kotlin/Spring Boot developers covering Kafka architecture, Spring Kafka patterns, Kafka Streams, Schema Registry, monitoring, and CCDAK certification
-
-### Distributed Systems / Workflow
-
-- [Mastering Durable Execution on the JVM](opus-4.6/durable-execution.md) — 8–10 week roadmap covering Temporal, Restate, saga patterns, workflow versioning, and production-grade durable execution with Kotlin and Spring Boot
-
 ### Finance & Trading
 
 - [High-Frequency Trading Learning Path](opus-4.6/hft.md) — Transition from Spring Boot to sub-microsecond HFT systems
 - [Production Quant Roadmap](opus-4.6/quant.md) — Complete learning path from pure math PhD to production quant
-
-### Git
-
-- [Advanced Git for Team Workflows](opus-4.6/git.md) — Curated resource guide for experienced developers transitioning from solo to team Git, covering branching strategies, PR workflows, conflict resolution, and collaboration tools.
 
 ### Performance & Optimization
 
@@ -144,26 +131,6 @@ This repository contains 76 self-paced learning plans generated with Claude. Eac
 ### Robotics & Autonomy
 
 - [Defense Drone Engineering Career Pivot](opus-4.7/defense-drone.md) — 12-month learning plan for pivoting from backend engineering into defense UAV autonomy, embedded systems, and C2 fabrics
-
-### Rust
-
-- [Rust Mastery for DataFusion/Arrow](opus-4.6/rust.md) — 10-month phased plan from Rust foundations to active Apache DataFusion and Arrow contributor, tailored for JVM engineers
-
-### Spring
-
-- [Feature Flags in Spring Boot and Kotlin](opus-4.6/feature-flag.md) — Complete guide to feature flags covering the four-type taxonomy, DIY vs platform approaches, Spring Boot 3.x integration, and flag lifecycle management for Kotlin microservices
-- [Spring Batch](opus-4.6/spring/spring-batch.md) — 6-month Spring Batch mastery plan covering chunk-oriented processing, partitioning, fault tolerance, and AWS EKS/ECS deployment for Kotlin developers
-- [Spring Batch parameters and production scheduling](opus-4.6/spring/spring-batch-parameters-production-scheduling.md) — Seven mechanisms for passing JobParameters in Spring Batch 5.x and production orchestration patterns with Kubernetes CronJobs for Spring Boot 3.x
-- [Spring Framework Internals](opus-4.6/spring/spring.md) — 14-week deep-dive into Spring IoC container, AOP proxies, auto-configuration mechanics, and framework extension patterns
-- [Spring Security Mastery](opus-4.6/spring/spring-security.md) — 30-week depth-first curriculum covering filter chain internals, OAuth2/OIDC, microservices auth, reactive security, and OWASP hardening
-
-### Spring / Reactive
-
-- [Mastering Spring WebFlux](opus-4.6/webflux.md) — 14-week learning plan for Kotlin engineers covering Project Reactor, Spring WebFlux, R2DBC, reactive Redis/Kafka, and production observability
-
-### Spring / Real-Time
-
-- [Mastering WebSockets in Spring Boot](opus-4.6/websocket.md) — 12-week curriculum covering STOMP messaging, reactive WebFlux WebSocket, Redis Pub/Sub broadcasting, Kafka integration, and AWS EKS deployment for real-time systems
 
 ## How to Use These Plans
 
