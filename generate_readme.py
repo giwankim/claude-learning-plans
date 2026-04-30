@@ -16,6 +16,13 @@ CATEGORY_ORDER = [
     "Infrastructure",
     "Languages & Paradigms",
     "NewSQL",
+    "Algorithms & Problem Solving",
+    "Backend Engineering",
+    "Career Development",
+    "Developer Tools",
+    "Finance & Trading",
+    "Performance & Optimization",
+    "Robotics & Autonomy",
 ]
 
 EXCLUDED_FILES = {"README.md", "CLAUDE.md"}
