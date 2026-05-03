@@ -4,7 +4,7 @@ Structured, multi-week learning curricula for senior engineers who want deep mas
 
 ## Overview
 
-This repository contains 76 self-paced learning plans generated with Claude. Each plan follows a phased, project-based format designed for working engineers — typically 12–16 weeks of focused study with curated resources, hands-on milestones, and progressive complexity. Topics range from Spring Boot internals to Kubernetes, Go, and distributed data systems.
+This repository contains 77 self-paced learning plans generated with Claude. Each plan follows a phased, project-based format designed for working engineers — typically 12–16 weeks of focused study with curated resources, hands-on milestones, and progressive complexity. Topics range from Spring Boot internals to Kubernetes, Go, and distributed data systems.
 
 ## Plans by Category
 
@@ -98,7 +98,8 @@ This repository contains 76 self-paced learning plans generated with Claude. Eac
 
 ### Algorithms & Problem Solving
 
-- [Nine-Month Java Roadmap from LeetCode to Codeforces Expert](opus-4.7/ps.md) — NeetCode 150 → 250 then Codeforces + AtCoder + CSES, targeting FAANG-ready in 4 months and Codeforces Expert (1700) in 9–12 months for a Java-fluent senior engineer
+- [A Comprehensive Guide to Mastering Binary Search for FAANG Interviews](opus-4.7/ps/binary-search.md) — Single canonical template (half-open `[lo, hi)` predicate search) plus a three-tier problem ladder (foundations → modified arrays → binary-search-on-the-answer) and curated 2025–2026 reading list for a senior engineer converting logarithmic intuition into bug-free interview code
+- [Nine-Month Java Roadmap from LeetCode to Codeforces Expert](opus-4.7/ps/ps.md) — NeetCode 150 → 250 then Codeforces + AtCoder + CSES, targeting FAANG-ready in 4 months and Codeforces Expert (1700) in 9–12 months for a Java-fluent senior engineer
 
 ### Backend Engineering
 
