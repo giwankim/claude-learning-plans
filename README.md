@@ -4,7 +4,7 @@ Structured, multi-week learning curricula for senior engineers who want deep mas
 
 ## Overview
 
-This repository contains 79 self-paced learning plans generated with Claude. Each plan follows a phased, project-based format designed for working engineers — typically 12–16 weeks of focused study with curated resources, hands-on milestones, and progressive complexity. Topics range from Spring Boot internals to Kubernetes, Go, and distributed data systems.
+This repository contains 83 self-paced learning plans generated with Claude. Each plan follows a phased, project-based format designed for working engineers — typically 12–16 weeks of focused study with curated resources, hands-on milestones, and progressive complexity. Topics range from Spring Boot internals to Kubernetes, Go, and distributed data systems.
 
 ## Plans by Category
 
@@ -17,11 +17,13 @@ This repository contains 79 self-paced learning plans generated with Claude. Eac
 - [Mastery-level microservices learning plan for Spring Boot engineers](opus-4.6/microservice-ddd.md) — 24-week curriculum transforming mid-level Kotlin/Spring Boot engineers into microservices architects, covering DDD, bounded contexts, decomposition strategy, and distributed patterns on AWS EKS/ECS.
 - [P50/P99 Latency Guide](opus-4.5/springboot_latency_p50_p99_guide.md) — Measuring and improving latency on JVM (ECS to EKS)
 - [Production Guide to Spring Data JPA with Kotlin](opus-4.6/spring/kotlin-jpa.md) — Entity design, compiler plugins, performance tuning, and N+1 prevention for Hibernate 6.x with Kotlin on Aurora MySQL/PostgreSQL
+- [Redis Learning Roadmap for a Senior Kotlin / Spring Boot Engineer](opus-4.7/spring/redis/redis.md) — Comprehensive Redis curriculum for a Spring Boot 3 / Kotlin engineer — data structures, persistence, replication, Cluster, Sentinel, and integration patterns with Lettuce/Redisson and the Spring cache abstraction.
 - [Spring Batch](opus-4.5/spring-batch.md) — 16-week Spring Batch mastery plan for Kotlin
 - [Spring Batch](opus-4.6/spring/spring-batch.md) — 6-month Spring Batch mastery plan covering chunk-oriented processing, partitioning, fault tolerance, and AWS EKS/ECS deployment for Kotlin developers
 - [Spring Batch Mastery Curriculum](opus-4.7/spring/spring-batch.md) — 16-week internals-first plan from Minella's book (Batch 4.x) to production Spring Batch 5.x mastery on Kotlin + Spring Boot 3.x + AWS, with Korean enterprise context (Jenkins, 망분리, SCDF licensing)
 - [Spring Batch parameters and production scheduling](opus-4.6/spring/spring-batch-parameters-production-scheduling.md) — Seven mechanisms for passing JobParameters in Spring Batch 5.x and production orchestration patterns with Kubernetes CronJobs for Spring Boot 3.x
 - [Spring Batch Projects](opus-4.5/spring-batch-2.md) — 12 progressive Kotlin projects with Spring Batch
+- [Spring Boot 3 + Kotlin 2 + Redis 7/8 — An Implementation Guide](opus-4.7/spring/redis/redis-implementation.md) — Side-by-side Lettuce vs. Redisson implementation guide for Spring Boot 3 + Kotlin 2 + Redis 7/8, with coroutines, WebFlux, and production patterns (caching, locks, streams, pub/sub).
 - [Spring Cache Mastery for Kotlin Engineers](opus-4.7/spring/cache/spring-cache-internals.md) — 12-week depth-first curriculum from Cache/CacheManager SPI internals and CacheAspectSupport source reading through Caffeine/Redis backends, stampede/avalanche defense, and Micrometer instrumentation, on Kotlin 2.x + Spring Boot 3.x with AWS/Aurora/Redis/Kafka
 - [Spring Cache Mastery — Application & Pattern Playbook](opus-4.7/spring/cache/spring-cache-application.md) — Depth-first, tradeoff-heavy reference for production engineers (Kotlin 2.x · Spring Boot 3.x · Hibernate 6 · Lettuce/Redisson · AWS EKS/ECS · Aurora · Kafka). Skips internals; concentrates on what to build, with which library, why, and where it breaks — organized by use case domain, then by pattern.
 - [Spring Caching: A Curated Reading & Viewing List Beyond Plöd's 2016 Talk](opus-4.7/spring/cache/spring-cache-talks.md) — Structured curriculum updating Michael Plöd's 2016 Spring Caching talk for a 2026 Kotlin/Spring Boot 3.x stack (Caffeine, Lettuce/Redis, Hibernate 6, Aurora) — conference talks, engineering blog posts, and primary sources organized by topic.
@@ -82,6 +84,7 @@ This repository contains 79 self-paced learning plans generated with Claude. Eac
 - [Kubernetes](opus-4.5/kubernetes.md) — Mastery-level K8s for Spring Boot deployments
 - [Kubernetes Mastery for EKS](opus-4.6/k8s.md) — 24-week curriculum from K8s fundamentals to production EKS mastery with CKAD, CKA, and CKS certification milestones for Spring Boot engineers
 - [Terraform](opus-4.5/terraform.md) — Infrastructure as code for AWS container deployments
+- [Terraform Mastery for a Senior Backend Engineer](opus-4.7/terraform.md) — Two-track Terraform plan (6-9 month mastery and 8-10 week distilled) for a Kotlin/Spring Boot/Kafka engineer — AWS-first then multi-cloud, anchored on Brikman's Terraform: Up & Running with OpenTofu coverage and the 2026 Associate 004 + Authoring/Operations Professional certs.
 
 ### Languages & Paradigms
 
@@ -108,6 +111,7 @@ This repository contains 79 self-paced learning plans generated with Claude. Eac
 - [Distributed Lock Use Cases](opus-4.6/distributed-lock-use-cases.md) — Catalog of distributed concurrency scenarios across e-commerce, fintech, and ticketing with production case studies and a decision framework for Redis, pessimistic, and optimistic locking
 - [Legacy Code Modernization](opus-4.6/legacy-code.md) — Resource guide for legacy system modernization covering characterization tests, Spring Modulith, strangler fig patterns, and CDC-based decoupling for Kotlin/Spring Boot
 - [Mastering Durable Execution on the JVM](opus-4.6/durable-execution.md) — 8–10 week roadmap covering Temporal, Restate, saga patterns, workflow versioning, and production-grade durable execution with Kotlin and Spring Boot
+- [System Design Interviews for Mid-Level FAANG Candidates (L4/L5)](opus-4.7/system-design.md) — Two interview-prep plans (16-week Deep Mastery and 4-week Crash Course) for L4/L5 system-design rounds at FAANG, with a curated AI-mock + book + human-mock stack and weekly practice cadence.
 
 ### Career Development
 
