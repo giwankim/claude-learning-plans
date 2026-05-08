@@ -4,7 +4,7 @@ Structured, multi-week learning curricula for senior engineers who want deep mas
 
 ## Overview
 
-This repository contains 83 self-paced learning plans generated with Claude. Each plan follows a phased, project-based format designed for working engineers — typically 12–16 weeks of focused study with curated resources, hands-on milestones, and progressive complexity. Topics range from Spring Boot internals to Kubernetes, Go, and distributed data systems.
+This repository contains 86 self-paced learning plans generated with Claude. Each plan follows a phased, project-based format designed for working engineers — typically 12–16 weeks of focused study with curated resources, hands-on milestones, and progressive complexity. Topics range from Spring Boot internals to Kubernetes, Go, and distributed data systems.
 
 ## Plans by Category
 
@@ -83,6 +83,7 @@ This repository contains 83 self-paced learning plans generated with Claude. Eac
 
 - [Kubernetes](opus-4.5/kubernetes.md) — Mastery-level K8s for Spring Boot deployments
 - [Kubernetes Mastery for EKS](opus-4.6/k8s.md) — 24-week curriculum from K8s fundamentals to production EKS mastery with CKAD, CKA, and CKS certification milestones for Spring Boot engineers
+- [Phased Kubernetes Curriculum for Production EKS](opus-4.7/eks.md) — 26-week phased EKS curriculum (MVP → production hardening → platform-engineering depth → optional CKA/CKAD) for a mid-level Spring Boot engineer, with opinionated stack defaults (Pod Identity, Karpenter, AWS LB Controller, Argo CD, Kyverno) and Korean + global engineering-blog resources interleaved.
 - [Terraform](opus-4.5/terraform.md) — Infrastructure as code for AWS container deployments
 - [Terraform Mastery for a Senior Backend Engineer](opus-4.7/terraform.md) — Two-track Terraform plan (6-9 month mastery and 8-10 week distilled) for a Kotlin/Spring Boot/Kafka engineer — AWS-first then multi-cloud, anchored on Brikman's Terraform: Up & Running with OpenTofu coverage and the 2026 Associate 004 + Authoring/Operations Professional certs.
 
@@ -104,6 +105,7 @@ This repository contains 83 self-paced learning plans generated with Claude. Eac
 - [A Comprehensive Guide to Mastering Binary Search for FAANG Interviews](opus-4.7/ps/binary-search.md) — Single canonical template (half-open `[lo, hi)` predicate search) plus a three-tier problem ladder (foundations → modified arrays → binary-search-on-the-answer) and curated 2025–2026 reading list for a senior engineer converting logarithmic intuition into bug-free interview code
 - [Alternatives to Baekjoon: Coding Interview & Competitive Programming Platforms for Korean Developers](opus-4.7/ps/ps-platform.md) — Platform-by-platform guide covering Korean tech hiring tests (Programmers, SWEA), global Big Tech prep (LeetCode, NeetCode 150, Educative, Hello Interview), and competitive programming (Codeforces, AtCoder, CSES, Kattis, USACO Guide) — all with first-class Kotlin and Java support
 - [Nine-Month Java Roadmap from LeetCode to Codeforces Expert](opus-4.7/ps/ps.md) — NeetCode 150 → 250 then Codeforces + AtCoder + CSES, targeting FAANG-ready in 4 months and Codeforces Expert (1700) in 9–12 months for a Java-fluent senior engineer
+- [Senior Backend Engineer's Guide to FAANG Coding Interview Prep (May 2026)](opus-4.7/ps/psets.md) — Pattern-based FAANG prep strategy for senior ICs — pivots from Top Interview 150 to Sean Prashad + Grokking depth, then Meta/Google company-tag drilling, then Hard-volume from NeetCode 250 / CSES, with 2026 AI-enabled-coding-round context and budget recommendations.
 - [The Senior Engineer's Field Manual to Dynamic Programming](opus-4.7/ps/dynamic-programming.md) — Recognition signals, a 7-step derivation recipe, 15 canonical DP families, and a four-tier ~70-problem LeetCode ladder, plus a stretch tier (Convex Hull Trick, divide-and-conquer / Knuth optimization, SOS DP, matrix exponentiation) for FAANG senior/staff interview preparation
 
 ### Backend Engineering
@@ -134,6 +136,7 @@ This repository contains 83 self-paced learning plans generated with Claude. Eac
 
 - [Load Testing for Spring Boot + Kotlin](opus-4.7/load-testing.md) — Load testing as a queueing-theory experiment for Spring Boot 3.5+ on the JVM — Gatling (Kotlin DSL) primary, k6 secondary, ghz for gRPC, vegeta for CLI, kafka-*-perf-test and xk6-kafka for Kafka, with deep coverage of percentile math, open-vs-closed loop, and coordinated omission
 - [Performance Optimization Playbook](opus-4.6/godbolt-rady-performance-optimization.md) — Godbolt-Rady measure-first performance optimization from Two's Complement
+- [Senior Engineer's Guide to Load Testing as a Performance Discipline](opus-4.7/load-testing-guide.md) — Twelve-section narrative guide for Kotlin/Spring Boot on AWS (Aurora, Kafka) covering methodology, percentile math, open-vs-closed loop, JVM tuning, AWS observability, scenarios, tooling, and a learning path.
 
 ### Robotics & Autonomy
 
