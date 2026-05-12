@@ -4,7 +4,7 @@ Structured, multi-week learning curricula for senior engineers who want deep mas
 
 ## Overview
 
-This repository contains 86 self-paced learning plans generated with Claude. Each plan follows a phased, project-based format designed for working engineers — typically 12–16 weeks of focused study with curated resources, hands-on milestones, and progressive complexity. Topics range from Spring Boot internals to Kubernetes, Go, and distributed data systems.
+This repository contains 88 self-paced learning plans generated with Claude. Each plan follows a phased, project-based format designed for working engineers — typically 12–16 weeks of focused study with curated resources, hands-on milestones, and progressive complexity. Topics range from Spring Boot internals to Kubernetes, Go, and distributed data systems.
 
 ## Plans by Category
 
@@ -49,6 +49,7 @@ This repository contains 86 self-paced learning plans generated with Claude. Eac
 
 ### Data & Messaging
 
+- [12–18 Month Mastery Curriculum for Event-Driven Architecture](opus-4.7/eda/eda-deep-dive.md) — Graduate-syllabus continuation from the one-month foundation through Kafka source, TLA+ specs, streaming-engine and matching-engine capstones, aimed at staff/principal-level EDA architecture
 - [Apache Kafka](opus-4.5/kafka.md) — Kafka producers, consumers, and Streams for Spring Boot
 - [Event-Driven Architecture](opus-4.5/event-driven-architecture.md) — Event sourcing and async patterns for Kotlin/Spring
 - [Flyway Database Migrations](opus-4.6/spring/db-migration.md) — Production Flyway migrations with Spring Boot, Kotlin, and Aurora MySQL
@@ -58,10 +59,11 @@ This repository contains 86 self-paced learning plans generated with Claude. Eac
 - [MySQL & Aurora Performance](opus-4.6/mysql-performance.md) — Deep dive into MySQL/Aurora performance engineering covering InnoDB internals, query optimization, and PostgreSQL architectural comparison for Spring Boot developers
 - [MySQL Mastery](opus-4.6/mysql-mastery.md) — Definitive MySQL mastery plan covering essential books, InnoDB internals, Aurora-specific operations, and deliberate practice for Kotlin/Spring Boot developers
 - [MySQL Slow Query Tuning on Aurora](opus-4.6/slow-query-tuning-mysql.md) — Production playbook for finding, analyzing, and fixing slow queries on Aurora MySQL 3.x and 2.x
+- [One-Month Deep Dive into Event-Driven Architecture](opus-4.7/eda/eda-1-month.md) — Four-week intensive covering Fowler's EDA patterns, Kafka fundamentals, transactional outbox with Debezium, event sourcing and CQRS, and Kafka Streams, grounded in Kotlin/Spring Boot on AWS
 - [Redis](opus-4.5/redis.md) — Redis data structures, caching, and pub/sub patterns
 - [Redis L2 Cache](opus-4.5/redis-l2-cache.md) — Redis as a high-traffic L2 cache for microservices
 - [SQL Database Optimization](opus-4.5/sql-database-optimization.md) — Indexing, query tuning, and schema design over 16 weeks
-- [Staged Path to Kafka Mastery for a Kotlin/Spring Boot Veteran](opus-4.7/kafka.md) — From log-abstraction foundations through KRaft internals, Kafka Streams, and ops to contributor-level mastery, targeted at Kotlin/Spring Boot on AWS MSK as of Kafka 4.2
+- [Staged Path to Kafka Mastery for a Kotlin/Spring Boot Veteran](opus-4.7/kafka/kafka.md) — From log-abstraction foundations through KRaft internals, Kafka Streams, and ops to contributor-level mastery, targeted at Kotlin/Spring Boot on AWS MSK as of Kafka 4.2
 - [The Definitive Guide to InnoDB Deadlocks](opus-4.6/innodb-deadlock.md) — Comprehensive guide to InnoDB deadlock internals, six reproducible scenarios, detection tooling for MySQL 8.0 and Aurora, prevention strategies, and Spring Boot/Kotlin resilience patterns.
 
 ### APIs & Protocols
