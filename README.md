@@ -4,7 +4,7 @@ Structured, multi-week learning curricula for senior engineers who want deep mas
 
 ## Overview
 
-This repository contains 88 self-paced learning plans generated with Claude. Each plan follows a phased, project-based format designed for working engineers — typically 12–16 weeks of focused study with curated resources, hands-on milestones, and progressive complexity. Topics range from Spring Boot internals to Kubernetes, Go, and distributed data systems.
+This repository contains 89 self-paced learning plans generated with Claude. Each plan follows a phased, project-based format designed for working engineers — typically 12–16 weeks of focused study with curated resources, hands-on milestones, and progressive complexity. Topics range from Spring Boot internals to Kubernetes, Go, and distributed data systems.
 
 ## Plans by Category
 
@@ -15,6 +15,7 @@ This repository contains 88 self-paced learning plans generated with Claude. Eac
 - [Mastering Spring WebFlux](opus-4.6/webflux.md) — 14-week learning plan for Kotlin engineers covering Project Reactor, Spring WebFlux, R2DBC, reactive Redis/Kafka, and production observability
 - [Mastering WebSockets in Spring Boot](opus-4.6/websocket.md) — 12-week curriculum covering STOMP messaging, reactive WebFlux WebSocket, Redis Pub/Sub broadcasting, Kafka integration, and AWS EKS deployment for real-time systems
 - [Mastery-level microservices learning plan for Spring Boot engineers](opus-4.6/microservice-ddd.md) — 24-week curriculum transforming mid-level Kotlin/Spring Boot engineers into microservices architects, covering DDD, bounded contexts, decomposition strategy, and distributed patterns on AWS EKS/ECS.
+- [OrderFlow — A Spring Boot 4.x + Kotlin Implementation Curriculum for Apache Kafka Mastery](opus-4.7/spring/kafka/spring-kafka.md) — Ten-stage Spring Boot 4.0 + Kotlin 2 + Spring for Apache Kafka 4.0 curriculum that grows one progressive system (OrderFlow) from a single producer/consumer to a full event-driven platform with Avro Schema Registry, KafkaAwareTransactionManager, @RetryableTopic + DLT, Debezium outbox, sagas, CQRS read models, share groups (KIP-932), and MSK IAM — paired with isolated lab projects at every stage.
 - [P50/P99 Latency Guide](opus-4.5/springboot_latency_p50_p99_guide.md) — Measuring and improving latency on JVM (ECS to EKS)
 - [Production Guide to Spring Data JPA with Kotlin](opus-4.6/spring/kotlin-jpa.md) — Entity design, compiler plugins, performance tuning, and N+1 prevention for Hibernate 6.x with Kotlin on Aurora MySQL/PostgreSQL
 - [Redis Learning Roadmap for a Senior Kotlin / Spring Boot Engineer](opus-4.7/spring/redis/redis.md) — Comprehensive Redis curriculum for a Spring Boot 3 / Kotlin engineer — data structures, persistence, replication, Cluster, Sentinel, and integration patterns with Lettuce/Redisson and the Spring cache abstraction.
