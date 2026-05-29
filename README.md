@@ -4,7 +4,7 @@ Structured, multi-week learning curricula for senior engineers who want deep mas
 
 ## Overview
 
-This repository contains 90 self-paced learning plans generated with Claude. Each plan follows a phased, project-based format designed for working engineers — typically 12–16 weeks of focused study with curated resources, hands-on milestones, and progressive complexity. Topics range from Spring Boot internals to Kubernetes, Go, and distributed data systems.
+This repository contains 91 self-paced learning plans generated with Claude. Each plan follows a phased, project-based format designed for working engineers — typically 12–16 weeks of focused study with curated resources, hands-on milestones, and progressive complexity. Topics range from Spring Boot internals to Kubernetes, Go, and distributed data systems.
 
 ## Plans by Category
 
@@ -37,6 +37,7 @@ This repository contains 90 self-paced learning plans generated with Claude. Eac
 - [Spring Security 6.x](opus-4.5/spring-security.md) — Authentication, authorization, and OAuth2 for Kotlin
 - [Spring Security Mastery](opus-4.6/spring/spring-security.md) — 30-week depth-first curriculum covering filter chain internals, OAuth2/OIDC, microservices auth, reactive security, and OWASP hardening
 - [Spring WebFlux](opus-4.5/webflux.md) — Reactive web programming with Project Reactor
+- [Spring WebFlux — Reactive Programming Curriculum](opus-4.8/spring/webflux.md) — Depth-first, resource-mapped curriculum for a Kotlin/Spring Boot 3.x backend engineer: rebuild the non-blocking mental model, master imperative Project Reactor, bridge to Kotlin coroutines, then build a production WebFlux service (R2DBC, reactive Redis, Reactor Kafka, reactive security, observability) — with clear guidance on when Java 21 virtual threads make reactive unnecessary.
 
 ### JVM Internals
 
