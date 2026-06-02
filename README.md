@@ -4,7 +4,7 @@ Structured, multi-week learning curricula for senior engineers who want deep mas
 
 ## Overview
 
-This repository contains 91 self-paced learning plans generated with Claude. Each plan follows a phased, project-based format designed for working engineers — typically 12–16 weeks of focused study with curated resources, hands-on milestones, and progressive complexity. Topics range from Spring Boot internals to Kubernetes, Go, and distributed data systems.
+This repository contains 92 self-paced learning plans generated with Claude. Each plan follows a phased, project-based format designed for working engineers — typically 12–16 weeks of focused study with curated resources, hands-on milestones, and progressive complexity. Topics range from Spring Boot internals to Kubernetes, Go, and distributed data systems.
 
 ## Plans by Category
 
@@ -55,6 +55,7 @@ This repository contains 91 self-paced learning plans generated with Claude. Eac
 - [12–18 Month Mastery Curriculum for Event-Driven Architecture](opus-4.7/eda/eda-deep-dive.md) — Graduate-syllabus continuation from the one-month foundation through Kafka source, TLA+ specs, streaming-engine and matching-engine capstones, aimed at staff/principal-level EDA architecture
 - [Apache Kafka](opus-4.5/kafka.md) — Kafka producers, consumers, and Streams for Spring Boot
 - [Event-Driven Architecture](opus-4.5/event-driven-architecture.md) — Event sourcing and async patterns for Kotlin/Spring
+- [Event-Driven Architecture — A Practitioner's Guide](opus-4.8/event-driven-architecture.md) — Rigorous, practitioner-focused guide to EDA for the Kotlin/Spring Boot + Kafka engineer: Fowler's four patterns, the dual-write problem and transactional outbox via CDC/Debezium, choreographed vs orchestrated sagas, and incremental (non-big-bang) adoption — through CQRS/event sourcing, with TLA+ for formally verifying protocol correctness.
 - [Flyway Database Migrations](opus-4.6/spring/db-migration.md) — Production Flyway migrations with Spring Boot, Kotlin, and Aurora MySQL
 - [Flyway vs Liquibase vs Atlas](opus-4.6/spring/flyway-liquibase.md) — Comparing database migration tools for Spring Boot Kotlin with MySQL/Aurora
 - [HikariCP](opus-4.5/hikaricp.md) — Connection pool internals and tuning for Spring Boot
