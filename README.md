@@ -4,7 +4,7 @@ Structured, multi-week learning curricula for senior engineers who want deep mas
 
 ## Overview
 
-This repository contains 92 self-paced learning plans generated with Claude. Each plan follows a phased, project-based format designed for working engineers — typically 12–16 weeks of focused study with curated resources, hands-on milestones, and progressive complexity. Topics range from Spring Boot internals to Kubernetes, Go, and distributed data systems.
+This repository contains 93 self-paced learning plans generated with Claude. Each plan follows a phased, project-based format designed for working engineers — typically 12–16 weeks of focused study with curated resources, hands-on milestones, and progressive complexity. Topics range from Spring Boot internals to Kubernetes, Go, and distributed data systems.
 
 ## Plans by Category
 
@@ -31,6 +31,7 @@ This repository contains 92 self-paced learning plans generated with Claude. Eac
 - [Spring Cloud mastery roadmap for Kotlin engineers on AWS EKS](opus-4.6/spring/spring-cloud.md) — 26-week curriculum taking Kotlin/Spring Boot developers from zero Spring Cloud knowledge to production-ready microservices on AWS EKS, covering service discovery, config management, and Kubernetes-native migration.
 - [Spring Cloud Resiliency](opus-4.5/spring-cloud-resiliency.md) — Circuit breakers, retries, and fault tolerance patterns
 - [Spring Cloud Scalability](opus-4.5/spring-cloud-scalability.md) — Microservices scalability patterns with Spring Cloud
+- [Spring for Apache Kafka Curriculum — Senior Kotlin/Spring Boot Engineer](opus-4.8/spring/spring-kafka.md) — A rigorous, resource-mapped curriculum for an engineer who already knows Kafka's broker model: focuses on the Spring abstractions (KafkaTemplate, @KafkaListener, listener-container/factory model, DefaultErrorHandler/@RetryableTopic non-blocking retries, KafkaTransactionManager EOS, Kafka Streams, Micrometer observation, spring-kafka-test/Testcontainers), pins versions against Spring for Apache Kafka 4.0 GA (Kafka client 4.0, Spring Boot 4, Framework 7) with 3.3.x fallback, and curates the best Java-only sources to transpose into Kotlin.
 - [Spring Framework & Boot Internals](opus-4.5/spring.md) — Deep dive into Spring's core abstractions and lifecycle
 - [Spring Framework Internals](opus-4.6/spring/spring.md) — 14-week deep-dive into Spring IoC container, AOP proxies, auto-configuration mechanics, and framework extension patterns
 - [Spring Kafka 4.0 / Spring Boot 4.0 Learning Curriculum — Kotlin Backend Engineer Edition (2026 Refresh)](opus-4.7/spring/kafka/spring-kafka.md) — Research-grade learning curriculum for Spring for Apache Kafka 4.0 + Spring Boot 4.0 on Kotlin 2.x — covers version pinning vs 3.5 LTS, Spring Retry → Framework 7 core retry migration, KRaft-only embedded broker, Jackson 3 + JSpecify nullability, Share Groups (KIP-932), MSK IAM, and curated Korean and English sources with a phased study path.
