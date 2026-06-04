@@ -4,7 +4,7 @@ Structured, multi-week learning curricula for senior engineers who want deep mas
 
 ## Overview
 
-This repository contains 93 self-paced learning plans generated with Claude. Each plan follows a phased, project-based format designed for working engineers — typically 12–16 weeks of focused study with curated resources, hands-on milestones, and progressive complexity. Topics range from Spring Boot internals to Kubernetes, Go, and distributed data systems.
+This repository contains 94 self-paced learning plans generated with Claude. Each plan follows a phased, project-based format designed for working engineers — typically 12–16 weeks of focused study with curated resources, hands-on milestones, and progressive complexity. Topics range from Spring Boot internals to Kubernetes, Go, and distributed data systems.
 
 ## Plans by Category
 
@@ -42,6 +42,7 @@ This repository contains 93 self-paced learning plans generated with Claude. Eac
 
 ### JVM Internals
 
+- [Concurrency Control on the JVM — From the JMM to Kotlin Coroutines](opus-4.8/jvm-concurrency.md) — Two-phase, project-based curriculum for the Kotlin/Spring engineer: master Java concurrency bottom-up (Java Memory Model → synchronized/volatile → java.util.concurrent → lock-free/CAS → mechanical sympathy → Loom virtual threads), then layer Kotlin coroutines on top (continuations → structured concurrency → dispatchers/cancellation → channels/flows). Verifies with jcstress and measures with JMH, and frames virtual threads as execution infrastructure vs. coroutines as the programming model.
 - [JVM Concurrency (from Node.js)](opus-4.5/jvm-concurrency.md) — Concurrency model transition from Node.js to Kotlin
 - [JVM Concurrency Curriculum](opus-4.5/jvm-concurrency-2.md) — 16-week deep dive into threads, coroutines, and locks
 - [JVM Performance Engineering](opus-4.5/jvm-performance-engineering.md) — GC tuning, profiling, and optimization on Kubernetes
