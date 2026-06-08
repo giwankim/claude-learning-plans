@@ -4,7 +4,7 @@ Structured, multi-week learning curricula for senior engineers who want deep mas
 
 ## Overview
 
-This repository contains 94 self-paced learning plans generated with Claude. Each plan follows a phased, project-based format designed for working engineers — typically 12–16 weeks of focused study with curated resources, hands-on milestones, and progressive complexity. Topics range from Spring Boot internals to Kubernetes, Go, and distributed data systems.
+This repository contains 95 self-paced learning plans generated with Claude. Each plan follows a phased, project-based format designed for working engineers — typically 12–16 weeks of focused study with curated resources, hands-on milestones, and progressive complexity. Topics range from Spring Boot internals to Kubernetes, Go, and distributed data systems.
 
 ## Plans by Category
 
@@ -71,6 +71,7 @@ This repository contains 94 self-paced learning plans generated with Claude. Eac
 - [SQL Database Optimization](opus-4.5/sql-database-optimization.md) — Indexing, query tuning, and schema design over 16 weeks
 - [Staged Path to Kafka Mastery for a Kotlin/Spring Boot Veteran](opus-4.7/kafka/kafka.md) — From log-abstraction foundations through KRaft internals, Kafka Streams, and ops to contributor-level mastery, targeted at Kotlin/Spring Boot on AWS MSK as of Kafka 4.2
 - [The Definitive Guide to InnoDB Deadlocks](opus-4.6/innodb-deadlock.md) — Comprehensive guide to InnoDB deadlock internals, six reproducible scenarios, detection tooling for MySQL 8.0 and Aurora, prevention strategies, and Spring Boot/Kotlin resilience patterns.
+- [The Path to Kafka Mastery — A Sequenced Learning Plan](opus-4.8/kafka.md) — Sequenced, project-based roadmap to Kafka mastery for a senior Kotlin/Spring Boot + EKS engineer: a 4-week on-ramp rebuilding mental models around the log abstraction and KRaft (ZooKeeper removed in Kafka 4.0), then ~5 months of topic-by-topic depth — replication/ISR, exactly-once semantics, KIP-848 rebalancing, Spring Kafka 4.0, Kafka Streams vs. Flink — anchored in primary sources (KIPs, source code) and progressively harder hands-on projects, with explicit KRaft cross-check caveats for pre-2021 books.
 
 ### APIs & Protocols
 
