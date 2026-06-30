@@ -4,7 +4,7 @@ Structured, multi-week learning curricula for senior engineers who want deep mas
 
 ## Overview
 
-This repository contains 99 self-paced learning plans generated with Claude. Each plan follows a phased, project-based format designed for working engineers — typically 12–16 weeks of focused study with curated resources, hands-on milestones, and progressive complexity. Topics range from Spring Boot internals to Kubernetes, Go, and distributed data systems.
+This repository contains 100 self-paced learning plans generated with Claude. Each plan follows a phased, project-based format designed for working engineers — typically 12–16 weeks of focused study with curated resources, hands-on milestones, and progressive complexity. Topics range from Spring Boot internals to Kubernetes, Go, and distributed data systems.
 
 ## Plans by Category
 
@@ -76,6 +76,7 @@ This repository contains 99 self-paced learning plans generated with Claude. Eac
 - [Staged Path to Kafka Mastery for a Kotlin/Spring Boot Veteran](opus-4.7/kafka/kafka.md) — From log-abstraction foundations through KRaft internals, Kafka Streams, and ops to contributor-level mastery, targeted at Kotlin/Spring Boot on AWS MSK as of Kafka 4.2
 - [The Definitive Guide to InnoDB Deadlocks](opus-4.6/innodb-deadlock.md) — Comprehensive guide to InnoDB deadlock internals, six reproducible scenarios, detection tooling for MySQL 8.0 and Aurora, prevention strategies, and Spring Boot/Kotlin resilience patterns.
 - [The Path to Kafka Mastery — A Sequenced Learning Plan](opus-4.8/kafka/kafka.md) — Sequenced, project-based roadmap to Kafka mastery for a senior Kotlin/Spring Boot + EKS engineer: a 4-week on-ramp rebuilding mental models around the log abstraction and KRaft (ZooKeeper removed in Kafka 4.0), then ~5 months of topic-by-topic depth — replication/ISR, exactly-once semantics, KIP-848 rebalancing, Spring Kafka 4.0, Kafka Streams vs. Flink — anchored in primary sources (KIPs, source code) and progressively harder hands-on projects, with explicit KRaft cross-check caveats for pre-2021 books.
+- [The Transactional Outbox Pattern for Event-Driven Architecture with Apache Kafka — A Structured Learning Path](opus-4.8/kafka/transactional-outbox.md) — A five-phase, primary-source-driven learning path to the transactional outbox pattern for a Kotlin/Spring Boot + Aurora MySQL + Kafka-on-EKS stack: framing the dual-write problem (Richardson's microservices.io, Kleppmann's DDIA Ch. 11), choosing transaction-log-tailing/CDC over polling-publisher, implementing it with the Debezium MySQL connector + Outbox Event Router SMT, and handling production realities — at-least-once delivery with idempotent consumers, per-aggregate ordering via aggregateid→Kafka key (and the single-task connector constraint that forces outbox-table sharding, per Woowahan's 1M-deliveries/day Baemin architecture), and Aurora-specific binlog retention/format prerequisites.
 
 ### APIs & Protocols
 
