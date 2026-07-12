@@ -4,7 +4,7 @@ Structured, multi-week learning curricula for senior engineers who want deep mas
 
 ## Overview
 
-This repository contains 107 self-paced learning plans generated with Claude. Each plan follows a phased, project-based format designed for working engineers — typically 12–16 weeks of focused study with curated resources, hands-on milestones, and progressive complexity. Topics range from Spring Boot internals to Kubernetes, Go, and distributed data systems.
+This repository contains 108 self-paced learning plans generated with Claude. Each plan follows a phased, project-based format designed for working engineers — typically 12–16 weeks of focused study with curated resources, hands-on milestones, and progressive complexity. Topics range from Spring Boot internals to Kubernetes, Go, and distributed data systems.
 
 ## Plans by Category
 
@@ -60,6 +60,7 @@ This repository contains 107 self-paced learning plans generated with Claude. Ea
 
 - [12–18 Month Mastery Curriculum for Event-Driven Architecture](opus-4.7/eda/eda-deep-dive.md) — Graduate-syllabus continuation from the one-month foundation through Kafka source, TLA+ specs, streaming-engine and matching-engine capstones, aimed at staff/principal-level EDA architecture
 - [Apache Kafka](opus-4.5/kafka.md) — Kafka producers, consumers, and Streams for Spring Boot
+- [Apache Kafka Mastery: A Phased Learning Curriculum for a Senior Backend Engineer](fable-5/kafka.md) — A 6-phase, ~5-6 month curriculum anchored to Kafka 4.x (KRaft-only; ZooKeeper removed March 2025): consolidating fundamentals, deep internals (KRaft/KIP-500, storage engine, KIP-848 next-gen rebalancing, KIP-932 share groups), architecture patterns, the competitive landscape (Redpanda, WarpStream, AutoMQ, diskless KIP-1150), a production operations playbook, and a self-managed-vs-managed TCO decision framework — concluding that MSK/Confluent Cloud beats Strimzi-on-EKS until sustained multi-hundred-MB/s throughput and dedicated platform headcount justify the switch. Every phase pairs concrete labs (local KRaft cluster, Strimzi-on-EKS, Debezium CDC pipeline, MirrorMaker 2 DR drill, perf benchmarking, cost model) with milestones.
 - [Event-Driven Architecture](opus-4.5/event-driven-architecture.md) — Event sourcing and async patterns for Kotlin/Spring
 - [Event-Driven Architecture — A Practitioner's Guide](opus-4.8/event-driven-architecture.md) — Rigorous, practitioner-focused guide to EDA for the Kotlin/Spring Boot + Kafka engineer: Fowler's four patterns, the dual-write problem and transactional outbox via CDC/Debezium, choreographed vs orchestrated sagas, and incremental (non-big-bang) adoption — through CQRS/event sourcing, with TLA+ for formally verifying protocol correctness.
 - [Flyway Database Migrations](opus-4.6/spring/db-migration.md) — Production Flyway migrations with Spring Boot, Kotlin, and Aurora MySQL
