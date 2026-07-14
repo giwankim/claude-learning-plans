@@ -4,7 +4,7 @@ Structured, multi-week learning curricula for senior engineers who want deep mas
 
 ## Overview
 
-This repository contains 108 self-paced learning plans generated with Claude. Each plan follows a phased, project-based format designed for working engineers — typically 12–16 weeks of focused study with curated resources, hands-on milestones, and progressive complexity. Topics range from Spring Boot internals to Kubernetes, Go, and distributed data systems.
+This repository contains 109 self-paced learning plans generated with Claude. Each plan follows a phased, project-based format designed for working engineers — typically 12–16 weeks of focused study with curated resources, hands-on milestones, and progressive complexity. Topics range from Spring Boot internals to Kubernetes, Go, and distributed data systems.
 
 ## Plans by Category
 
@@ -163,6 +163,10 @@ This repository contains 108 self-paced learning plans generated with Claude. Ea
 ### Robotics & Autonomy
 
 - [Defense Drone Engineering Career Pivot](opus-4.7/defense-drone.md) — 12-month learning plan for pivoting from backend engineering into defense UAV autonomy, embedded systems, and C2 fabrics
+
+### Formal Methods
+
+- [Formal Verification in Software — Mastery Plan](fable-5/formal-verification.md) — An ~18–24 month mastery arc through both cultures of formal verification: design-level specification with TLA+/PlusCal (plus Quint, Alloy, P) and code-level proof — SAT/SMT foundations, model checking theory, auto-active verification with Dafny and the Rust ecosystem (Verus), then the long arc of interactive theorem proving in Rocq/Lean 4 through separation logic, concurrency, and Iris. Tuned for a math-PhD backend engineer: theory chapters are compressed while proof-engineering craft and specification judgment get the reps, with capstone projects, a reading canon, and currency warnings as of July 2026.
 
 ## How to Use These Plans
 
