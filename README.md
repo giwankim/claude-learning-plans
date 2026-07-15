@@ -4,7 +4,7 @@ Structured, multi-week learning curricula for senior engineers who want deep mas
 
 ## Overview
 
-This repository contains 109 self-paced learning plans generated with Claude. Each plan follows a phased, project-based format designed for working engineers — typically 12–16 weeks of focused study with curated resources, hands-on milestones, and progressive complexity. Topics range from Spring Boot internals to Kubernetes, Go, and distributed data systems.
+This repository contains 110 self-paced learning plans generated with Claude. Each plan follows a phased, project-based format designed for working engineers — typically 12–16 weeks of focused study with curated resources, hands-on milestones, and progressive complexity. Topics range from Spring Boot internals to Kubernetes, Go, and distributed data systems.
 
 ## Plans by Category
 
@@ -135,6 +135,7 @@ This repository contains 109 self-paced learning plans generated with Claude. Ea
 - [Distributed Lock Use Cases](opus-4.6/distributed-lock-use-cases.md) — Catalog of distributed concurrency scenarios across e-commerce, fintech, and ticketing with production case studies and a decision framework for Redis, pessimistic, and optimistic locking
 - [Legacy Code Modernization](opus-4.6/legacy-code.md) — Resource guide for legacy system modernization covering characterization tests, Spring Modulith, strangler fig patterns, and CDC-based decoupling for Kotlin/Spring Boot
 - [Mastering Durable Execution on the JVM](opus-4.6/durable-execution.md) — 8–10 week roadmap covering Temporal, Restate, saga patterns, workflow versioning, and production-grade durable execution with Kotlin and Spring Boot
+- [System Design Interview Mastery — A 12-Week Deliberate-Practice Plan](fable-5/system-design-interviews.md) — A 12-week interview-focused plan that builds system-design fundamentals, reusable architecture patterns, estimation and communication fluency, and progressively harder timed mocks, with curated free and paid resources plus objective readiness gates.
 - [System Design Interviews for Mid-Level FAANG Candidates (L4/L5)](opus-4.7/system-design.md) — Two interview-prep plans (16-week Deep Mastery and 4-week Crash Course) for L4/L5 system-design rounds at FAANG, with a curated AI-mock + book + human-mock stack and weekly practice cadence.
 
 ### Career Development
