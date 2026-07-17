@@ -4,7 +4,7 @@ Structured, multi-week learning curricula for senior engineers who want deep mas
 
 ## Overview
 
-This repository contains 110 self-paced learning plans generated with Claude. Each plan follows a phased, project-based format designed for working engineers — typically 12–16 weeks of focused study with curated resources, hands-on milestones, and progressive complexity. Topics range from Spring Boot internals to Kubernetes, Go, and distributed data systems.
+This repository contains 112 self-paced learning plans generated with Claude. Each plan follows a phased, project-based format designed for working engineers — typically 12–16 weeks of focused study with curated resources, hands-on milestones, and progressive complexity. Topics range from Spring Boot internals to Kubernetes, Go, and distributed data systems.
 
 ## Plans by Category
 
@@ -157,9 +157,11 @@ This repository contains 110 self-paced learning plans generated with Claude. Ea
 
 ### Performance & Optimization
 
+- [HikariCP Connection Pool Tuning — Learning Guide & Study Plan](fable-5/hikaricp-tuning.md) — A study plan for a senior Kotlin/Spring Boot engineer on Aurora MySQL/Kafka/EKS built around the canonical HikariCP wiki texts ('About Pool Sizing,' 'Down the Rabbit Hole,' 'Welcome to the Jungle,' 'Rapid Recovery'): the deadlock formula pool_size = Tn × (Cm − 1) + 1 with the Woowahan @GeneratedValue incident as centerpiece lab, empirical 'smaller is faster' pool-size sweeps, multi-replica Kubernetes math against Aurora max_connections, and the Aurora-specific traps (maxLifetime 'mass extinction,' wait_timeout mismatch, slow DNS failover vs the AWS Advanced JDBC Wrapper, RDS Proxy tradeoffs) — plus version-myth corrections (the 6.0.0 ReentrantLock revert, 7.x virtual-thread ConcurrentBag tuning) and curated Korean-language deep dives.
 - [Load Testing for Spring Boot + Kotlin](opus-4.7/load-testing.md) — Load testing as a queueing-theory experiment for Spring Boot 3.5+ on the JVM — Gatling (Kotlin DSL) primary, k6 secondary, ghz for gRPC, vegeta for CLI, kafka-*-perf-test and xk6-kafka for Kafka, with deep coverage of percentile math, open-vs-closed loop, and coordinated omission
 - [Performance Optimization Playbook](opus-4.6/godbolt-rady-performance-optimization.md) — Godbolt-Rady measure-first performance optimization from Two's Complement
 - [Senior Engineer's Guide to Load Testing as a Performance Discipline](opus-4.7/load-testing-guide.md) — Twelve-section narrative guide for Kotlin/Spring Boot on AWS (Aurora, Kafka) covering methodology, percentile math, open-vs-closed loop, JVM tuning, AWS observability, scenarios, tooling, and a learning path.
+- [Tuning HTTP Connection Pool Sizes on the JVM: A Curated Resource Guide for Kotlin + Spring Boot](fable-5/http-connection-tuning.md) — A curated resource guide to HTTP client pool tuning on the JVM: Apache HttpClient 5 (25 total / 5 per-route defaults confirmed in source, ClientHttpRequestFactoryBuilderCustomizer + withConnectionManagerCustomizer as the only supported Spring Boot path to pool sizing) and Reactor Netty/WebClient (2 × processors min-16 default, 45 s acquire timeout, PrematureCloseException from client idle/TTL outliving server or ALB idle timeouts). Covers sizing with Little's Law (p99, not mean) and Kingman's formula, why HikariCP's 'smaller is better' only partially transfers to wait-dominated HTTP pools, aggregating connection counts across Kubernetes replicas, and empirical tuning via k6/Gatling sweeps watched through Micrometer pool gauges.
 
 ### Robotics & Autonomy
 
