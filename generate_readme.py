@@ -110,7 +110,8 @@ def generate_readme():
     lines.append("")
     lines.append(
         f"This repository contains {total} self-paced learning plans generated with"
-        " Claude. Each plan follows a phased, project-based format designed for"
+        " Claude and other AI models. Each plan follows a phased, project-based"
+        " format designed for"
         " working engineers — typically 12–16 weeks of focused study with curated"
         " resources, hands-on milestones, and progressive complexity. Topics range"
         " from Spring Boot internals to Kubernetes, Go, and distributed data systems."
