@@ -1,301 +1,347 @@
 ---
-title: "Spring Boot 4 + Micrometer — Bottom-Up Observability (Application Layer)"
+title: "Micrometer with Spring Boot — Capability-Oriented Observability Guide"
 category: "Observability"
-description: "A ~14–18 week, seven-phase curriculum that instruments a Spring Boot 4.1 / Kotlin app end-to-end first, then descends into Micrometer library internals rather than stopping at properties copied from a blog post. Baseline: Spring Boot 4.0/4.1, Micrometer 1.16→1.17, Micrometer Tracing 1.5/1.6, Java 21+ — a version landscape where Boot 4's modularization of spring-boot-autoconfigure across 70+ modules and the split property namespaces (metrics stay on management.otlp.metrics.*, tracing/logging move to management.opentelemetry.*) invalidate the module names in nearly every Boot 3.x tutorial. Covers the registry model, MeterFilter and MeterBinder, naming and tag discipline, gauges done right, distribution-statistics internals (why client-side percentiles cannot be aggregated across pods, and why Micrometer still does not emit Prometheus native histograms), OTLP histogram flavors and temporality, the Prometheus client 1.x default as a real breaking change, the Observation API as one instrumentation point yielding metric + span + log, context propagation across coroutines / Kafka / virtual threads where distributed tracing actually breaks, and reading the Micrometer source — ending in a two-week capstone."
+description: "A capability-oriented reference to Micrometer as it actually ships with Spring Boot, organized by what the library can do rather than by a week-by-week schedule. Baseline: Micrometer 1.17 (June 2026) with maintenance lines 1.16/1.15, Spring Boot 4.0 GA shipping Micrometer 1.16 and Micrometer Tracing 1.6 on Spring Framework 7 / Jakarta EE 11, and Spring Boot 3.5 on ~1.15. Covers the meter hierarchy and its mapping onto Prometheus types, distribution statistics in depth (why client-side publishPercentiles cannot be aggregated across pods while percentile histograms can), the full catalog of Boot auto-configured metrics for JVM, HTTP, HikariCP, Kafka, caches, executors and Tomcat, custom instrumentation, the Observation API as one instrumentation point yielding metric plus span plus log with its low- vs high-cardinality tag split, Micrometer Tracing after Sleuth, exporters and backends including the Prometheus simpleclient 0.x to prometheus-metrics-core 1.x migration and Pushgateway lag, Kubernetes and EKS production concerns, cardinality hygiene, exemplars for metrics-to-trace pivots, and multi-window error-budget burn alerts — closing with recommendations, project ideas, and explicit version caveats."
 ---
 
-# A Bottom-Up Learning Plan: Spring Boot 4 + Micrometer 1.16/1.17 Observability (Application Layer)
+# Micrometer with Spring Boot: A Capability-Oriented Guide for Senior Engineers
 
 ## TL;DR
-- **This is a ~14–18 week, seven-phase curriculum** that starts with instrumenting a Spring Boot 4.1 / Kotlin app end-to-end (Phases 0–2), then descends into Micrometer library internals — registry model, MeterFilter/MeterBinder, distribution statistics, the Observation API, context propagation, tracing, and reading the source (Phases 3–6) — ending in a capstone. Target versions: **Spring Boot 4.0/4.1 (4.0 GA'd Nov 20, 2025; 4.1.0 published to Maven Central June 10, 2026), Micrometer 1.16→1.17 (1.17.0 released June 8, 2026), Micrometer Tracing 1.5/1.6, Java 21+.**
-- **The single biggest version trap:** Spring Boot 4 delivered a full modularization of `spring-boot-autoconfigure` across 70+ focused modules, added a first-party `spring-boot-starter-opentelemetry`, and split property namespaces — metrics keep `management.otlp.metrics.*` (Micrometer OTLP registry) but tracing/logging moved to `management.opentelemetry.*` (OTel SDK). Nearly all Boot 3.x tutorials get the module names and some properties wrong; the concepts (meters, Observation API, MeterFilter) remain valid.
-- **Bottom line for this engineer:** Skip Spring Boot basics; treat Micrometer as "SLF4J for metrics/observability" and learn it the way you'd learn a library — from its type hierarchy and source. The highest-leverage deep dives are the **Observation API** (one instrumentation point → metric + span + log), **context propagation** across coroutines/Kafka/virtual threads, and **distribution-statistics internals** (why client-side percentiles don't aggregate).
+- **Micrometer is the "SLF4J for observability"**: a vendor-neutral metrics facade (plus the newer Observation API and Micrometer Tracing) that Spring Boot Actuator auto-wires. As of mid-2026, Micrometer **1.17.0 (released 8 June 2026)** is current, with maintenance lines 1.16.x/1.15.x; Spring Boot 3.5 manages ~1.15, and **Spring Boot 4.0.0 (GA 20 November 2025)** ships Micrometer 1.16 and Micrometer Tracing 1.6, built on Spring Framework 7 / Jakarta EE 11.
+- **The single most important modern concept is the Observation API** (introduced in Micrometer 1.10): instrument once, emit metrics + traces (+ logs correlation) simultaneously — the docs describe it as "instrument once and have multiple benefits out of it" — with an explicit low-cardinality (metrics tags) vs high-cardinality (trace attributes) split. Spring Framework 6+/Boot 3+ moved native instrumentation (HTTP, Kafka, Redis, etc.) onto it and retired Spring Cloud Sleuth.
+- **For your Prometheus + Grafana + EKS + Kotlin stack**, prefer server-side histograms (`publishPercentileHistogram`) over client-side percentiles so you can aggregate across pods with `histogram_quantile`, keep tag cardinality bounded (URI templating, common tags, no pod-name labels in-app), and wire exemplars end-to-end for metrics→trace pivots.
 
 ## Key Findings
+1. Micrometer's meter set (Counter, Gauge, Timer, LongTaskTimer, DistributionSummary, TimeGauge, FunctionCounter, FunctionTimer, MultiGauge) maps cleanly onto Prometheus types; the recurring pitfalls are gauge GC (weak references) and cardinality explosions.
+2. Client-side percentiles (`publishPercentiles`) are **not aggregable across dimensions/instances**; percentile histograms are. This is decisive in a multi-pod Kubernetes deployment.
+3. Spring Boot auto-configures a large catalog of metrics (JVM, system, HTTP server/client, HikariCP, Kafka clients, caches, executors, Tomcat, Logback/Log4j2, and more) once Actuator + a registry are on the classpath.
+4. The Prometheus registry migrated from the 0.x `simpleclient` to the 1.x `prometheus-metrics-core` client in Micrometer 1.13 / Spring Boot 3.3; the old client is deprecated and Pushgateway support lagged behind on the 1.x client.
+5. Spring Boot 4 renames observability modules (`spring-boot-micrometer-metrics/-observation/-tracing`), adds a `spring-boot-starter-opentelemetry`, removes `@AutoConfigureObservability`, and fixes coroutine/Reactor context propagation with `spring.reactor.context-propagation=auto`.
 
-### The version landscape (verify everything against these)
-- **Spring Boot 4.0 GA shipped November 20, 2025** — Phil Webb's announcement describes it as "a complete modularization of the Spring Boot codebase providing smaller and more focused jars." **Spring Boot 4.1.0 was published to Maven Central on June 10, 2026** (latest 4.0 patch is 4.0.7, also June 10, 2026). The 3.x line is legacy: the final 3.x patch was **3.5.16 on June 25, 2026**, ending OSS support.
-- **Micrometer 1.16.0** shipped alongside Boot 4 (announced in Moritz Halbritter's Nov 18, 2025 "OpenTelemetry with Spring Boot" post). **Micrometer 1.17.0 (released June 8, 2026) is the current stable line.** The BOM is managed by Spring Boot, so you rarely pin versions yourself.
-- **`spring-boot-starter-opentelemetry`** is new in Boot 4: one dependency pulls the OTel API + SDK, `micrometer-registry-otlp` (metrics), and `micrometer-tracing-bridge-otel` (traces). It exists *because* of modularization — you can now export metrics/traces without the full Actuator. **Boot 4.0.1 fixed log export so it no longer requires Actuator; use 4.0.1+.**
-- **Module restructuring (the trap):** autoconfig now lives under `org.springframework.boot.<module>.*`. Metrics autoconfig is `org.springframework.boot.micrometer.metrics.autoconfigure.*`; OTel is in `spring-boot-opentelemetry` and `spring-boot-micrometer-tracing-opentelemetry`. "Classic Starter POMs" preserve the old fat-starter behavior for migration.
-- **Property split (memorize this):** metrics use `management.otlp.metrics.export.url` (Micrometer's OtlpMeterRegistry); traces use `management.opentelemetry.tracing.export.otlp.endpoint`; logs use `management.opentelemetry.logging.export.otlp.endpoint`. The different prefixes reflect which library integrates each signal — metrics via Micrometer, traces/logs via the OTel SDK. Prometheus scrape stays at `/actuator/prometheus`.
+## Details
 
-### Micrometer's position and the OTel relationship
-Micrometer is a **vendor-neutral facade** ("think SLF4J, but for observability") with built-in registries for Prometheus, OTLP, Atlas, CloudWatch, Datadog, Dynatrace, Wavefront, StatsD, and more. Spring's own instrumentation is written against the Micrometer **Observation API**, not the OTel API. The Spring team's guidance: **instrument with Micrometer and export via OTLP** — "it's the protocol that matters, not the library." Spring Boot does **not** auto-configure an OTel `SdkMeterProvider`; metrics always flow through Micrometer. If both Micrometer's OTLP registry and an OTel bridge are active you get **duplicate metrics** — disable one with `management.otlp.metrics.export.enabled=false`.
+### 1. Architecture and core concepts
 
-### Prometheus client 1.x is now the default (a real breaking change)
-Since Micrometer 1.13, `micrometer-registry-prometheus` is built on **Prometheus Java client 1.x** (client_java), not the legacy `simpleclient` 0.x. The old path survives as the **deprecated** `micrometer-registry-prometheus-simpleclient` — interim only. Micrometer 1.16 upgraded the client to **1.4.x** — confirmed in the 1.16.0 release notes: "We upgraded the Prometheus Java Client to 1.4.x (#6830) which brings support for Unicode which includes some behavioral change in naming conventions, see the 1.16 Migration-Guide." Counters now use longs; some metric names changed — **dashboards and alerts can break on upgrade.**
+**What Micrometer is.** Micrometer provides an abstraction layer for metrics collection — an API for meter types (counters, gauges, timers, distribution summaries) plus a `MeterRegistry` API that generalizes collection and propagation to backends. It is explicitly positioned as "Think SLF4J, but for observability." Spring Boot Actuator auto-configures a `MeterRegistry` and binds a large set of instrumentation to it.
 
-### Distribution statistics internals (the part most people get wrong)
-From the current source, `DistributionStatisticConfig.DEFAULT` is: `percentilesHistogram(false)`, `percentilePrecision(1)`, `minimumExpectedValue(1.0)`, `maximumExpectedValue(Double.POSITIVE_INFINITY)`, `expiry(Duration.ofMinutes(2))`, `bufferLength(3)`. So statistics live in a **ring buffer of 3 histograms rotating every 2 minutes** (full decay after 6 minutes).
-- **`TimeWindowPercentileHistogram`** uses **HdrHistogram** (`DoubleRecorder`/`DoubleHistogram`) internally and backs **client-side percentiles** (`percentiles(...)`). These are computed per-instance and **cannot be aggregated across instances** — averaging p99s across pods is statistically meaningless.
-- **`TimeWindowFixedBoundaryHistogram`** uses fixed bucket boundaries (no HdrHistogram, smaller footprint) and backs **percentile histograms / SLO buckets** (`publishPercentileHistogram`, `serviceLevelObjectives`). These ship buckets that the **backend aggregates** (`histogram_quantile` in Prometheus) — this is the aggregable, cross-pod-correct approach.
-- Bucket generation: the preset generator yields ~276 buckets; Micrometer ships only those within `[minimumExpectedValue, maximumExpectedValue]`. A Timer clamped to the default 1 ms–1 min yields ~73 buckets per dimension. `percentilePrecision` (default 1) sets HdrHistogram precision — higher precision = more memory. Each bucket is a separate backend time series, so buckets × dimensions drives cardinality/cost.
+**Registries.**
+- `SimpleMeterRegistry` holds the latest value of each meter in memory and exports nowhere; it is autowired in Spring apps as a fallback and is the workhorse for tests.
+- `MeterRegistry` is the base abstraction; exporters iterate over its meters to produce time series. Note: registering meters with the same ID multiple times keeps only the first registration.
+- `CompositeMeterRegistry` fans out to multiple backends simultaneously. Spring Boot's injected `MeterRegistry` is in fact a composite.
+- `Metrics.globalRegistry` is a static global composite with static builders (`Metrics.counter(...)`). In Spring apps prefer **injecting** the `MeterRegistry` bean over the global static; the global is handy for library code or where DI is unavailable.
 
-### Prometheus native histograms: NOT emitted by Micrometer (as of 1.16/1.17)
-The underlying Prometheus client 1.x supports native histograms, but **Micrometer's Prometheus registry does not wire them through** — it emits classic fixed-bucket histograms/summaries and GaugeHistograms only. Native support exists only on an unmerged feature branch. Native-histogram support for the Micrometer Prometheus registry is tracked as an **open** maintainer enhancement (candidate issue #5891 — *verify the exact issue number/title before citing*, as the attribution is uncertain). **Practical implication:** if you want exponential/native-style histograms today, use the **OTLP registry's exponential (base-2) histogram flavor**, not the Prometheus registry.
+**Meter types (and when to use each).**
+- **Counter** — monotonic increasing count (requests, errors). In Prometheus you `rate()` it. Counters reset on restart; Prometheus `rate()/increase()` handle resets.
+- **Gauge** — instantaneous, sampled value that "changes only when observed" (queue depth, cache size). **Gauges hold a weak reference** to the observed object so as not to prevent GC — if the object is collected, the gauge reports NaN. Never hold the gauge value in a plain field you also mutate elsewhere without keeping a strong reference to the source object. Use for values that can go up and down and that you can read on demand.
+- **Timer** — short-duration events + rate (latency). Records count, total time, max.
+- **LongTaskTimer** — measures the duration of **in-flight** long-running tasks (you can see the currently-running time before completion); good for batch jobs, scheduled tasks, long polls.
+- **DistributionSummary** — distribution of non-time values (payload sizes, batch sizes).
+- **TimeGauge** — a gauge whose value is a duration in a known time unit.
+- **FunctionCounter / FunctionTimer** — "function-tracking" meters that derive a count/total from an external monotonic source (e.g. a third-party client's internal counters); Micrometer computes deltas. Used heavily by binders (Kafka, HikariCP).
+- **MultiGauge** — manages a set of gauges whose tag combinations change over time (e.g. per-status counts you recompute periodically), with `register(...)` replacing the previous set.
 
-### OTLP registry histogram flavors and temporality
-`OtlpMeterRegistry` (config `OtlpConfig`) supports two histogram flavors when `publishPercentileHistogram` is set: **explicit-bucket** and **base-2 exponential**, selected via `histogramFlavor` / `histogramFlavorPerMeter`. Exponential adds `maxScale` (default 20), `maxBuckets` (default 160), and `maxBucketsPerMeter`. **Because exponential histograms cannot carry custom SLOs, configuring `serviceLevelObjectives` forces a fallback to explicit-bucket histograms.** OTLP also has **aggregation temporality** — DELTA vs CUMULATIVE — which must match your backend's expectation (Prometheus-style backends generally want cumulative; many OTel pipelines prefer delta). `publishMaxGaugeForHistograms` (since 1.17) defaults based on temporality.
+**Naming.** Use dot-separated, lowercase, hierarchical-looking names (`http.server.requests`); Micrometer's `NamingConvention` per registry translates these to the backend idiom (Prometheus → `http_server_requests_seconds_...`; snake_case; base-unit suffixes). Prefer base units (seconds, bytes) and set them on the meter. Never register the same name with different tag key sets — Prometheus strongly discourages inconsistent tag keys per name.
 
-### The Observation API (the conceptual core)
-An `Observation` is a single instrumentation point that, through registered `ObservationHandler`s, becomes **both a metric and a span** (and can enrich logs). Lifecycle callbacks on the handler: `onStart`, `onScopeOpened`, `onScopeClosed`, `onEvent`, `onError`, `onStop`, plus `supportsContext`. Key pieces: `ObservationRegistry`, `ObservationHandler`, `ObservationPredicate` (should this observation be created?), `ObservationFilter` (mutate context before stop), `ObservationConvention`/`GlobalObservationConvention` (naming + tags as configuration), and typed `Observation.Context`. **`lowCardinalityKeyValues` become metric tags AND span attributes; `highCardinalityKeyValues` become span attributes only** (never metric tags — this is the cardinality firewall). `DefaultMeterObservationHandler` creates the timer/counter; the tracing handlers create spans.
+**Tags / cardinality.** Tags are dimensions; the cartesian product of tag values is the number of time series. Guard against explosion with `MeterFilter`:
+- `MeterFilter.deny(...)` / `accept(...)`, `denyNameStartsWith(...)`,
+- `MeterFilter.maximumAllowableTags(...)` and `maximumAllowableMetrics(...)`,
+- `MeterFilter.replaceTagValues(...)` to collapse high-cardinality values,
+- and `renameTag`. There is also a `HighCardinalityTagsDetector` (docs added in the 1.16 line) to help find offenders at runtime.
 
-### Context propagation is where distributed tracing breaks
-`micrometer-context-propagation` (zero-dependency) defines `ThreadLocalAccessor`, `ContextRegistry`, `ContextSnapshot`, and the crucial `ObservationThreadLocalAccessor` (`KEY = "micrometer.observation"`). Failure modes and fixes:
-- **`@Async` / `AsyncTaskExecutor`:** context is lost across threads; fix by registering a `ContextPropagatingTaskDecorator` bean (Boot auto-installs `TaskDecorator` beans into the executor).
-- **Kotlin coroutines:** Micrometer ships `ObservationRegistry.asContextElement()` (in `micrometer-core`'s Kotlin source, since 1.10) and `CoroutineContext.currentObservation()`. **Spring Framework 7 adds first-party coroutine context propagation** (spring-framework #35185). For MDC specifically use `MDCContext` from `kotlinx-coroutines-slf4j`. Known gap: propagation into `Flow`-returning endpoints was still buggy on Boot 4.0.3 (spring-framework #36427).
-- **Reactor:** use `Hooks.enableAutomaticContextPropagation()` (or `spring.reactor.context-propagation=auto`) plus `.tap(Micrometer.observation(registry))` / `contextWrite(ObservationThreadLocalAccessor.KEY, ...)`.
-- **Virtual threads / Kafka listeners:** wrap executors with `ContextExecutorService`/`ContextSnapshotFactory::captureAll`; for Kafka set observation-enabled (below).
+`Meter.Id` is the (name, tags, base unit, type) tuple that identifies a meter. `MeterDocumentation` / `ObservationDocumentation` let you formally document meters/observations (names, tag keys) as enums — useful for governance across a microservice fleet.
 
-### Micrometer Tracing (post-Sleuth)
-Spring Cloud Sleuth was absorbed into **Micrometer Tracing** in Boot 3 and remains the model in Boot 4. Pick **one bridge**: `micrometer-tracing-bridge-otel` (OTel/OTLP — the Spring team's default recommendation for Boot 4) or `micrometer-tracing-bridge-brave` (Brave/Zipkin). **Default propagation is W3C `traceparent`** (128-bit IDs); B3 is available. **With B3, baggage is not auto-propagated** — use `management.tracing.baggage.remote-fields`. Boot adds trace/span IDs to the log pattern via MDC by default. **Golden rule:** never `new` a `RestClient`/`WebClient`/`RestTemplate` — inject the auto-configured builder or context won't propagate.
+### 2. Distribution statistics and percentiles (deep dive)
 
-### Virtual thread metrics (Java 21+)
-`micrometer-java21` provides `VirtualThreadMetrics` (`io.micrometer.java21.instrument.binder.jdk`, author Artyom Gabeev, since 1.14). It is **JFR-based**, listening to `jdk.VirtualThreadPinned` and `jdk.VirtualThreadSubmitFailed`. Per Oracle's Java documentation, `jdk.VirtualThreadPinned` "indicates that a virtual thread was pinned... This event is enabled by default with a threshold of 20 ms." It exposes pinned-duration timers and submit-failed counts. **Spring Boot auto-configures it** (spring-boot #43852/#43122, from Boot 3.5). Limitation: JFR event-driven, so it measures pinning/submit-failure events, not a full live-thread census. Per Micrometer's JVM Metrics reference, richer mounted/queued/parallelism gauges are only added "If you are running your application with Java 24 or later on a JVM that has jdk.management.VirtualThreadSchedulerMXBean provided as a platform MXBean."
+**Two approaches:**
+- **Percentile histograms** (`publishPercentileHistogram()`): Micrometer accumulates into an underlying HdrHistogram and ships a preset set of cumulative buckets. Prometheus/Atlas/Wavefront then compute percentiles server-side (`histogram_quantile` in Prometheus). **These are aggregable across dimensions and across instances** — you sum bucket counts across pods, then take the quantile. This is what you want on EKS.
+- **Client-side percentiles** (`publishPercentiles(0.5, 0.95, 0.99)`): Micrometer computes a percentile approximation per meter ID in-process and ships the value (as a gauge tagged `phi`/`quantile`). **These cannot be aggregated across tags or instances** — averaging p99s across pods is statistically meaningless. Useful only where the backend can't do server-side quantiles.
 
-## Details — The Phased Plan
+When both are configured, the histogram is preferred (on OTLP, the Summary datapoint is treated as legacy).
 
-Each phase lists a time budget, a concrete deliverable that builds on the prior one, and named primary-source resources. The running project is an **event-driven "orders" microservice** (Kotlin, Spring Boot 4.1, Aurora MySQL/HikariCP, Kafka, EKS) so every phase instruments something real from your stack.
+**Bucket math.** For `publishPercentileHistogram`, buckets are preset by a generator empirically tuned by Netflix. Per the Micrometer docs (histogram-quantiles), verbatim: *"By default, the generator yields 276 buckets, but Micrometer includes only those that are within the range set by minimumExpectedValue and maximumExpectedValue, inclusive. Micrometer clamps timers by default to a range of 1 millisecond to 1 minute, yielding 73 histogram buckets per timer dimension."* Each bucket is a separate time series in Prometheus, so histograms are much more expensive than summaries — tune the expected-value range to control both bucket count and the HdrHistogram memory footprint/accuracy.
 
----
+**SLOs.** `serviceLevelObjectives(...)` publishes a cumulative histogram with buckets at your explicit SLO boundaries. Combined with `publishPercentileHistogram` it *adds* buckets; alone it publishes *only* those buckets. SLOs are based on **recorded values, not percentiles** — `serviceLevelObjectives(Duration.ofMillis(100))` gives you a `le="0.1"` bucket you can turn into an SLO ratio.
 
-### Phase 0 — Framing & the version map (½ week)
-**Goal:** Internalize where Micrometer sits, why a facade, and exactly what changed in Boot 4.
+**Decay.** `DistributionStatisticConfig` also controls `expiry` (default 2 min) and `bufferLength` (default 3): the client-side percentile/max statistics use a ring buffer of that many windows and decay over `expiry`, so a one-off spike ages out rather than pinning `max` forever.
 
-Read/watch:
-- Spring blog, Moritz Halbritter, "OpenTelemetry with Spring Boot" (Nov 18, 2025) — https://spring.io/blog/2025/11/18/opentelemetry-with-spring-boot/
-- Spring blog, "Modularizing Spring Boot" (Oct 28, 2025) — https://spring.io/blog/2025/10/28/modularizing-spring-boot/
-- Micrometer docs home & Concepts — https://docs.micrometer.io/micrometer/reference/ and https://docs.micrometer.io/micrometer/reference/concepts
-- Original framing: Spring blog "Observability with Spring Boot 3" (Oct 12, 2022) — conceptually still valid — https://spring.io/blog/2022/10/12/observability-with-spring-boot-3/
-- Talk: "Micrometer Mastery: Unleash Advanced Observability in your JVM Apps," Tommy Ludwig & Jonatan Ivanov, Spring I/O 2024 — https://www.youtube.com/watch?v=Qyku6cR6ADY (slides: https://speakerdeck.com/jonatan_ivanov/2024-05-31-spring-io-micrometer-mastery-unleash-advanced-observability-in-your-jvm-apps)
+**Prometheus native histograms.** These use exponential/sparse buckets for a compact, high-resolution representation. Support has been experimental and, historically, "not supported in Micrometer" per community write-ups; the newer Prometheus 1.x Java client and a `fstab/micrometer-registry-prometheus_native-example` demonstrate exposing native histograms (Protobuf exposition, viewable via `/actuator/prometheus?debug=prometheus-protobuf`). Treat native-histogram support as version-dependent and verify against your exact Micrometer/Boot versions before relying on it in production. When it works, it removes the fixed-bucket tradeoff and reduces series count dramatically.
 
-**Deliverable:** A one-page Korean-blog-ready cheat sheet mapping Boot 3.x property/module names → Boot 4 equivalents (`management.otlp.metrics.*` vs `management.opentelemetry.*`, old `spring-boot-actuator-autoconfigure` → new `org.springframework.boot.micrometer.metrics.autoconfigure.*`), with a decision note: "Micrometer API + OTLP export vs OTel API/agent — when each."
+**Coordinated omission.** When you correlate Micrometer server-side latency with k6 load tests, remember Micrometer times only requests that actually reached the server and completed; requests delayed because the system was stalled ("coordinated omission") are undercounted, so server-side p99 can look better than client-perceived p99. Trust k6's client-side latency (which sees queuing) for user-facing SLOs and use Micrometer histograms for server-internal attribution. k6 also computes client-side percentiles per-instance — the same non-aggregability caveat applies if you run distributed k6.
 
----
-
-### Phase 1 — End-to-end quick tour (1 week)
-**Goal:** Get every signal out of a Boot 4 Kotlin app by hand and read raw output.
-
-Do:
-1. Generate a Boot **4.1** Kotlin project on start.spring.io with Actuator + "OpenTelemetry" + Web. Run the Grafana `otel-lgtm` container via `spring-boot-docker-compose`.
-2. Compare two export paths: (a) `micrometer-registry-prometheus` scraped at `/actuator/prometheus`; (b) `micrometer-registry-otlp` pushing to `:4318/v1/metrics`. Curl both; diff the representations.
-3. Expose endpoints (`management.endpoints.web.exposure.include`), set a management port, and verify by hand.
-
-Resources (primary):
-- Spring Boot reference — Metrics: https://docs.spring.io/spring-boot/reference/actuator/metrics.html
-- Spring Boot reference — Observability: https://docs.spring.io/spring-boot/reference/actuator/observability.html
-- Micrometer OTLP registry: https://docs.micrometer.io/micrometer/reference/implementations/otlp.html
-- Micrometer Prometheus registry: https://docs.micrometer.io/micrometer/reference/implementations/prometheus.html
-- Sample to clone: Moritz Halbritter's `spring-boot-and-opentelemetry` — https://github.com/mhalbritter/spring-boot-and-opentelemetry
-- Thomas Vitale's `spring-boot-opentelemetry` (resource-attributes, OTLP nuances) — https://github.com/ThomasVitale/spring-boot-opentelemetry
-
-**Deliverable:** The orders service emitting metrics + traces + logs to local LGTM, with a README documenting each property and the hand-verified `/actuator/prometheus` name translation (e.g. `http.server.requests` → `http_server_requests_seconds_count`).
-
----
-
-### Phase 2 — Auto-configured meters + first custom instrumentation (1.5 weeks)
-**Goal:** Know every free meter, where it comes from, and write your own.
-
-Study the free meters and their autoconfig: `http.server.requests`, `http.client.requests`, `jvm.*` (memory/GC/threads/classloader/buffer pools), `system.*`/`process.*`, `tomcat.*`, `hikaricp.*`, `spring.data.repository.invocations`, Kafka client metrics, `executor.*`, cache metrics, `spring.batch.*`. Find each provider under `org.springframework.boot.micrometer.metrics.autoconfigure.*` (Boot 4.1 API: https://docs.spring.io/spring-boot/api/java/allpackages-index.html) and practice selectively disabling with `MeterFilter.denyNameStartsWith("jvm")`.
-
-Write custom instrumentation covering **all meter types**: `Counter`, `Gauge`, `Timer`, `DistributionSummary`, `LongTaskTimer`, `TimeGauge`, `FunctionCounter`, `FunctionTimer`. Then the annotations `@Timed`, `@Counted`, `@Observed`, `@NewSpan`, `@SpanTag` — noting they require `management.observations.annotations.enabled=true` plus the aspect beans (`TimedAspect`, `CountedAspect`, `ObservedAspect`) and AspectJ.
-
-**Kotlin ergonomics:** use `Timer.record { }` (inline lambda), extension functions to wrap `MeterRegistry`, and note `@Observed`/AOP requires Spring-proxied beans (self-invocation and `private`/`final` methods won't be intercepted — a real Kotlin gotcha since Kotlin classes/methods are `final` by default; use `all-open`/`kotlin-spring` plugin).
-
-Resources:
-- Micrometer Concepts (meter types): https://docs.micrometer.io/micrometer/reference/concepts
-- Gauges (read closely for Phase-2 pitfalls): https://docs.micrometer.io/micrometer/reference/concepts/gauges.html
-- Naming: https://docs.micrometer.io/micrometer/reference/concepts/naming.html
-
-**Deliverable:** Add a business `Counter` (orders placed), a `Gauge` (outbox backlog depth), and a `Timer` (order-processing latency) with idiomatic Kotlin wrappers; disable JVM buffer-pool metrics via MeterFilter and prove it in `/actuator/prometheus`.
-
----
-
-### Phase 3 — Naming, tags, gauges done right, and testing (1.5 weeks)
-**Goal:** Cardinality discipline + a test harness you'll reuse all curriculum long.
-
-Naming & tags: dot-delimited names, base units, per-registry `NamingConvention` (why `http.server.requests` becomes `http_server_requests_seconds_count` in Prometheus), `MeterRegistryCustomizer` for common tags, low- vs high-cardinality thinking.
-
-**Gauge pitfalls (critical):** Micrometer holds a **weak reference** to the gauged object to avoid leaks; if the object is GC'd the gauge reports **NaN** or vanishes. You **cannot "set" a gauge** (the "heisen-gauge" principle) — hold a strong reference to an `AtomicInteger`/`AtomicLong`/domain object, or use `Gauge.builder(...).strongReference(true)`. (`DiskSpaceMetrics` historically hit this — issue #1409.)
-
-Testing:
-- `SimpleMeterRegistry` for pure unit tests; `meterRegistry.clear()` between tests.
-- `micrometer-test` → `MeterRegistryAssert`; `micrometer-observation-test` → `TestObservationRegistry` + `TestObservationRegistryAssert`.
-- Spring test slices + **`@AutoConfigureObservability`** (observability autoconfig is off in tests by default; re-enable it).
-- **Testcontainers with Podman** (your stack): spin up an OTLP collector / Prometheus and assert end-to-end.
-
-Resources:
-- Meter filters: https://docs.micrometer.io/micrometer/reference/concepts/meter-filters.html
-- Gauge NaN root cause (Baeldung): https://www.baeldung.com/java-prometheus-micrometer-gauge-nan-value
-- Testing (Baeldung "Observability With Spring Boot"): https://www.baeldung.com/spring-boot-3-observability and https://www.baeldung.com/testing-micrometer-metrics
-- `@AutoConfigureObservability` javadoc (Boot 4 API index): https://docs.spring.io/spring-boot/api/java/allpackages-index.html
-
-**Deliverable:** A reusable Kotlin test module: `MeterRegistryAssert`-based unit tests, a `TestObservationRegistry` slice test asserting an `@Observed` method produces exactly one observation with the right low-cardinality tags, and one Podman/Testcontainers integration test scraping Prometheus output. Plus a deliberate "NaN gauge" reproduction and its fix.
-
----
-
-### Phase 4 — Registry model, MeterFilter, MeterBinder (2.5 weeks)
-**Goal:** Understand the machine: how meters are created, filtered, and bound.
-
-**Registry model:** `Meter`, `Meter.Id`, `Meter.Type`; the abstract `MeterRegistry` and its template methods `newCounter`/`newGauge`/`newTimer`; `MeterRegistry.Config`; `CompositeMeterRegistry` and the static `GlobalRegistry` (`Metrics.globalRegistry`); **push vs pull**: `PushMeterRegistry`/`StepMeterRegistry` (step-based publishing, the publish scheduler, `step` interval) vs pull (Prometheus scrape). Spring auto-configures a `CompositeMeterRegistry` and adds one child per `micrometer-registry-*` on the classpath.
-
-**MeterFilter in depth** — as a policy engine: `accept`/`deny`/`denyUnless`, `map`, `configure`, `denyNameStartsWith`, `renameTag`, `replaceTagValues`, `ignoreTags`, `commonTags`, `maximumAllowableTags`, `maximumAllowableMetrics`; ordering/evaluation semantics; how Boot's `management.metrics.*` / `management.observations.*` are implemented as MeterFilters under the hood; enforcing a **cardinality budget** with `maximumAllowableTags("http.server.requests", "uri", 100, MeterFilter.deny())`. Pair with the **HighCardinalityTagsDetector** (https://docs.micrometer.io/micrometer/reference/concepts/high-cardinality-tags-detector.html).
-
-**MeterBinder in depth** — the interface plus built-ins: `JvmMemoryMetrics`, `JvmGcMetrics`, `JvmThreadMetrics`, `JvmHeapPressureMetrics`, `JvmCompilationMetrics`, `JvmInfoMetrics`, `ClassLoaderMetrics`, `ProcessorMetrics`, `UptimeMetrics`, `FileDescriptorMetrics`, `DiskSpaceMetrics`, `ExecutorServiceMetrics`, `KafkaClientMetrics`/`KafkaStreamsMetrics`, `Log4j2Metrics`/`LogbackMetrics`, `OkHttpMetrics`, `PostgreSQLDatabaseMetrics`, cache binders — and HikariCP's own `MicrometerMetricsTracker` (`hikaricp.connections.*`). Write your own binder; see how Boot auto-configures them.
-
-**Virtual thread metrics:** add `micrometer-java21`, wire `VirtualThreadMetrics`, force a pinning event, and observe `jdk.VirtualThreadPinned` surfacing.
-
-**OTel semantic-convention wrinkle (Boot 4):** to emit OTel-semantic names you must register convention beans (`OpenTelemetryServerRequestObservationConvention`, `OpenTelemetryJvmMemoryMeterConventions`, etc.) as shown in the Halbritter post — the ergonomics are expected to improve (spring-boot #47935).
-
-Resources:
-- JVM metrics & Java 21 binder: https://docs.micrometer.io/micrometer/reference/reference/jvm.html
-- `VirtualThreadMetrics` source: https://github.com/micrometer-metrics/micrometer/blob/main/micrometer-java21/src/main/java/io/micrometer/java21/instrument/binder/jdk/VirtualThreadMetrics.java
-- HikariCP `MicrometerMetricsTracker`: https://github.com/brettwooldridge/HikariCP/blob/dev/src/main/java/com/zaxxer/hikari/metrics/micrometer/MicrometerMetricsTracker.java
-- `MeterFilter` source: https://github.com/micrometer-metrics/micrometer/blob/main/micrometer-core/src/main/java/io/micrometer/core/instrument/config/MeterFilter.java
-
-**Deliverable:** (a) A custom `MeterBinder` for the transactional-outbox poller (backlog age, poll duration, publish successes/failures). (b) A global cardinality-budget MeterFilter + HighCardinalityTagsDetector wired into your integration tests. (c) HikariCP dashboard notes correlating `hikaricp.connections.pending` and the `hikaricp.connections.acquire` timer with Aurora Performance Insights / CloudWatch.
-
----
-
-### Phase 5 — Distribution statistics + histogram export flavors (2 weeks)
-**Goal:** Master percentiles vs histograms vs SLOs and per-registry export.
-
-Core: `DistributionStatisticConfig` (defaults above), client-side percentiles vs percentile histograms vs SLO boundaries, **why client-side percentiles can't aggregate across instances**, `HistogramGauges`, `TimeWindowPercentileHistogram` (HdrHistogram) vs `TimeWindowFixedBoundaryHistogram` (fixed buckets), `expiry`/`bufferLength`, `minimumExpectedValue`/`maximumExpectedValue` and bucket generation (~276 preset buckets clamped to range; ~73 for a default Timer), and histogram memory cost (`percentilePrecision`, buckets × dimensions).
-
-Export flavors per registry: **Prometheus classic histograms vs summaries**; the fact that **Micrometer's Prometheus registry does NOT emit native histograms** (open enhancement; use OTLP exponential instead); `OtlpMeterRegistry` explicit vs base-2 exponential via `histogramFlavor`/`histogramFlavorPerMeter`, `maxScale`/`maxBuckets`, the **SLO → explicit-bucket fallback**, and **delta vs cumulative** temporality.
-
-Given your queueing-theory background, connect this explicitly: histograms let you compute backend-aggregated tail latencies that Little's Law / Kingman's-formula reasoning actually needs across a pod fleet — client-side p99 averaging would corrupt that.
-
-Resources:
-- Histograms & percentiles: https://docs.micrometer.io/micrometer/reference/concepts/histogram-quantiles.html
-- Distribution summaries: https://docs.micrometer.io/micrometer/reference/concepts/distribution-summaries.html
-- `DistributionStatisticConfig` source: https://github.com/micrometer-metrics/micrometer/blob/main/micrometer-core/src/main/java/io/micrometer/core/instrument/distribution/DistributionStatisticConfig.java
-- `OtlpConfig` source: https://github.com/micrometer-metrics/micrometer/blob/main/implementations/micrometer-registry-otlp/src/main/java/io/micrometer/registry/otlp/OtlpConfig.java
-- Prometheus histograms/native background: https://prometheus.io/docs/practices/histograms/
-- OTel metrics data model (exponential histograms): https://opentelemetry.io/docs/specs/otel/metrics/data-model/
-
-**Deliverable:** Instrument order-processing latency three ways — client-side percentiles, Prometheus percentile-histogram buckets, and SLO boundaries — and write a short empirical note (Korean-blog-ready) showing that only the histogram/SLO variants aggregate correctly across two pods, plus a memory-footprint comparison of `percentilePrecision` 1 vs 2.
-
----
-
-### Phase 6 — Observation API, context propagation, tracing, and reading the source (3 weeks)
-**Goal:** The unifying abstraction, propagation across every boundary in your stack, and source fluency.
-
-**Observation API:** build a custom `ObservationConvention` for an "order" domain observation; register a logging `ObservationHandler` alongside the metric + tracing handlers; use `ObservationPredicate`/`ObservationFilter`; map low- vs high-cardinality key-values and observe exactly where each lands (metric tag vs span attribute).
-- Introduction: https://docs.micrometer.io/micrometer/reference/observation/introduction.html
-- Components: https://docs.micrometer.io/micrometer/reference/observation/components.html
-- Source (docs adoc): https://github.com/micrometer-metrics/micrometer/blob/main/docs/modules/ROOT/pages/observation/introduction.adoc
-
-**Context propagation:** exercise all five boundaries with tests proving context survives — `@Async` (`ContextPropagatingTaskDecorator`), **Kotlin coroutines** (`asContextElement`, Spring Framework 7 support, `MDCContext`), Reactor (`Hooks.enableAutomaticContextPropagation`), virtual threads (`ContextExecutorService`), and **Kafka listeners**.
-- Usage examples: https://docs.micrometer.io/micrometer/reference/1.12/contextpropagation/usage.html
-- spring-framework #35185 (coroutine propagation): https://github.com/spring-projects/spring-framework/issues/35185
-- `AsContextElement.kt` source: https://github.com/micrometer-metrics/micrometer/blob/main/micrometer-core/src/main/kotlin/io/micrometer/core/instrument/kotlin/AsContextElement.kt
-
-**Tracing:** choose the OTel bridge for Boot 4; configure sampling, W3C vs B3, baggage/remote-fields, and log correlation. Add the `X-Trace-Id` response-header filter from the Halbritter post.
-- Spring Boot tracing reference: https://docs.spring.io/spring-boot/reference/actuator/tracing.html
-- Sleuth→Micrometer Tracing migration: https://github.com/micrometer-metrics/tracing/wiki/Spring-Cloud-Sleuth-3.1-Migration-Guide
-
-**Kafka + outbox instrumentation:** set `spring.kafka.listener.observation-enabled=true` and `spring.kafka.template.observation-enabled=true`; add `KafkaClientMetrics` / consumer-lag; write a `KafkaListenerObservationConvention`. **Trap:** with observation + legacy Actuator Kafka metrics both on, Prometheus rejects the duplicate `spring.kafka.listener_seconds` with conflicting tag keys (spring-kafka #4104) — disable one.
-- Spring Kafka monitoring: https://docs.spring.io/spring-kafka/reference/kafka/micrometer.html
-- Consumer lag: https://www.baeldung.com/java-kafka-consumer-lag
-
-**Reading the source (ordered):**
-1. `Meter`, `Meter.Id`, `MeterRegistry`, `AbstractMeterRegistry` (template methods) — the core contract.
-2. `MeterFilter` — how policy composes.
-3. `AbstractDistributionSummary`/`AbstractTimer` → `TimeWindowPercentileHistogram`/`TimeWindowFixedBoundaryHistogram` — histogram selection.
-4. `PushMeterRegistry`/`StepMeterRegistry` — publishing model.
-5. `micrometer-registry-prometheus` `PrometheusMeterRegistry` + `PrometheusNamingConvention` — name translation.
-6. `micrometer-registry-otlp` `OtlpMeterRegistry` + `OtlpConfig` — flavor/temporality logic.
-7. `micrometer-observation` `Observation`, `ObservationRegistry`, `ObservationHandler`.
-8. `micrometer-tracing` bridges (`W3CPropagation`).
-9. Boot 4 autoconfig: `spring-boot-micrometer`, `spring-boot-opentelemetry`, `spring-boot-micrometer-tracing-opentelemetry`, `spring-boot-actuator`. Use the DeepWiki index (https://deepwiki.com/spring-projects/spring-boot) as a map, then read the real source.
-
-**Deliverable:** A single `Observation` at the order-service boundary that yields a metric + a span + a correlated log, propagated end-to-end: HTTP → coroutine service → Kafka producer → Kafka consumer (in a second service) → outbox poller, with integration tests (Podman/Testcontainers) asserting the trace ID survives every hop.
-
----
-
-### Phase 7 — Capstone (2 weeks)
-**Build:** A production-grade observability layer for a two-service Kotlin event-driven system on EKS (orders + fulfillment, Aurora MySQL/HikariCP, Kafka, virtual-thread executors), instrumented **entirely via the Micrometer Observation API**, exporting through the OTLP registry + OTel tracing bridge to a Grafana LGTM backend.
-
-Requirements that force mastery:
-- Custom `ObservationConvention`s for order and outbox domains; low/high-cardinality discipline enforced by a cardinality-budget MeterFilter + HighCardinalityTagsDetector in CI.
-- HikariCP + Kafka-lag + virtual-thread-pinning dashboards; common tags for `pod`, `namespace`, `cluster` via `MeterRegistryCustomizer`, with a written note on **per-pod aggregation and pod-churn metric identity**.
-- Histogram strategy documented: SLO buckets for latency, backend-aggregated (not client-side p99).
-- A **k6** load test whose output is pushed into the same Prometheus, compared against Micrometer's `http.server.requests` histogram to validate the load test (this is your "where this leads" bridge to the separately-delivered platform/PromQL/SLO plan — don't re-teach it here).
-- Full context-propagation test suite (coroutines, Kafka, virtual threads).
-
-**Deliverable:** The running system + a Korean-language technical blog series (your existing practice) documenting the Boot 3→4 migration traps, the Observation API, and the histogram-aggregation finding.
-
-## Common Traps & Misconceptions (Spring Boot 4 + Micrometer specific)
-1. **Following Boot 3.x tutorials verbatim.** Module names (`org.springframework.boot.micrometer.metrics.autoconfigure.*`), the new OTel starter, and the metrics-vs-tracing property split all differ. Concepts transfer; wiring does not.
-2. **Confusing the two OTLP property namespaces.** Metrics = `management.otlp.metrics.*` (Micrometer registry); traces = `management.opentelemetry.tracing.*`; logs = `management.opentelemetry.logging.*`. Different prefixes, different libraries.
-3. **Duplicate metrics** when both Micrometer OTLP export and an OTel bridge are active — disable `management.otlp.metrics.export.enabled`.
-4. **Gauge NaN / disappearing gauges** from weak references — hold a strong reference or use `.strongReference(true)`; never try to "set" a gauge.
-5. **Averaging client-side p99s across pods** — statistically invalid. Use percentile histograms / SLO buckets and aggregate in the backend.
-6. **Expecting native histograms from the Prometheus registry** — Micrometer doesn't emit them (open issue; verify #5891). Use the OTLP exponential flavor instead.
-7. **`serviceLevelObjectives` silently disabling exponential OTLP histograms** — SLOs force explicit-bucket fallback.
-8. **OTLP delta-vs-cumulative mismatch** with the backend — silent data weirdness.
-9. **Kafka observation vs legacy metrics name clash** (`spring.kafka.listener_seconds`, spring-kafka #4104) — enable observation OR legacy Actuator Kafka metrics, not both.
-10. **`new RestClient()`/`WebClient()`** breaks trace propagation — always inject the auto-configured builder.
-11. **`@Observed`/`@Timed` not firing** — needs `management.observations.annotations.enabled=true`, the aspect beans, AOP, and a Spring-proxied bean. **Kotlin-specific:** classes/methods are `final` by default; without `kotlin-spring`/`all-open`, proxying fails silently. Self-invocation is never intercepted.
-12. **Observability autoconfig is disabled in tests** — add `@AutoConfigureObservability`.
-13. **`highCardinalityKeyValues` ≠ metric tags** — they only reach spans; putting a user ID in a low-cardinality key-value will blow up metric cardinality.
-14. **Prometheus client 0.x → 1.x** (Micrometer ≥1.13, client 1.4.x in 1.16) changed some names and label handling — dashboards/alerts can break; `micrometer-registry-prometheus-simpleclient` is a deprecated stopgap.
-15. **`micrometer-java11`/`micrometer-java21` split** — `MicrometerHttpClient` (Apache HttpClient 5 instrumentation) moved out of `micrometer-core`; add the right module and fix imports.
-
-## The Reference Shelf (curated)
-
-**Official docs to read end-to-end**
-- Micrometer reference (Concepts, Implementations, Observation, Context Propagation): https://docs.micrometer.io/micrometer/reference/
-- Micrometer 1.16 & 1.17 migration guides + release notes: https://github.com/micrometer-metrics/micrometer/releases (1.16.0: https://github.com/micrometer-metrics/micrometer/releases/tag/v1.16.0)
-- Spring Boot reference — Actuator (Metrics, Observability, Tracing): https://docs.spring.io/spring-boot/reference/actuator/
-- Spring Boot 4.1 API package index: https://docs.spring.io/spring-boot/api/java/allpackages-index.html
-- Spring "Road to GA" series (esp. modularization + OTel): https://spring.io/blog/2025/09/02/road_to_ga_introduction
-- OpenTelemetry metrics data model & OTLP exporter spec: https://opentelemetry.io/docs/specs/otel/metrics/data-model/ and https://opentelemetry.io/docs/specs/otel/metrics/sdk_exporters/otlp/
-
-**Talks (verified maintainer attributions — Jonatan Ivanov, Tommy Ludwig, Marcin Grzejszczak, all Micrometer maintainers at Broadcom)**
-- "Micrometer Mastery: Unleash Advanced Observability in your JVM Apps," Ludwig & Ivanov, Spring I/O 2024: https://www.youtube.com/watch?v=Qyku6cR6ADY
-- "I Can See Clearly Now: Observability of JVM & Spring Boot 2-3-4 apps," Ivanov & Ludwig, Spring I/O 2026: https://2026.springio.net/sessions/i-can-see-clearly-now-observability-of-jvm-and-spring-boot-2-3-4-apps/
-- "A Bootiful Podcast" episodes with Jonatan Ivanov (observability) and Tommy Ludwig: https://spring.io/blog/2024/08/01/a-bootiful-podcast-observability-legend-jonatan-ivanov-on-the-latest-and/
-- Adrian Cole, "Observability 3 Ways" (metrics/tracing/logging distinction; recommended by Micrometer docs)
-- Ludwig & Grzejszczak, "Observability of Your Application" (recommended in Micrometer docs Concepts page)
-
-**GitHub repos / samples to clone**
-- `micrometer-metrics/micrometer` (read the source): https://github.com/micrometer-metrics/micrometer
-- `micrometer-metrics/tracing`: https://github.com/micrometer-metrics/tracing
-- `mhalbritter/spring-boot-and-opentelemetry`: https://github.com/mhalbritter/spring-boot-and-opentelemetry
-- `ThomasVitale/spring-boot-opentelemetry`: https://github.com/ThomasVitale/spring-boot-opentelemetry
-- Spring Boot source + DeepWiki map: https://github.com/spring-projects/spring-boot and https://deepwiki.com/spring-projects/spring-boot
-
-**Source files worth reading (exact paths)**
-- `micrometer-core`: `.../instrument/MeterRegistry.java`, `.../config/MeterFilter.java`, `.../distribution/DistributionStatisticConfig.java`, `.../distribution/TimeWindowPercentileHistogram.java`, `.../distribution/TimeWindowFixedBoundaryHistogram.java`, `.../push/PushMeterRegistry.java`
-- `micrometer-registry-otlp`: `OtlpMeterRegistry.java`, `OtlpConfig.java`
-- `micrometer-registry-prometheus`: `PrometheusMeterRegistry.java`, `PrometheusNamingConvention.java`
-- `micrometer-observation`: `Observation.java`, `ObservationRegistry.java`, `ObservationHandler.java`
-- `micrometer-java21`: `VirtualThreadMetrics.java`
-
-**Books/longer references**
-- No dedicated Micrometer book exists at the level you need; treat the reference docs + source as the "book." For breadth, *Cloud Native Spring in Action* (Thomas Vitale, Manning) covers Boot observability (Boot 3-era; adjust for Boot 4). For the metrics-theory framing you already have (queueing theory), pair histograms with your existing Kingman/Little's-Law intuition rather than a new text.
+### 3. Auto-configured metrics in Spring Boot
+
+With `spring-boot-starter-actuator` plus a registry (e.g. `micrometer-registry-prometheus`) and `management.endpoints.web.exposure.include=prometheus,health,metrics`, Spring Boot binds (non-exhaustive):
+
+**JVM (via `JvmMemoryMetrics`, `JvmGcMetrics`, `JvmThreadMetrics`, `ClassLoaderMetrics`, and JVM info):**
+- `jvm.memory.used/committed/max` (tags `area`=heap/nonheap, `id`=pool), `jvm.buffer.*`
+- `jvm.gc.pause` (Timer), `jvm.gc.memory.allocated/promoted`, `jvm.gc.max.data.size`
+- `jvm.threads.live/daemon/peak/states`, `jvm.classes.loaded/unloaded`
+- Interpretation: rising `jvm.gc.pause` sum/rate + growing `jvm.memory.used{area="heap"}` after GC = heap pressure; watch old-gen pool `jvm.memory.used{id=~".*Old.*"}` trending toward `max`.
+
+**System/process (`ProcessorMetrics`, `UptimeMetrics`, `FileDescriptorMetrics`):**
+- `system.cpu.usage`, `process.cpu.usage`, `system.load.average.1m`
+- `process.uptime`, `process.start.time`, `process.files.open/max`
+- `disk.free/total`
+
+**HTTP server — `http.server.requests`** (Timer; Spring MVC + WebFlux via `ServerHttpObservationFilter` / the Observation API). Tags: `method`, `uri` (the **templated** route, e.g. `/orders/{id}`), `status`, `outcome` (SUCCESS/CLIENT_ERROR/SERVER_ERROR), `exception`, `error`. **Raw URIs cause cardinality explosion** — always use path templates; unmatched routes report `uri="UNKNOWN"` (a known behavior change tightened in Boot 3.3 via `DefaultServerRequestObservationConvention`). Enable histograms with `management.metrics.distribution.percentiles-histogram.http.server.requests=true`.
+
+**HTTP client — `http.client.requests`** for `RestTemplate`, `RestClient`, and `WebClient`, registered via observation customizers (`ObservationRestTemplateCustomizer`, `ObservationRestClientCustomizer`, `ObservationWebClientCustomizer`). **URI templating is critical**: pass templates + variables (`restClient.get().uri("/users/{id}", id)`, or `webClient...uri(b -> b.path("/v1/users/{id}").build(id))`) so the `uri` tag is the template, not the expanded URL. `management.metrics.web.client.max-uri-tags` (default 100) caps runaway URI tags. To always be sure, register a custom `ClientRequestObservationConvention` (Boot 3+).
+
+**Apache HttpClient 5 connection-pool metrics.** Micrometer ships a built-in binder: **`io.micrometer.core.instrument.binder.httpcomponents.hc5.PoolingHttpClientConnectionManagerMetricsBinder`** in `micrometer-core`. The `hc5` package is present in the micrometer-core 1.11.0 Javadoc; the old HttpClient 4.x class in the parent `httpcomponents` package is deprecated as of 1.12.5 in favor of HttpComponents 5.x. It exposes gauges prefixed `httpcomponents.httpclient.pool`:
+
+| Metric | Meaning |
+|---|---|
+| `httpcomponents.httpclient.pool.total.max` | max allowed persistent connections, all routes |
+| `httpcomponents.httpclient.pool.total.connections` | connections in pool, tag `state`=available/leased |
+| `httpcomponents.httpclient.pool.total.pending` | requests blocked awaiting a free connection |
+| `httpcomponents.httpclient.pool.route.max.default` | default max connections per route |
+
+All carry an `httpclient` tag (the pool name you pass) plus any custom tags. For **per-request** HttpClient 5 observations use `ObservationExecChainHandler` (registered as an exec interceptor named `"micrometer"`); `MicrometerHttpClientInterceptor` exists for `HttpAsyncClient`, and `MicrometerHttpRequestExecutor` is deprecated in favor of `ObservationExecChainHandler`. Kotlin wiring:
+
+```kotlin
+@Configuration
+class HttpClientConfig {
+    @Bean
+    fun connectionManager(): PoolingHttpClientConnectionManager =
+        PoolingHttpClientConnectionManagerBuilder.create()
+            .setMaxConnTotal(100).setMaxConnPerRoute(20).build()
+
+    @Bean
+    fun poolMetrics(cm: PoolingHttpClientConnectionManager, reg: MeterRegistry) =
+        PoolingHttpClientConnectionManagerMetricsBinder(cm, "orders-http").apply { bindTo(reg) }
+}
+```
+
+Spring Boot does **not** auto-register this pool binder (3.x or 4.x) — it is manual. Note Apache HttpClient 5.6+ now ships its own `httpclient5-observation` module (metric names differ, e.g. `http.client.pool.leased/available/pending`), and the Micrometer docs now flag the built-in hc5 instrumentation as deprecated in favor of that Apache module.
+
+**DataSource / HikariCP.** With Actuator + Micrometer on the classpath, HikariCP metrics are auto-bound: `hikaricp.connections` (total), `.active`, `.idle`, `.pending` (threads waiting), `.max`, `.min`, `.timeout` (count), `.acquire` (Timer), `.creation` (Timer), `.usage` (Timer). Plus generic `jdbc.connections.active/idle/max/min`. **Interpretation:** `hikaricp.connections.pending > 0` sustained = pool undersized for load; rising `.acquire` p99 = contention; `.timeout` increments = requests failing to get a connection (raise pool size or fix slow queries). If you build a `HikariDataSource` manually, pass `new MicrometerMetricsTrackerFactory(registry)`. **Aurora MySQL note:** with a reader/writer split you typically run separate pools per endpoint — tag them (`pool` name) so writer saturation is distinguishable from reader; Aurora failover can invalidate connections, so also watch `.timeout` and `.creation` spikes around failover events. (No Aurora-specific Micrometer binder exists; these are the standard Hikari signals.)
+
+**JPA/Hibernate.** `hibernate.*` statistics (via `HibernateMetrics`) — query counts, cache hits, session stats — require `hibernate.generate_statistics=true`. Note this instrumentation has been **deprecated/removed from Spring Boot's auto-configuration** in recent versions (moved out of the default path as Hibernate's own metrics/observation story evolved); `spring.data.repository.invocations` (Repository-level Timer) remains useful.
+
+**Kafka.** `KafkaClientMetrics` / `KafkaConsumerMetrics` (Micrometer) bind the native Kafka client metrics; Spring Boot auto-exposes them from 2.5+ once Actuator is present. Key names (dotted form): `kafka.consumer.fetch.manager.records.lag` (and `.records.lag.max`), `kafka.consumer.fetch.manager.fetch.latency.avg`, `kafka.consumer.coordinator.rebalance.rate.per.hour`, `kafka.consumer.last.poll.seconds.ago`, `kafka.producer.record.send.rate`, producer batch-size metrics. Also `spring.kafka.listener` (listener Timer) and `spring.kafka.template`. **Most important for lag monitoring:** `records-lag-max` / per-partition `records.lag`. Caveat: some lag metrics historically lacked topic/partition tags depending on client state; consumer-group lag is not a JVM metric (use MSK CloudWatch or an offset exporter for authoritative group lag). For custom tags, add `MicrometerConsumerListener`/`MicrometerProducerListener` to the factory.
+
+**Caching.** Caffeine (`CaffeineCacheMetrics`) and others bind `cache.gets` (tag `result`=hit/miss), `cache.puts`, `cache.evictions`, `cache.size`. Hit ratio in PromQL: `sum(rate(cache_gets_total{result="hit"}[5m])) / sum(rate(cache_gets_total[5m]))`. Redis/Valkey: per the Spring Boot 4.0 release notes, *"The Redis auto-configuration has been improved to auto-configure MicrometerTracing, rather than MicrometerCommandLatencyRecorder. The former operates on the Observation API and provides both metrics and spans."*
+
+**Task execution / scheduling / executors.** `executor.*` metrics via `ExecutorServiceMetrics`: `executor.active`, `executor.completed`, `executor.pool.size/core/max`, `executor.queued`, `executor.queue.remaining`, plus `executor` (task execution Timer) and `executor.idle` (queue wait Timer) for `ThreadPoolExecutor`. **Queue depth (`executor.queued`) climbing = pool saturation.** **Virtual threads (Loom):** add `io.micrometer:micrometer-java21` for the virtual-thread binder — it measures the duration/count of virtual threads being **pinned** and counts failed starts/unparks (critical for spotting pinning regressions when you move blocking code onto virtual threads).
+
+**Web servers.** `tomcat.sessions.*`, `tomcat.threads.*` (Tomcat); Jetty (`JettyServerThreadPoolMetrics`, `JettyStatisticsMetrics`); Netty/Reactor metrics for WebFlux. Spring Batch exposes `spring.batch.job`/`spring.batch.step` timers in recent versions.
+
+**Logging.** `LogbackMetrics` → `logback.events` (tag `level`); `Log4j2Metrics` → `log4j2.events`. A rising `rate(logback_events_total{level="error"}[5m])` is a cheap error-rate signal.
+
+**Other.** Spring Security (observation-based auth/filter-chain observations in recent versions), Spring Integration (`spring.integration.*` channel/handler timers), Spring GraphQL, R2DBC pool metrics.
+
+**Configuration keys (note the Boot 2→3 renames).** Spring Boot 3 moved per-registry export properties from `management.metrics.export.<reg>.*` to top-level `management.<reg>.metrics.export.*` (e.g. `management.prometheus.metrics.export.enabled`). Common keys:
+```yaml
+management:
+  endpoints.web.exposure.include: prometheus,health,metrics,info
+  metrics:
+    tags: { application: ${spring.application.name} }   # common tags
+    distribution:
+      percentiles-histogram:
+        http.server.requests: true
+      slo:
+        http.server.requests: 50ms,100ms,200ms,500ms
+      percentiles:
+        http.server.requests: 0.95,0.99   # client-side; avoid for cross-pod
+    web.client.max-uri-tags: 100
+  prometheus.metrics.export.enabled: true
+  observations:
+    key-values: { region: ap-northeast-2 }
+    http.server.requests.name: http.server.requests
+  tracing:
+    enabled: true
+    sampling.probability: 0.1
+  otlp.tracing.endpoint: http://otel-collector:4318/v1/traces
+```
+**Spring Boot 4 changes:** observability modules were renamed (`spring-boot-metrics`→`spring-boot-micrometer-metrics`, `-observation`→`-micrometer-observation`, `-tracing`→`-micrometer-tracing`); a new `spring-boot-starter-opentelemetry` bundles most OTel/Micrometer deps; OTLP tracing export config moved under `management.opentelemetry.tracing.export.*` and `management.tracing.export.enabled`; `logging.console.enabled` was added.
+
+### 4. Custom instrumentation
+
+**Programmatic meters.** Inject `MeterRegistry`; build meters with the fluent builders and **store the returned meter in a field** (avoid per-call lookups):
+```kotlin
+@Service
+class OrderService(registry: MeterRegistry) {
+    private val placed = Counter.builder("orders.placed")
+        .description("Orders successfully placed")
+        .tag("channel", "web")
+        .register(registry)
+    private val reg = registry
+    fun place(order: Order) {
+        // dimensional business metric: outcome as a low-cardinality tag
+        reg.counter("orders.processed", "result", "success", "payment", order.method).increment()
+        placed.increment()
+    }
+}
+```
+
+**MeterBinder.** For metrics that depend on other beans, implement `MeterBinder` and register it as a `@Bean` — Spring Boot auto-calls `bindTo` and this defers gauge registration until the registry is ready (avoids shutdown-ordering `NPE`/`BeanCreationNotAllowedException` seen when gauges reference beans being destroyed).
+
+**`@Timed` / `@Counted`.** Require the aspect beans:
+```kotlin
+@Bean fun timedAspect(r: MeterRegistry) = TimedAspect(r)
+@Bean fun countedAspect(r: MeterRegistry) = CountedAspect(r)
+```
+Limitations (Spring AOP proxying): **only public methods, and self-invocation (calling the annotated method from within the same class) bypasses the proxy** so no metric is recorded. Controllers are timed by default even without `TimedAspect`. Under native AspectJ compile-time weaving the aspect won't fire unless the Micrometer jar is post-compile woven. `longTask=true` switches to a `LongTaskTimer`.
+
+**Common tags via `MeterRegistryCustomizer`:**
+```kotlin
+@Bean
+fun commonTags(@Value("\${spring.application.name}") app: String) =
+    MeterRegistryCustomizer<MeterRegistry> { r ->
+        r.config().commonTags("application", app, "env", System.getenv("ENV") ?: "local")
+    }
+```
+Use `MeterFilter` for renaming/denying/limiting. Prefer injecting pod/region as *common tags* from the environment rather than per-meter.
+
+**Modeling business metrics dimensionally.** Model outcomes as bounded low-cardinality tags (`result=success|declined|error`, `payment=card|bank`), never customer IDs or free-text. Keep the meter name the noun (`payments`), the tags the adjectives.
+
+**Testing.** Use `SimpleMeterRegistry` in unit tests; assert with `micrometer-test`'s `MeterRegistryAssert` (`assertThat(registry).hasTimerWithNameAndTags(...)`). In Boot 4, `@AutoConfigureObservability` was **removed** in favor of finer-grained `@AutoConfigureMetrics` / `@AutoConfigureTracing`, backed by `spring-boot-micrometer-metrics-test` / `-tracing-test`.
+
+### 5. Micrometer Observation API
+
+Introduced in Micrometer 1.10, the Observation API is the modern unified abstraction: you create one `Observation` and registered `ObservationHandler`s turn it into metrics, traces, logs, or anything else — the docs describe the goal as **"instrument once and have multiple benefits out of it."**
+
+Components:
+- `Observation` / `Observation.Context` — a mutable context holder carrying data for handlers.
+- `ObservationRegistry` — holds handlers, predicates, filters, conventions.
+- `ObservationHandler` — reacts to lifecycle events (start, stop, scopes, error). `DefaultMeterObservationHandler` produces a Timer + LongTaskTimer; a tracing handler produces spans. Compose with `FirstMatchingCompositeObservationHandler`.
+- `ObservationConvention` — separates lifecycle from naming/tagging so names and key-values become configuration (override to rename/retag globally via `GlobalObservationConvention`).
+- `ObservationPredicate` — disable observations conditionally.
+- `ObservationFilter` — mutate/enrich contexts (e.g. add cloud tags).
+
+```kotlin
+Observation.createNotStarted("order.process", observationRegistry)
+    .lowCardinalityKeyValue("channel", "web")      // becomes a metric tag
+    .highCardinalityKeyValue("order.id", id)       // trace attribute only
+    .observe { processOrder(id) }
+```
+
+**Low vs high cardinality is a first-class distinction:** low-cardinality key values become metric tags (bounded); high-cardinality key values go only to traces (unbounded, e.g. IDs). This is exactly the discipline that prevents Prometheus series explosions while keeping rich trace context.
+
+**`@Observed`** (with an `ObservedAspect` bean) instruments a method as an observation → both a timer and, if tracing is on, a span. Boot 4 added support for `@ObservationKeyValue` to declaratively add key-values.
+
+**Migration reality.** Spring Framework 6+/Boot 3+ moved native instrumentation onto the Observation API and **retired Spring Cloud Sleuth**; responsibility for instrumentation shifted to each component (Spring MVC/WebFlux, Spring Kafka, Spring Data Redis, etc.). Practically: you configure handlers/conventions once, and every instrumented component emits consistent metrics + spans.
+
+**Context propagation (critical for a Kotlin shop).** `micrometer-context-propagation` (a zero-dependency SPI: `ThreadLocalAccessor`, `ContextAccessor`, `ContextRegistry`, `ContextSnapshot`) bridges `ThreadLocal` ↔ Reactor Context ↔ coroutine context so trace/MDC context survives thread hops.
+- **Reactor**: since Reactor 3.5 it embeds the SPI; `Hooks.enableAutomaticContextPropagation()` enables automatic restoration. Automatic mode has real performance cost (ThreadLocal access in the pipeline) — a documented tradeoff.
+- **Kotlin coroutines**: this was a long-standing pain point (`kotlinx.coroutines` #4187, Spring Framework #32165). **Resolved in Spring Framework 7 / Spring Boot 4**: set `spring.reactor.context-propagation=auto` and MDC/trace context propagates through `suspend` functions out of the box. **Known remaining gotcha (Boot 4.0.x):** context does **not** propagate into coroutines that collect a returned `Flow` (Spring Framework #36427) — MDC works in `suspend` controller methods but not inside Flow collectors; and exception-handler paths may lose context. For SLF4J MDC you also register `Slf4jThreadLocalAccessor`.
+- **Virtual threads**: ThreadLocal-based propagation generally works, but pinning and per-carrier assumptions change; verify traces are continuous when enabling virtual threads.
+
+### 6. Micrometer Tracing
+
+Micrometer Tracing is the **successor to Spring Cloud Sleuth**. It provides vendor-neutral `Tracer`/`Span` abstractions with bridges to **OpenTelemetry** (`micrometer-tracing-bridge-otel`) or **OpenZipkin Brave** (`micrometer-tracing-bridge-brave`). Boot 4 manages Micrometer Tracing 1.6.
+
+**Setup (Boot 3.x, OTel + OTLP):**
+```kotlin
+// build.gradle.kts
+implementation("org.springframework.boot:spring-boot-starter-actuator")
+implementation("io.micrometer:micrometer-tracing-bridge-otel")
+implementation("io.opentelemetry:opentelemetry-exporter-otlp")
+```
+```yaml
+management:
+  tracing.sampling.probability: 0.1     # 10% in prod
+  otlp.tracing.endpoint: http://otel-collector:4318/v1/traces
+```
+Boot 3 defaults to **W3C `traceparent`** and 128-bit IDs; switch/add B3 with `management.tracing.propagation.type=b3` (or `w3c,b3` for interop). Brave→Zipkin uses `spring-boot-starter-zipkin` + `management.zipkin.tracing.endpoint`. **Boot 4 note:** the OTel→Zipkin auto-config is deprecated (OpenTelemetry deprecated Zipkin support) and will be removed in Boot 4.2; module names moved to `spring-boot-micrometer-tracing-opentelemetry` etc. Boot 4's `spring-boot-starter-opentelemetry` bundles the common path.
+
+**Trace–metrics–logs correlation.**
+- **Logs**: Micrometer Tracing populates MDC `traceId`/`spanId`; add to your Logback pattern:
+  ```
+  logging.pattern.level=%5p [${spring.application.name},%X{traceId:-},%X{spanId:-}]
+  ```
+- **Exemplars** (metrics→trace pivot in Grafana): with the 1.x Prometheus client you need a `SpanContext` bean (`io.prometheus.metrics.tracer.common.SpanContext`); with the deprecated simpleclient it was `SpanContextSupplier`. **If you use Micrometer Tracing, Spring Boot auto-configures the exemplar provider.** Exemplars require **histogram buckets** on the metric and the **OpenMetrics** exposition format; only sampled traces become exemplars by default (`management.tracing.exemplars.include`). One exemplar per bucket per scrape (overwritten by later requests). Enable with:
+  ```yaml
+  management.metrics.distribution.percentiles-histogram.http.server.requests: true
+  ```
+  and ensure Grafana Alloy/Agent forwards exemplars (`send_exemplars`). Then Loki (logs by traceId) + Tempo (traces) + Prometheus (exemplars) give a full LGTM pivot.
+
+**Micrometer Tracing vs the OpenTelemetry Java agent.**
+- **Micrometer Tracing (native path):** instrumentation maintained by the Spring/library authors; **one instrumentation → metrics + traces**; works with **GraalVM native image** (agents can't be used with native). Metric names follow Micrometer/Spring conventions.
+- **OTel Java agent (`-javaagent`):** zero-code auto-instrumentation of many libraries; but it produces its **own metric names** which can diverge from Micrometer/Spring dashboards, and running both can cause **duplicate spans/metrics**. The agent v2.x changed default behavior (traces only on receive/send; `@WithSpan` for manual spans).
+- **Recommendation:** on Spring Boot, prefer **Micrometer Tracing + OTLP to a Collector**; use the OTel agent only for non-Spring libraries you can't instrument natively, and if you run both, disable overlapping instrumentation to avoid duplication.
+
+### 7. Exporters and backends
+
+Micrometer supports many registries: **Prometheus, OTLP**, Datadog, New Relic, CloudWatch, Dynatrace, Graphite, InfluxDB/Telegraf, SignalFx, Stackdriver, Wavefront, Atlas, StatsD, JMX, and more. Add the matching `micrometer-registry-*`; the composite fans out.
+
+**Prometheus (pull).** Add `micrometer-registry-prometheus`, expose `/actuator/prometheus`. Scrape config:
+```yaml
+scrape_configs:
+  - job_name: spring
+    metrics_path: /actuator/prometheus
+    static_configs: [{ targets: ["HOST:PORT"] }]
+```
+`registry.scrape("application/openmetrics-text")` (or the Actuator endpoint content negotiation) gives OpenMetrics for exemplars.
+
+**The Prometheus client migration.** Micrometer 1.13 / Spring Boot 3.3 switched `micrometer-registry-prometheus` from the **0.x `simpleclient`** to the **1.x `prometheus-metrics` (`prometheus-metrics-core`)** client. Consequences:
+- Some **exported metric names changed** and there were behavioral differences.
+- **Pushgateway was not supported on the 1.x client** initially.
+- The old client remains available as **`micrometer-registry-prometheus-simpleclient`** (deprecated; auto-config removed in Spring Boot 3.5).
+- **Don't override Micrometer's managed version** — e.g. forcing 1.13 on Boot 3.2 breaks Prometheus auto-config; let the Boot BOM manage it. OpenRewrite recipe `UpgradeMicrometer_1_13` automates the package move `io.micrometer.prometheus`→`io.micrometer.prometheusmetrics`. Micrometer 1.16 upgraded the client to 1.4.x, bringing **Unicode support** with naming-convention behavioral changes (see the 1.16 migration guide).
+
+**OTLP.** `micrometer-registry-otlp` pushes via OTLP; `management.otlp.metrics.export.*` (url, step, headers). OTLP prefers Histogram/Exponential-Histogram datapoints; the Summary (client percentiles) datapoint is legacy. Boot 4's `spring-boot-starter-opentelemetry` streamlines this.
+
+**Push vs pull & step registries.** Push registries extend `PushMeterRegistry`/`StepMeterRegistry`. **Step registries normalize counts/sums to a rate over the publishing interval (step)** — this is why a counter "looks different" on a step registry (Datadog, OTLP-step, etc.) than on Prometheus: within a step the value accumulates and is reported per-interval. For short-lived/batch jobs, step registries have a **"last value" problem**: the final partial step may not be published on shutdown (Micrometer added partial-step-on-shutdown handling, but verify).
+
+**Pushgateway for batch (Spring Batch).** When the Pushgateway dependency is present, Spring Boot auto-configures a `PrometheusPushGatewayManager`; tune via `management.prometheus.metrics.export.pushgateway.*`. Use it for jobs too short-lived to scrape. Caveat: Pushgateway support depends on the Prometheus client version (unsupported on the early 1.x client), so pin accordingly.
+
+**AWS/EKS.** `micrometer-registry-cloudwatch` pushes to CloudWatch (costs per custom metric; mind cardinality × dimensions). On EKS most teams prefer Prometheus scraping (or OTLP → Collector → AMP/Grafana Cloud) over CloudWatch for high-cardinality app metrics, using CloudWatch mainly for infra/MSK metrics like consumer-group lag.
+
+### 8. Kubernetes / production concerns (EKS)
+
+- **Pod labeling / cardinality.** **Do not** put pod name/IP as a Micrometer tag in-app — that multiplies every series by pod churn. Let Prometheus/ServiceMonitor relabeling attach `pod`, `namespace`, `instance` at scrape time. In-app common tags should be low-churn: `application`, `env`, `region`, maybe `version`.
+- **Aggregating percentiles across pods.** You **must** use histograms and aggregate then quantize: `histogram_quantile(0.99, sum by (le) (rate(http_server_requests_seconds_bucket[5m])))`. Never average per-pod client-side p99s.
+- **Scrape config.** Use the Prometheus Operator `PodMonitor`/`ServiceMonitor` pointing at `/actuator/prometheus`, or **Grafana Alloy** scraping the Actuator endpoint (and enable `send_exemplars`/remote_write with exemplars for Tempo pivots).
+- **Endpoint exposure & security.** Run Actuator on a **separate management port** (`management.server.port`) not exposed publicly; restrict `management.endpoints.web.exposure.include` to what you scrape; secure `/actuator/prometheus` via network policy/authn. Don't expose `env`/`heapdump`.
+- **Overhead.** Each unique (name × tag-values) is a time series with memory cost in both app and Prometheus. Client-side percentiles and histograms add per-meter HdrHistogram memory (bounded by min/max expected values); histograms add many bucket series. Measure with the `/actuator/metrics` meter count, `prometheus_tsdb_head_series` on the Prometheus side, and JVM heap of the app. A `HighCardinalityTagsDetector` helps catch offenders.
+- **Anti-patterns / troubleshooting.**
+  - *Missing metrics*: registry dependency absent, endpoint not exposed, or binder needs a classpath lib.
+  - *Duplicated meters / `Collector already registered`*: same name registered twice (e.g. `@Timed` colliding with manual timer).
+  - *Timers with zero counts / NaN percentiles*: client-side percentiles with no histogram, or gauge target GC'd.
+  - *Unbounded tags*: raw URIs, path variables, user input, exception messages as tags — the #1 cause of Prometheus OOM.
+
+### 9. Version and ecosystem currency (mid-2026)
+
+- **Micrometer:** current line **1.17.x** — 1.17.0 released 8 June 2026 (Maven Central lists all `io.micrometer` modules with a last release of Jun 8, 2026; see the GitHub "Release 1.17.0" and the 1.17 migration guide). LTS-ish maintenance on 1.15/1.16. 1.13 = Prometheus 1.x client migration; 1.16 = Prometheus client 1.4.x + Unicode naming changes; `micrometer-java11`/`micrometer-java21` split out HTTP-client and virtual-thread binders respectively.
+- **Micrometer Tracing:** 1.5.x/1.6.x lines; Boot 4 manages 1.6.
+- **Spring Boot 3.x vs 4.x:** Boot 4.0.0 (GA 20 November 2025) is built on **Spring Framework 7 / Jakarta EE 11**, manages **Micrometer 1.16 / Tracing 1.6**, renames observability modules, adds `spring-boot-starter-opentelemetry`, removes `@AutoConfigureObservability`, improves Redis observability (Observation-based) and coroutine context propagation (`spring.reactor.context-propagation=auto`), and moves OTLP tracing export props under `management.opentelemetry.tracing.export.*`. Zipkin-over-OTel auto-config deprecated (removal in 4.2).
+- **Deprecations to watch:** `micrometer-registry-prometheus-simpleclient` (deprecated), old `httpcomponents` (hc4) binders, `MicrometerHttpRequestExecutor`, Hibernate metrics auto-config, Sleuth (gone).
+- **Community resources:** official docs (`docs.micrometer.io`, `docs.spring.io/spring-boot/reference/actuator`), Micrometer/Spring Boot GitHub wikis & release notes, Spring blog "Observability with Spring Boot 3" and "Let's use OpenTelemetry with Spring" (2024), and talks/posts by **Tommy Ludwig (@shakuzen)**, **Jonatan Ivanov**, and **Marcin Grzejszczak**. Korean-language: search Korean tech blogs (e.g. Woowahan/우아한형제들 tech blog, Kakao/Naver D2) for "Micrometer 관측 가능성/옵저버빌리티" write-ups — several good Spring Boot 3 observability posts exist, though verify version currency.
+
+### 10. Practical learning path and project ideas
+
+**Progression (Kotlin/Boot/Kafka/Aurora/EKS):**
+1. **Basics:** Add Actuator + `micrometer-registry-prometheus`; expose `/actuator/prometheus`; explore auto-config metrics; build a Grafana RED dashboard from `http.server.requests`.
+2. **Custom meters:** Instrument an **order service** — `orders.placed` counter (tags: channel, result), an order-processing `Timer` with `publishPercentileHistogram`, a MultiGauge of orders-by-status. Add `@Timed` + `TimedAspect`.
+3. **DB & pool:** Enable HikariCP metrics for Aurora writer/reader pools; alert on `hikaricp.connections.pending`; wire the Apache HttpClient 5 pool binder for an outbound client.
+4. **Kafka:** Expose consumer lag (`kafka.consumer.fetch.manager.records.lag.max`), producer send-rate; alert on lag.
+5. **Distribution stats:** Add SLO buckets to a critical timer; compute an Apdex/SLO ratio in PromQL; validate p99 against a **k6** run (note coordinated omission).
+6. **Observation API:** Convert a business flow to `@Observed`; add a custom `ObservationConvention` to rename/retag; verify low/high cardinality split.
+7. **Tracing + exemplars:** Add `micrometer-tracing-bridge-otel` + OTLP to a Collector → Tempo; put `traceId` in logs → Loki; enable exemplars end-to-end; pivot metric→trace in Grafana.
+8. **EKS production:** ServiceMonitor/Alloy scrape, common tags, cross-pod `histogram_quantile`, SLO burn-rate alerts, separate management port.
+
+**Essential PromQL panels.**
+- **RED — Rate:** `sum(rate(http_server_requests_seconds_count[5m]))`
+- **RED — Errors:** `sum(rate(http_server_requests_seconds_count{outcome="SERVER_ERROR"}[5m])) / sum(rate(http_server_requests_seconds_count[5m]))`
+- **RED — Duration p99 (cross-pod):** `histogram_quantile(0.99, sum by (le,uri) (rate(http_server_requests_seconds_bucket[5m])))`
+- **USE — CPU:** `system_cpu_usage`, `process_cpu_usage`
+- **USE — Saturation (pool):** `hikaricp_connections_pending`, `executor_queued`
+- **JVM:** `sum by (id) (jvm_memory_used_bytes{area="heap"})`, `rate(jvm_gc_pause_seconds_sum[5m])`
+- **Kafka lag:** `max by (topic) (kafka_consumer_fetch_manager_records_lag_max)`
+- **Error budget burn (multi-window):** fast `(1 - sum(rate(http_server_requests_seconds_bucket{le="0.3",outcome="SUCCESS"}[5m])) / sum(rate(http_server_requests_seconds_count[5m]))) > (14.4 * (1 - 0.99))` combined with a 1h window for the classic multi-burn-rate SLO alert.
 
 ## Recommendations
-1. **Do Phases 0–3 in the first month, non-negotiably in this order** — they build the test harness and cardinality instincts every later phase reuses. If you're time-constrained, Phases 0–1 alone make you productive on Boot 4.
-2. **Front-load the version cheat sheet (Phase 0 deliverable)** and keep it open; it prevents the single most common failure mode (Boot 3.x tutorial drift).
-3. **Standardize on the Observation API for all new instrumentation** — write metrics/spans once, export via OTLP. Only drop to raw `MeterRegistry` for pure metrics with no trace value (e.g., a cheap `Gauge`).
-4. **For histograms, default to SLO/percentile-histogram buckets, not client-side percentiles**, unless a metric is single-instance by construction. This is the decision with the biggest correctness payoff on EKS.
-5. **Choose the OTel tracing bridge** (`micrometer-tracing-bridge-otel`) for Boot 4 unless you have an existing Zipkin/Brave investment.
-6. **Gate cardinality in CI** using HighCardinalityTagsDetector + a `maximumAllowableTags` MeterFilter; make an accidental high-cardinality tag fail a test, not a production bill.
-
-**Thresholds that change the plan:**
-- **If Micrometer ships Prometheus native-histogram support** (watch the open issue): revisit Phase 5 — you may prefer native histograms over OTLP exponential for a Prometheus/Mimir backend.
-- **If you standardize on Java 24+ across EKS:** extend the virtual-thread binder with `VirtualThreadSchedulerMXBean` gauges (mounted/queued/parallelism), which the JFR-based `VirtualThreadMetrics` doesn't provide.
-- **If a new Micrometer 2.0 major release lands:** re-verify the registry APIs and deprecations before trusting this plan's class names.
-- **If you adopt the OTel API directly** (e.g., a third-party lib uses `MeterProvider`): remember Spring exports only Micrometer metrics; those OTel-API metrics won't be exported without extra wiring.
+1. **Standardize on server-side histograms** for latency SLIs (`management.metrics.distribution.percentiles-histogram.http.server.requests=true` + explicit `slo` buckets). Only use client-side `percentiles` for single-instance local debugging. **Threshold to change:** if Prometheus head series from a service exceeds a few hundred thousand, trim buckets via `minimum/maximumExpectedValue` or drop unneeded SLO buckets.
+2. **Adopt the Observation API + Micrometer Tracing + OTLP→Collector** as the default; avoid the OTel Java agent on Spring services unless instrumenting non-Spring libs, and never run both without disabling overlaps. Wire **exemplars** now since you already run Grafana/Tempo.
+3. **Enforce cardinality hygiene**: URI templating everywhere, `MeterFilter.maximumAllowableTags`, common tags injected from env (no pod names in-app), and a periodic `HighCardinalityTagsDetector`/series-count review. **Trigger to act:** any new `uri="UNKNOWN"` surge or `max-uri-tags` cap being hit.
+4. **On the Boot 4 migration**: update module names, adopt `spring-boot-starter-opentelemetry`, set `spring.reactor.context-propagation=auto` for coroutines, and replace `@AutoConfigureObservability` with `@AutoConfigureMetrics`/`@AutoConfigureTracing` in tests. Validate coroutine/`Flow` MDC propagation given the open Boot 4.0.x Flow gap.
+5. **For batch/Spring Batch**, use Pushgateway (pin a Prometheus client version that supports it) rather than relying on scrapes of short-lived pods.
 
 ## Caveats
-- **Fast-moving versions.** Boot 4.0 GA'd Nov 20, 2025; 4.1.0 shipped June 10, 2026, and Micrometer 1.17.0 on June 8, 2026. Treat every property name and module path here as "verify against the reference docs for your exact patch version" — especially the OTel-semantic-convention bean wiring, which the Spring team has flagged for change (spring-boot #47935).
-- **Native-histogram issue number unverified.** The candidate tracking issue (#5891) could not be definitively confirmed by title; verify at https://github.com/micrometer-metrics/micrometer/issues before citing. What is certain: the Micrometer Prometheus registry does **not** emit native histograms in 1.16/1.17.
-- **Some cited examples are Boot 3.x-era** (Baeldung, SoftwareMill, several Medium posts). They're included where the *concept* is version-stable (gauge NaN, testing patterns, Observation lifecycle). Cross-check any wiring against Boot 4 docs.
-- **Coroutine/Flow propagation has open bugs** (spring-framework #36427 on Boot 4.0.3) — test your specific version rather than assuming it works.
-- **The downstream platform layer is intentionally out of scope** (Grafana LGTM operations, PromQL/LogQL/TraceQL, dashboards-as-code, SLO/error-budget alerting) — covered by your separately delivered plan; this one stops at the application/Micrometer boundary and only references those as "where this leads."
-- **Blog-post sources are secondary.** Where a maintainer talk, official doc, or source file was available, that is the citation of record; treat vendor blogs (base14, Uptrace, OneUptime, Last9) as orientation, not authority.
+- Several specifics are **version-dependent**: property names (Boot 2 vs 3 vs 4), the Prometheus client 0.x→1.x metric-name changes, native-histogram support, and the exact micrometer-core version that introduced the hc5 binder (evidence points to 1.11.0; confirm against release notes). Verify against your exact Micrometer/Boot versions.
+- **Prometheus native histograms** in Micrometer have moved between "experimental/unsupported" and demo-level support; do not assume production readiness without testing your versions.
+- **Coroutine/Reactor context propagation** works in Boot 4 with `spring.reactor.context-propagation=auto`, but there is an open issue (Spring Framework #36427) where MDC/trace context is not propagated into coroutines collecting a returned `Flow`, and exception-handler paths can lose context.
+- **Consumer-group lag** from Kafka client JVM metrics is per-consumer, not authoritative group lag; for group-level lag use MSK CloudWatch metrics or an offset-based exporter.
+- Some figures (bucket counts, defaults like 276 buckets/73 timer buckets, expiry=2min, bufferLength=3) are Micrometer defaults that can change across versions and are overridable.
+- The Apache `httpclient5-observation` module (HttpClient 5.6+) is now the Apache-recommended path and uses **different metric names** than Micrometer's built-in hc5 binder; choose one to avoid confusion.
