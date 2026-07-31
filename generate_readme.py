@@ -112,12 +112,12 @@ def generate_readme():
         f"This repository contains {total} self-paced learning plans generated with"
         " Claude and other AI models. Each plan follows a phased, project-based"
         " format designed for"
-        " working engineers — typically 12–16 weeks of focused study with curated"
+        " working engineers, typically 12 to 16 weeks of focused study with curated"
         " resources, hands-on milestones, and progressive complexity. Topics range"
         " from Spring Boot internals to Kubernetes, Go, and distributed data systems."
     )
     lines.append("")
-    lines.append("## Plans by Category")
+    lines.append("## Plans by category")
 
     for cat in ordered_categories:
         lines.append("")
@@ -126,24 +126,24 @@ def generate_readme():
         for entry in categories[cat]:
             lines.append(
                 f"- [{entry['title']}]({entry['filename']})"
-                f" — {entry['description']}"
+                f": {entry['description']}"
             )
 
     lines.append("")
-    lines.append("## How to Use These Plans")
+    lines.append("## How to use these plans")
     lines.append("")
     lines.append("Each plan is a standalone Markdown file structured around:")
     lines.append("")
     lines.append(
-        "1. **Phases** — Progressive stages from foundations to advanced topics,"
-        " typically spanning 12–16 weeks."
+        "1. Phases: progressive stages from foundations to advanced topics,"
+        " typically spanning 12 to 16 weeks."
     )
     lines.append(
-        "2. **Milestones** — Concrete projects and exercises at each phase to"
+        "2. Milestones: concrete projects and exercises at each phase to"
         " validate understanding."
     )
     lines.append(
-        "3. **Curated Resources** — Books, documentation, talks, and blog posts"
+        "3. Curated resources: books, documentation, talks, and blog posts"
         " selected for each topic."
     )
     lines.append("")
