@@ -25,7 +25,7 @@ CATEGORY_ORDER = [
     "Robotics & Autonomy",
 ]
 
-EXCLUDED_FILES = {"README.md", "CLAUDE.md"}
+EXCLUDED_FILES = {"README.md", "CLAUDE.md", "AGENTS.md"}
 
 
 def parse_front_matter(filepath):
