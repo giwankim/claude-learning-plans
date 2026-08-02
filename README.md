@@ -4,7 +4,7 @@ Structured, multi-week learning curricula for senior engineers who want deep mas
 
 ## Overview
 
-This repository contains 124 self-paced learning plans generated with Claude and other AI models. Each plan follows a phased, project-based format designed for working engineers, typically 12 to 16 weeks of focused study with curated resources, hands-on milestones, and progressive complexity. Topics range from Spring Boot internals to Kubernetes, Go, and distributed data systems.
+This repository contains 125 self-paced learning plans generated with Claude and other AI models. Each plan follows a phased, project-based format designed for working engineers, typically 12 to 16 weeks of focused study with curated resources, hands-on milestones, and progressive complexity. Topics range from Spring Boot internals to Kubernetes, Go, and distributed data systems.
 
 ## Plans by category
 
@@ -47,6 +47,7 @@ This repository contains 124 self-paced learning plans generated with Claude and
 - [Spring Security Mastery](opus-4.6/spring/spring-security.md): 30-week depth-first curriculum covering filter chain internals, OAuth2/OIDC, microservices auth, reactive security, and OWASP hardening
 - [Spring WebFlux](opus-4.5/webflux.md): Reactive web programming with Project Reactor
 - [Spring WebFlux — Reactive Programming Curriculum](opus-4.8/spring/webflux.md): Depth-first, resource-mapped curriculum for a Kotlin/Spring Boot 3.x backend engineer: rebuild the non-blocking mental model, master imperative Project Reactor, bridge to Kotlin coroutines, then build a production WebFlux service (R2DBC, reactive Redis, Reactor Kafka, reactive security, observability) — with clear guidance on when Java 21 virtual threads make reactive unnecessary.
+- [The Spring Framework Event Subsystem: A Phased Curriculum for a Senior Kotlin/Spring Engineer](opus-5/spring-event-subsystem.md): An eight-week reading and lab plan for the Spring event subsystem, built around one fact: in-process events are synchronous, transaction-bound, and lost on JVM crash. Starts at source level with SimpleApplicationEventMulticaster, EventListenerMethodProcessor, ApplicationListenerMethodAdapter, and ResolvableType generic resolution, plus the Spring Boot startup event sequence published before the context exists. Then the sharp edges of @TransactionalEventListener, including why an AFTER_COMMIT write is silently discarded without REQUIRES_NEW (the listener fires from triggerAfterCommit before cleanupAfterCompletion). Covers async dispatch and the context loss that comes with it, Micrometer context propagation, virtual threads, and Boot 4.1's spring.task.execution.propagate-context. Then Spring Modulith 2.x: the Event Publication Registry as a broker-free outbox, the 2.0 status lifecycle, Kafka externalization and its ordering caveats, and the Namastack and JobRunr outbox backends. Ends with adjacent mechanisms and a staged Kafka migration path, @RecordApplicationEvents and Modulith Scenario testing, observability, eight escalating Kotlin projects, and verification exercises that make each failure mode reproduce on demand.
 
 ### JVM Internals
 
